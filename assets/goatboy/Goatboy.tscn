@@ -1,0 +1,106 @@
+[gd_scene load_steps=16 format=3 uid="uid://cnwp5683pkh5h"]
+
+[ext_resource type="Texture2D" uid="uid://endovosal76p" path="res://assets/goatboy/sprites/GoatboyBodyCollar.png" id="1_1coy2"]
+[ext_resource type="Texture2D" uid="uid://ct0jpqnms3g6e" path="res://assets/goatboy/sprites/GoatboyHead.png" id="2_nrk5a"]
+[ext_resource type="Texture2D" uid="uid://c3mncf8amcqn" path="res://assets/goatboy/sprites/GoatboyAstrodome.png" id="3_u3y46"]
+[ext_resource type="Texture2D" uid="uid://b0vyp0v7ytep7" path="res://assets/goatboy/sprites/GoatboyLeftArm.png" id="4_28iue"]
+[ext_resource type="Texture2D" uid="uid://bca8kmlulnuss" path="res://assets/goatboy/sprites/GoatboyLeftLeg.png" id="5_qi0mm"]
+[ext_resource type="Texture2D" uid="uid://cys5xffssae7j" path="res://assets/goatboy/sprites/GoatboyLeftFoot.png" id="6_qpv30"]
+[ext_resource type="Texture2D" uid="uid://dtkfj2v77sebb" path="res://assets/goatboy/sprites/GoatboyRightLeg.png" id="7_lb84x"]
+[ext_resource type="Texture2D" uid="uid://bs3njudd4i3u5" path="res://assets/goatboy/sprites/GoatboyRightFoot.png" id="8_ody1a"]
+[ext_resource type="Script" uid="uid://divi6rr2uroa6" path="res://creature_weapon_controller.gd" id="8_s5xvo"]
+[ext_resource type="Texture2D" uid="uid://du3ddmwchqdyb" path="res://assets/goatboy/sprites/GoatboyRightArm.png" id="9_uoiyn"]
+[ext_resource type="Script" uid="uid://brd2qqnlr6hv2" path="res://arm.gd" id="10_kt8xt"]
+[ext_resource type="Script" uid="uid://rxrcx5kjo0sh" path="res://weapon.gd" id="11_vsoeq"]
+[ext_resource type="PackedScene" uid="uid://b1e7035oti8oc" path="res://scenes/projectile.tscn" id="12_qto5f"]
+[ext_resource type="Texture2D" uid="uid://chmuuyy4yprlb" path="res://assets/sprites/weapons/lasersmg_blue.png" id="13_nptgk"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8ndlq"]
+radius = 19.0
+height = 278.0
+
+[node name="GoatboyController" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 5
+
+[node name="GoatboyBodyCollar" type="Sprite2D" parent="."]
+position = Vector2(-4, -4)
+texture = ExtResource("1_1coy2")
+
+[node name="GoatboyHead" type="Sprite2D" parent="GoatboyBodyCollar"]
+z_index = -1
+position = Vector2(9, -70)
+texture = ExtResource("2_nrk5a")
+
+[node name="GoatboyAstrodome" type="Sprite2D" parent="GoatboyBodyCollar/GoatboyHead"]
+z_index = 1
+position = Vector2(-4, 2)
+texture = ExtResource("3_u3y46")
+
+[node name="GoatboyLeftLeg" type="Sprite2D" parent="GoatboyBodyCollar"]
+z_index = -2
+position = Vector2(7, 61)
+texture = ExtResource("5_qi0mm")
+
+[node name="GoatboyLeftFoot" type="Sprite2D" parent="GoatboyBodyCollar/GoatboyLeftLeg"]
+z_index = -1
+position = Vector2(-3, 68)
+texture = ExtResource("6_qpv30")
+
+[node name="GoatboyRightLeg" type="Sprite2D" parent="GoatboyBodyCollar"]
+z_index = -1
+position = Vector2(-6, 67)
+texture = ExtResource("7_lb84x")
+
+[node name="GoatboyRightFoot" type="Sprite2D" parent="GoatboyBodyCollar/GoatboyRightLeg"]
+z_index = -1
+position = Vector2(-4, 68)
+texture = ExtResource("8_ody1a")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-5, 23)
+shape = SubResource("CapsuleShape2D_8ndlq")
+
+[node name="ArmsContainer" type="Node2D" parent="."]
+script = ExtResource("8_s5xvo")
+
+[node name="ArmR" type="Node2D" parent="ArmsContainer"]
+position = Vector2(-23, -15)
+script = ExtResource("10_kt8xt")
+
+[node name="GoatboyRightArm" type="Sprite2D" parent="ArmsContainer/ArmR"]
+z_index = 1
+position = Vector2(42, 0)
+texture = ExtResource("9_uoiyn")
+
+[node name="Smg" type="Node2D" parent="ArmsContainer/ArmR/GoatboyRightArm"]
+script = ExtResource("11_vsoeq")
+projectile_scene = ExtResource("12_qto5f")
+metadata/_custom_type_script = "uid://rxrcx5kjo0sh"
+
+[node name="Sprite2D" type="Sprite2D" parent="ArmsContainer/ArmR/GoatboyRightArm/Smg"]
+z_index = -1
+position = Vector2(76, -24)
+scale = Vector2(0.364014, 0.364014)
+texture = ExtResource("13_nptgk")
+
+[node name="ArmL" type="Node2D" parent="ArmsContainer"]
+position = Vector2(-3, -23)
+script = ExtResource("10_kt8xt")
+metadata/_custom_type_script = "uid://brd2qqnlr6hv2"
+
+[node name="GoatboyLeftArm" type="Sprite2D" parent="ArmsContainer/ArmL"]
+z_index = -1
+position = Vector2(42, 1)
+texture = ExtResource("4_28iue")
+
+[node name="Smg" type="Node2D" parent="ArmsContainer/ArmL/GoatboyLeftArm"]
+script = ExtResource("11_vsoeq")
+projectile_scene = ExtResource("12_qto5f")
+metadata/_custom_type_script = "uid://rxrcx5kjo0sh"
+
+[node name="Sprite2D" type="Sprite2D" parent="ArmsContainer/ArmL/GoatboyLeftArm/Smg"]
+z_index = -1
+position = Vector2(76, -24)
+scale = Vector2(0.364014, 0.364014)
+texture = ExtResource("13_nptgk")
