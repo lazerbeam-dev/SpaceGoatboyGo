@@ -1,106 +1,447 @@
-[gd_scene load_steps=16 format=3 uid="uid://cnwp5683pkh5h"]
+[gd_scene load_steps=30 format=3 uid="uid://cnwp5683pkh5h"]
 
 [ext_resource type="Texture2D" uid="uid://endovosal76p" path="res://assets/goatboy/sprites/GoatboyBodyCollar.png" id="1_1coy2"]
+[ext_resource type="Script" uid="uid://clieya4aq3od7" path="res://scripts/creature_movement.gd" id="1_y84n2"]
 [ext_resource type="Texture2D" uid="uid://ct0jpqnms3g6e" path="res://assets/goatboy/sprites/GoatboyHead.png" id="2_nrk5a"]
+[ext_resource type="Script" uid="uid://bnsifr8s84b78" path="res://scripts/collar_script_gov1.gd" id="2_tsf3f"]
+[ext_resource type="Script" uid="uid://cuwyutmicqngp" path="res://scripts/creature_control_collar.gd" id="3_hymkg"]
 [ext_resource type="Texture2D" uid="uid://c3mncf8amcqn" path="res://assets/goatboy/sprites/GoatboyAstrodome.png" id="3_u3y46"]
+[ext_resource type="PackedScene" uid="uid://b8aade3wuo16m" path="res://scenes/projectiles/info_projectile.tscn" id="3_y84n2"]
 [ext_resource type="Texture2D" uid="uid://b0vyp0v7ytep7" path="res://assets/goatboy/sprites/GoatboyLeftArm.png" id="4_28iue"]
+[ext_resource type="Material" uid="uid://4d2su4w8x8ou" path="res://shaders/emotional_material_creature.tres" id="5_8f6y6"]
 [ext_resource type="Texture2D" uid="uid://bca8kmlulnuss" path="res://assets/goatboy/sprites/GoatboyLeftLeg.png" id="5_qi0mm"]
 [ext_resource type="Texture2D" uid="uid://cys5xffssae7j" path="res://assets/goatboy/sprites/GoatboyLeftFoot.png" id="6_qpv30"]
+[ext_resource type="Script" uid="uid://gm4ldccgiuao" path="res://scripts/smart_model.gd" id="7_4krfy"]
 [ext_resource type="Texture2D" uid="uid://dtkfj2v77sebb" path="res://assets/goatboy/sprites/GoatboyRightLeg.png" id="7_lb84x"]
 [ext_resource type="Texture2D" uid="uid://bs3njudd4i3u5" path="res://assets/goatboy/sprites/GoatboyRightFoot.png" id="8_ody1a"]
-[ext_resource type="Script" uid="uid://divi6rr2uroa6" path="res://creature_weapon_controller.gd" id="8_s5xvo"]
+[ext_resource type="Script" uid="uid://divi6rr2uroa6" path="res://scripts/creature_weapon_controller.gd" id="8_s5xvo"]
 [ext_resource type="Texture2D" uid="uid://du3ddmwchqdyb" path="res://assets/goatboy/sprites/GoatboyRightArm.png" id="9_uoiyn"]
-[ext_resource type="Script" uid="uid://brd2qqnlr6hv2" path="res://arm.gd" id="10_kt8xt"]
-[ext_resource type="Script" uid="uid://rxrcx5kjo0sh" path="res://weapon.gd" id="11_vsoeq"]
-[ext_resource type="PackedScene" uid="uid://b1e7035oti8oc" path="res://scenes/projectile.tscn" id="12_qto5f"]
+[ext_resource type="Script" uid="uid://brd2qqnlr6hv2" path="res://scripts/arm.gd" id="10_kt8xt"]
+[ext_resource type="Script" uid="uid://rxrcx5kjo0sh" path="res://scripts/weapon.gd" id="11_vsoeq"]
+[ext_resource type="PackedScene" uid="uid://b1e7035oti8oc" path="res://scenes/projectiles/projectile.tscn" id="12_qto5f"]
 [ext_resource type="Texture2D" uid="uid://chmuuyy4yprlb" path="res://assets/sprites/weapons/lasersmg_blue.png" id="13_nptgk"]
+[ext_resource type="Material" uid="uid://dwbinypbteft4" path="res://shaders/emotional_material.tres" id="18_v4iec"]
+[ext_resource type="Script" uid="uid://4qd8o7a15bwy" path="res://scripts/debug.gd" id="22_jdcyq"]
+[ext_resource type="Texture2D" uid="uid://b6riue372j51h" path="res://assets/goatboy/sprites/GoatboyBodyCollar_.png" id="24_6rovw"]
+[ext_resource type="Script" uid="uid://cmn6umx8ffps5" path="res://scripts/health.gd" id="25_8obrc"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8ndlq"]
-radius = 19.0
-height = 278.0
+radius = 5.0
+height = 46.0
+
+[sub_resource type="Animation" id="Animation_8obrc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GoatboyRightLeg:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-6, 67)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GoatboyRightLeg:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GoatboyRightFoot:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-10.6214, 138.078)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("GoatboyRightFoot:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("GoatboyLeftFoot:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.275068]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("GoatboyLeftFoot:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-26.5535, 132.768)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("GoatboyLeftLeg:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.68099]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("GoatboyLeftLeg:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(10.6214, 63.7284)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("../Collider:shape")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("CapsuleShape2D_8ndlq")]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("GoatboyHead:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(9, -70)]
+}
+
+[sub_resource type="Animation" id="Animation_vufgi"]
+resource_name = "jump"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GoatboyHead:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.533333, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(5.31915, -63.8298), Vector2(5.31915, -69.1489)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Collider:shape")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(-0.0333333, 1.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [SubResource("CapsuleShape2D_8ndlq"), SubResource("CapsuleShape2D_8ndlq")]
+}
+
+[sub_resource type="Animation" id="Animation_6rovw"]
+resource_name = "walk"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GoatboyRightLeg:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.86, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(4.075, 67), Vector2(-10.6214, 63.7284), Vector2(5.3107, 63.7284)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GoatboyRightLeg:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.86, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [-0.612611, 0.207567, 0.238505, -0.612611]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GoatboyRightFoot:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.466535, 0.64, 0.86, 1.02, 1.51, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(31.8642, 138.078), Vector2(-5.3107, 138.078), Vector2(-15.9321, 132.768), Vector2(-37.1749, 127.457), Vector2(-37.1749, 132.768), Vector2(4.76837e-07, 132.768), Vector2(37.1749, 132.768)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("GoatboyRightFoot:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.64, 0.86, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [-0.307178, 0.160396, 0.580103, 0.455692, -0.307178]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("GoatboyLeftFoot:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-37.1749, 116.835), Vector2(58.4177, 122.146), Vector2(-42.4856, 127.457)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("GoatboyLeftFoot:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.40741, -0.265781, 0.40741]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("GoatboyLeftLeg:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-5.3107, 63.7284), Vector2(15.9321, 63.7284), Vector2(-10.6214, 69.0391)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("GoatboyLeftLeg:rotation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.567515, -0.945553, 0.567515]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("../Collider:shape")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("CapsuleShape2D_8ndlq")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vufgi"]
+_data = {
+&"RESET": SubResource("Animation_8obrc"),
+&"jump": SubResource("Animation_vufgi"),
+&"walk": SubResource("Animation_6rovw")
+}
 
 [node name="GoatboyController" type="CharacterBody2D"]
 collision_layer = 2
 collision_mask = 5
+floor_max_angle = 2.19562
+script = ExtResource("1_y84n2")
+speed = 400.0
+jump_velocity = -800.0
+coyote_time = 0.4
 
-[node name="GoatboyBodyCollar" type="Sprite2D" parent="."]
-position = Vector2(-4, -4)
+[node name="Model" type="Sprite2D" parent="."]
+material = ExtResource("5_8f6y6")
+position = Vector2(0, -6)
+scale = Vector2(0.188, 0.188)
 texture = ExtResource("1_1coy2")
+script = ExtResource("7_4krfy")
 
-[node name="GoatboyHead" type="Sprite2D" parent="GoatboyBodyCollar"]
+[node name="GoatboyHead" type="Sprite2D" parent="Model"]
 z_index = -1
+material = ExtResource("5_8f6y6")
 position = Vector2(9, -70)
 texture = ExtResource("2_nrk5a")
 
-[node name="GoatboyAstrodome" type="Sprite2D" parent="GoatboyBodyCollar/GoatboyHead"]
+[node name="GoatboyAstrodome" type="Sprite2D" parent="Model/GoatboyHead"]
 z_index = 1
+material = ExtResource("5_8f6y6")
 position = Vector2(-4, 2)
 texture = ExtResource("3_u3y46")
 
-[node name="GoatboyLeftLeg" type="Sprite2D" parent="GoatboyBodyCollar"]
-z_index = -2
-position = Vector2(7, 61)
-texture = ExtResource("5_qi0mm")
-
-[node name="GoatboyLeftFoot" type="Sprite2D" parent="GoatboyBodyCollar/GoatboyLeftLeg"]
-z_index = -1
-position = Vector2(-3, 68)
-texture = ExtResource("6_qpv30")
-
-[node name="GoatboyRightLeg" type="Sprite2D" parent="GoatboyBodyCollar"]
-z_index = -1
-position = Vector2(-6, 67)
-texture = ExtResource("7_lb84x")
-
-[node name="GoatboyRightFoot" type="Sprite2D" parent="GoatboyBodyCollar/GoatboyRightLeg"]
-z_index = -1
-position = Vector2(-4, 68)
-texture = ExtResource("8_ody1a")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-5, 23)
-shape = SubResource("CapsuleShape2D_8ndlq")
-
-[node name="ArmsContainer" type="Node2D" parent="."]
+[node name="ArmsContainer" type="Node2D" parent="Model"]
+position = Vector2(21.2428, 21.2428)
+scale = Vector2(5.3107, 5.3107)
 script = ExtResource("8_s5xvo")
 
-[node name="ArmR" type="Node2D" parent="ArmsContainer"]
-position = Vector2(-23, -15)
+[node name="ArmR" type="Node2D" parent="Model/ArmsContainer"]
+position = Vector2(-7, -6)
 script = ExtResource("10_kt8xt")
 
-[node name="GoatboyRightArm" type="Sprite2D" parent="ArmsContainer/ArmR"]
+[node name="GoatboyRightArm" type="Sprite2D" parent="Model/ArmsContainer/ArmR"]
 z_index = 1
-position = Vector2(42, 0)
+material = ExtResource("5_8f6y6")
+position = Vector2(8, 0)
+scale = Vector2(0.188, 0.188)
 texture = ExtResource("9_uoiyn")
 
-[node name="Smg" type="Node2D" parent="ArmsContainer/ArmR/GoatboyRightArm"]
+[node name="Smg" type="Node2D" parent="Model/ArmsContainer/ArmR"]
+z_index = 1
+position = Vector2(5, 1)
+scale = Vector2(0.188, 0.188)
 script = ExtResource("11_vsoeq")
 projectile_scene = ExtResource("12_qto5f")
 metadata/_custom_type_script = "uid://rxrcx5kjo0sh"
 
-[node name="Sprite2D" type="Sprite2D" parent="ArmsContainer/ArmR/GoatboyRightArm/Smg"]
+[node name="Sprite2D" type="Sprite2D" parent="Model/ArmsContainer/ArmR/Smg"]
 z_index = -1
+material = ExtResource("18_v4iec")
 position = Vector2(76, -24)
 scale = Vector2(0.364014, 0.364014)
 texture = ExtResource("13_nptgk")
 
-[node name="ArmL" type="Node2D" parent="ArmsContainer"]
-position = Vector2(-3, -23)
+[node name="ArmL" type="Node2D" parent="Model/ArmsContainer"]
+position = Vector2(-3, -7)
 script = ExtResource("10_kt8xt")
 metadata/_custom_type_script = "uid://brd2qqnlr6hv2"
 
-[node name="GoatboyLeftArm" type="Sprite2D" parent="ArmsContainer/ArmL"]
-z_index = -1
-position = Vector2(42, 1)
+[node name="GoatboyLeftArm" type="Sprite2D" parent="Model/ArmsContainer/ArmL"]
+z_index = -2
+material = ExtResource("5_8f6y6")
+position = Vector2(8, -1.19209e-07)
+scale = Vector2(0.188, 0.188)
 texture = ExtResource("4_28iue")
 
-[node name="Smg" type="Node2D" parent="ArmsContainer/ArmL/GoatboyLeftArm"]
+[node name="Smg" type="Node2D" parent="Model/ArmsContainer/ArmL"]
+z_index = -1
+position = Vector2(6, 1)
+scale = Vector2(0.188, 0.188)
 script = ExtResource("11_vsoeq")
 projectile_scene = ExtResource("12_qto5f")
 metadata/_custom_type_script = "uid://rxrcx5kjo0sh"
 
-[node name="Sprite2D" type="Sprite2D" parent="ArmsContainer/ArmL/GoatboyLeftArm/Smg"]
+[node name="Sprite2D" type="Sprite2D" parent="Model/ArmsContainer/ArmL/Smg"]
 z_index = -1
+material = ExtResource("18_v4iec")
 position = Vector2(76, -24)
 scale = Vector2(0.364014, 0.364014)
 texture = ExtResource("13_nptgk")
+
+[node name="GoatboyLeftFoot" type="Sprite2D" parent="Model"]
+z_index = -2
+material = ExtResource("5_8f6y6")
+position = Vector2(-26.5535, 132.768)
+rotation = 0.275068
+texture = ExtResource("6_qpv30")
+
+[node name="GoatboyLeftLeg" type="Sprite2D" parent="Model"]
+z_index = -2
+material = ExtResource("5_8f6y6")
+position = Vector2(10.6214, 63.7284)
+rotation = -0.68099
+texture = ExtResource("5_qi0mm")
+
+[node name="GoatboyRightFoot" type="Sprite2D" parent="Model"]
+z_index = -1
+material = ExtResource("5_8f6y6")
+position = Vector2(-10.6214, 138.078)
+texture = ExtResource("8_ody1a")
+
+[node name="GoatboyRightLeg" type="Sprite2D" parent="Model"]
+z_index = -1
+material = ExtResource("5_8f6y6")
+position = Vector2(-6, 67)
+texture = ExtResource("7_lb84x")
+
+[node name="ControlSystem" type="Node2D" parent="Model"]
+position = Vector2(21.2428, 21.2428)
+scale = Vector2(5.3107, 5.3107)
+script = ExtResource("2_tsf3f")
+laser_scene = ExtResource("3_y84n2")
+
+[node name="CollarControlGB" type="Node2D" parent="Model/ControlSystem"]
+script = ExtResource("3_hymkg")
+
+[node name="GoatboyBodyCollar" type="Sprite2D" parent="Model/ControlSystem"]
+position = Vector2(-4, -10)
+scale = Vector2(0.156509, 0.156509)
+texture = ExtResource("24_6rovw")
+
+[node name="Bones" type="Node2D" parent="Model"]
+position = Vector2(21.2428, 21.2428)
+scale = Vector2(5.3107, 5.3107)
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_8ndlq")
+script = ExtResource("25_8obrc")
+
+[node name="debug" type="Node2D" parent="Collider"]
+position = Vector2(4, -2)
+scale = Vector2(0.999999, 0.999999)
+script = ExtResource("22_jdcyq")
+
+[node name="LegsAnimator" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Model")
+libraries = {
+&"": SubResource("AnimationLibrary_vufgi")
+}
+autoplay = "walk"
+speed_scale = 3.194

@@ -1,2 +1,14 @@
 # Godot 4+ specific ignores
 .godot/
+
+# Godot-specific
+.import/
+.export/
+*.godot-export
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Godot build cache
+*.mono/
