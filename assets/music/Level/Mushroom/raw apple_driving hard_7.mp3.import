@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dq4tbng3ixclf"
+path="res://.godot/imported/raw apple_driving hard_7.mp3-949b44433728cc585a12fa32abaa8565.mp3str"
+
+[deps]
+
+source_file="res://assets/music/Level/Mushroom/raw apple_driving hard_7.mp3"
+dest_files=["res://.godot/imported/raw apple_driving hard_7.mp3-949b44433728cc585a12fa32abaa8565.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

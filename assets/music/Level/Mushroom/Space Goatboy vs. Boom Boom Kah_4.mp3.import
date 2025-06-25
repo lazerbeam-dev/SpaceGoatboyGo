@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dl8wj4jeb1vgh"
+path="res://.godot/imported/Space Goatboy vs. Boom Boom Kah_4.mp3-f3e339639a41bbb6e3f16f4cb6ad74eb.mp3str"
+
+[deps]
+
+source_file="res://assets/music/Level/Mushroom/Space Goatboy vs. Boom Boom Kah_4.mp3"
+dest_files=["res://.godot/imported/Space Goatboy vs. Boom Boom Kah_4.mp3-f3e339639a41bbb6e3f16f4cb6ad74eb.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

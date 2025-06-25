@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://nvhgagj167m2"]
+
+[ext_resource type="Script" uid="uid://bisyp8payc8ap" path="res://scripts/rhythm_scene.gd" id="1_p7q18"]
+[ext_resource type="PackedScene" uid="uid://cuiyky0fryk55" path="res://scenes/clicky_indicator.tscn" id="2_ekee0"]
+
+[node name="RhythmScene" type="Node2D"]
+script = ExtResource("1_p7q18")
+
+[node name="SpawnTimer" type="Timer" parent="."]
+
+[node name="Music" type="AudioStreamPlayer2D" parent="."]
+
+[node name="ClickyContainer" type="Node2D" parent="."]
+
+[node name="ClickyIndicator" parent="ClickyContainer" instance=ExtResource("2_ekee0")]
+offset_left = -4.0
+offset_top = -41.0
+offset_right = 6.0
+offset_bottom = -31.0
+
+[node name="ClickyIndicator2" parent="ClickyContainer" instance=ExtResource("2_ekee0")]
+offset_left = -40.0
+offset_top = -34.0
+offset_right = -30.0
+offset_bottom = -24.0
+
+[node name="ClickyIndicator3" parent="ClickyContainer" instance=ExtResource("2_ekee0")]
+offset_left = 22.0
+offset_top = -27.0
+offset_right = 32.0
+offset_bottom = -17.0

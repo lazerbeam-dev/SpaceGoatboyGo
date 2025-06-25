@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b3i1ild4if1x0"
+path="res://.godot/imported/Goatboy Is Made of Gold.mp3-713b3a6fe4991edaa10cc354c46969f2.mp3str"
+
+[deps]
+
+source_file="res://assets/music/Boss/Goatboy Is Made of Gold.mp3"
+dest_files=["res://.godot/imported/Goatboy Is Made of Gold.mp3-713b3a6fe4991edaa10cc354c46969f2.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

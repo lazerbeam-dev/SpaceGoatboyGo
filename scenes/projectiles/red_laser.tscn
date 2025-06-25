@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://dj147c2levb5i"]
+
+[ext_resource type="Script" uid="uid://dp567bmx7k3kx" path="res://scripts/projectile.gd" id="1_mvtiw"]
+[ext_resource type="Texture2D" uid="uid://4c3dqmgvbvgy" path="res://assets/sprites/projectiles/05.png" id="2_mvtiw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_q3m7n"]
+radius = 7.0
+
+[node name="redlaser" type="Area2D"]
+collision_layer = 15
+collision_mask = 15
+script = ExtResource("1_mvtiw")
+damage = 11.0
+colour = "red"
+
+[node name="01" type="Sprite2D" parent="."]
+scale = Vector2(0.695846, 0.603615)
+texture = ExtResource("2_mvtiw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(3, 0)
+shape = SubResource("CircleShape2D_q3m7n")
+debug_color = Color(0, 0.6, 0.701961, 1)

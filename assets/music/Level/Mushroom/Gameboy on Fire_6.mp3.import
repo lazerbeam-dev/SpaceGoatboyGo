@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b8il4cgxxytxy"
+path="res://.godot/imported/Gameboy on Fire_6.mp3-47137bf9b148d6ae01d8638df2f03d20.mp3str"
+
+[deps]
+
+source_file="res://assets/music/Level/Mushroom/Gameboy on Fire_6.mp3"
+dest_files=["res://.godot/imported/Gameboy on Fire_6.mp3-47137bf9b148d6ae01d8638df2f03d20.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,50 @@
+[gd_scene load_steps=10 format=3 uid="uid://bohuusl66hf6t"]
+
+[ext_resource type="Script" uid="uid://bhapayb2kodf5" path="res://scripts/slime_bounce.gd" id="1_hh3tr"]
+[ext_resource type="Material" uid="uid://dwbinypbteft4" path="res://assets/shaders/emotional_material.tres" id="2_r75lb"]
+[ext_resource type="Script" uid="uid://gm4ldccgiuao" path="res://scripts/smart_model.gd" id="4_fnmo2"]
+[ext_resource type="Script" uid="uid://xaw10qpbvh7q" path="res://scripts/health_slime.gd" id="4_htqpv"]
+[ext_resource type="Texture2D" uid="uid://cwggdsevlq1jt" path="res://assets/sprites/slimes/white1.png" id="4_tthg0"]
+[ext_resource type="Script" uid="uid://d4l5idlj7u6h7" path="res://scripts/slime_ai.gd" id="4_wgdsu"]
+[ext_resource type="Script" uid="uid://sfkl8i82eqbk" path="res://scripts/slime_gloop.gd" id="5_r75lb"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_264po"]
+radius = 36.6879
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_r75lb"]
+radius = 32.0
+
+[node name="slime" type="CharacterBody2D"]
+collision_layer = 8
+script = ExtResource("1_hh3tr")
+jump_velocity = 400.0
+bounciness = 0.666
+initial_push = -220.0
+
+[node name="Model" type="Sprite2D" parent="."]
+z_index = -3
+material = ExtResource("2_r75lb")
+position = Vector2(1, 1)
+scale = Vector2(1.06172, 1.06172)
+texture = ExtResource("4_tthg0")
+script = ExtResource("4_fnmo2")
+
+[node name="DestructibleSlime" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_264po")
+script = ExtResource("4_htqpv")
+model_path = NodePath("../Model")
+gloop_path = NodePath("../GloopArea/CollisionShape2D2")
+
+[node name="Node" type="Node" parent="."]
+script = ExtResource("4_wgdsu")
+
+[node name="GloopArea" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 6
+script = ExtResource("5_r75lb")
+cooldown_duration = 1.0
+pull_strength = 75.0
+snap_threshold = 0.1
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="GloopArea"]
+shape = SubResource("CircleShape2D_r75lb")

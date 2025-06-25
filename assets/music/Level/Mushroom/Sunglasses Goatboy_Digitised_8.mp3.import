@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dv6ykov0a002s"
+path="res://.godot/imported/Sunglasses Goatboy_Digitised_8.mp3-06c8f58244e2f0847f68591e25f9e57e.mp3str"
+
+[deps]
+
+source_file="res://assets/music/Level/Mushroom/Sunglasses Goatboy_Digitised_8.mp3"
+dest_files=["res://.godot/imported/Sunglasses Goatboy_Digitised_8.mp3-06c8f58244e2f0847f68591e25f9e57e.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

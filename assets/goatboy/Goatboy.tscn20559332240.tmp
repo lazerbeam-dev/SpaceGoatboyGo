@@ -1,0 +1,161 @@
+[gd_scene load_steps=27 format=3 uid="uid://cnwp5683pkh5h"]
+
+[ext_resource type="Texture2D" uid="uid://endovosal76p" path="res://assets/goatboy/sprites/GoatboyBodyCollar.png" id="1_1coy2"]
+[ext_resource type="Script" uid="uid://clieya4aq3od7" path="res://scripts/creature_movement.gd" id="1_y84n2"]
+[ext_resource type="Texture2D" uid="uid://ct0jpqnms3g6e" path="res://assets/goatboy/sprites/GoatboyHead.png" id="2_nrk5a"]
+[ext_resource type="Script" uid="uid://bnsifr8s84b78" path="res://scripts/collar_script_gov1.gd" id="2_tsf3f"]
+[ext_resource type="Script" uid="uid://cuwyutmicqngp" path="res://scripts/creature_control_collar.gd" id="3_hymkg"]
+[ext_resource type="Texture2D" uid="uid://c3mncf8amcqn" path="res://assets/goatboy/sprites/GoatboyAstrodome.png" id="3_u3y46"]
+[ext_resource type="PackedScene" uid="uid://b8aade3wuo16m" path="res://scenes/projectiles/info_projectile.tscn" id="3_y84n2"]
+[ext_resource type="Texture2D" uid="uid://b0vyp0v7ytep7" path="res://assets/goatboy/sprites/GoatboyLeftArm.png" id="4_28iue"]
+[ext_resource type="Material" uid="uid://4d2su4w8x8ou" path="res://shaders/emotional_material_creature.tres" id="5_8f6y6"]
+[ext_resource type="Texture2D" uid="uid://bca8kmlulnuss" path="res://assets/goatboy/sprites/GoatboyLeftLeg.png" id="5_qi0mm"]
+[ext_resource type="Texture2D" uid="uid://cys5xffssae7j" path="res://assets/goatboy/sprites/GoatboyLeftFoot.png" id="6_qpv30"]
+[ext_resource type="Script" uid="uid://gm4ldccgiuao" path="res://scripts/smart_model.gd" id="7_4krfy"]
+[ext_resource type="Texture2D" uid="uid://dtkfj2v77sebb" path="res://assets/goatboy/sprites/GoatboyRightLeg.png" id="7_lb84x"]
+[ext_resource type="Texture2D" uid="uid://bs3njudd4i3u5" path="res://assets/goatboy/sprites/GoatboyRightFoot.png" id="8_ody1a"]
+[ext_resource type="Script" uid="uid://divi6rr2uroa6" path="res://scripts/creature_weapon_controller.gd" id="8_s5xvo"]
+[ext_resource type="Material" uid="uid://ukfdvyp37m5n" path="res://shaders/dissolve.tres" id="8_s66eu"]
+[ext_resource type="Texture2D" uid="uid://dghvjqmmc306h" path="res://assets/sprites/MMFlowNoise.png" id="9_6rovw"]
+[ext_resource type="Texture2D" uid="uid://du3ddmwchqdyb" path="res://assets/goatboy/sprites/GoatboyRightArm.png" id="9_uoiyn"]
+[ext_resource type="Script" uid="uid://brd2qqnlr6hv2" path="res://scripts/arm.gd" id="10_kt8xt"]
+[ext_resource type="Script" uid="uid://rxrcx5kjo0sh" path="res://scripts/weapon.gd" id="11_vsoeq"]
+[ext_resource type="PackedScene" uid="uid://b1e7035oti8oc" path="res://scenes/projectiles/projectile.tscn" id="12_qto5f"]
+[ext_resource type="Texture2D" uid="uid://chmuuyy4yprlb" path="res://assets/sprites/weapons/lasersmg_blue.png" id="13_nptgk"]
+[ext_resource type="Material" uid="uid://dwbinypbteft4" path="res://shaders/emotional_material.tres" id="18_v4iec"]
+[ext_resource type="Script" uid="uid://4qd8o7a15bwy" path="res://scripts/debug.gd" id="22_jdcyq"]
+[ext_resource type="Script" uid="uid://cmn6umx8ffps5" path="res://scripts/health.gd" id="25_8obrc"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8ndlq"]
+radius = 5.0
+height = 52.0
+
+[node name="GoatboyController" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 5
+floor_max_angle = 2.19562
+script = ExtResource("1_y84n2")
+speed = 400.0
+jump_velocity = -400.0
+
+[node name="ControlSystem" type="Node2D" parent="."]
+script = ExtResource("2_tsf3f")
+laser_scene = ExtResource("3_y84n2")
+
+[node name="CollarControlGB" type="Node2D" parent="ControlSystem"]
+script = ExtResource("3_hymkg")
+
+[node name="Model" type="Sprite2D" parent="."]
+material = ExtResource("5_8f6y6")
+position = Vector2(-4, -4)
+scale = Vector2(0.188299, 0.188299)
+texture = ExtResource("1_1coy2")
+script = ExtResource("7_4krfy")
+dissolve_material = ExtResource("8_s66eu")
+default_noise_texture = ExtResource("9_6rovw")
+
+[node name="GoatboyHead" type="Sprite2D" parent="Model"]
+z_index = -1
+material = ExtResource("5_8f6y6")
+position = Vector2(9, -70)
+texture = ExtResource("2_nrk5a")
+
+[node name="GoatboyAstrodome" type="Sprite2D" parent="Model/GoatboyHead"]
+z_index = 1
+material = ExtResource("5_8f6y6")
+position = Vector2(-4, 2)
+texture = ExtResource("3_u3y46")
+
+[node name="GoatboyLeftLeg" type="Sprite2D" parent="Model"]
+z_index = -2
+material = ExtResource("5_8f6y6")
+position = Vector2(7, 61)
+texture = ExtResource("5_qi0mm")
+
+[node name="GoatboyLeftFoot" type="Sprite2D" parent="Model/GoatboyLeftLeg"]
+z_index = -1
+material = ExtResource("5_8f6y6")
+position = Vector2(-3, 68)
+texture = ExtResource("6_qpv30")
+
+[node name="GoatboyRightLeg" type="Sprite2D" parent="Model"]
+z_index = -1
+material = ExtResource("5_8f6y6")
+position = Vector2(-6, 67)
+texture = ExtResource("7_lb84x")
+
+[node name="GoatboyRightFoot" type="Sprite2D" parent="Model/GoatboyRightLeg"]
+z_index = -1
+material = ExtResource("5_8f6y6")
+position = Vector2(-4, 68)
+texture = ExtResource("8_ody1a")
+
+[node name="ArmsContainer" type="Node2D" parent="Model"]
+position = Vector2(21.2428, 21.2428)
+scale = Vector2(5.3107, 5.3107)
+script = ExtResource("8_s5xvo")
+
+[node name="ArmR" type="Node2D" parent="Model/ArmsContainer"]
+position = Vector2(-7, -6)
+script = ExtResource("10_kt8xt")
+
+[node name="GoatboyRightArm" type="Sprite2D" parent="Model/ArmsContainer/ArmR"]
+z_index = 1
+material = ExtResource("5_8f6y6")
+position = Vector2(8, 0)
+scale = Vector2(0.188, 0.188)
+texture = ExtResource("9_uoiyn")
+
+[node name="Smg" type="Node2D" parent="Model/ArmsContainer/ArmR"]
+z_index = 1
+position = Vector2(5, 1)
+scale = Vector2(0.188, 0.188)
+script = ExtResource("11_vsoeq")
+projectile_scene = ExtResource("12_qto5f")
+metadata/_custom_type_script = "uid://rxrcx5kjo0sh"
+
+[node name="Sprite2D" type="Sprite2D" parent="Model/ArmsContainer/ArmR/Smg"]
+z_index = -1
+material = ExtResource("18_v4iec")
+position = Vector2(76, -24)
+scale = Vector2(0.364014, 0.364014)
+texture = ExtResource("13_nptgk")
+
+[node name="ArmL" type="Node2D" parent="Model/ArmsContainer"]
+position = Vector2(-3, -7)
+script = ExtResource("10_kt8xt")
+metadata/_custom_type_script = "uid://brd2qqnlr6hv2"
+
+[node name="GoatboyLeftArm" type="Sprite2D" parent="Model/ArmsContainer/ArmL"]
+z_index = -2
+material = ExtResource("5_8f6y6")
+position = Vector2(8, -1.19209e-07)
+scale = Vector2(0.188, 0.188)
+texture = ExtResource("4_28iue")
+
+[node name="Smg" type="Node2D" parent="Model/ArmsContainer/ArmL"]
+z_index = -1
+position = Vector2(6, 1)
+scale = Vector2(0.188, 0.188)
+script = ExtResource("11_vsoeq")
+projectile_scene = ExtResource("12_qto5f")
+metadata/_custom_type_script = "uid://rxrcx5kjo0sh"
+
+[node name="Sprite2D" type="Sprite2D" parent="Model/ArmsContainer/ArmL/Smg"]
+z_index = -1
+material = ExtResource("18_v4iec")
+position = Vector2(76, -24)
+scale = Vector2(0.364014, 0.364014)
+texture = ExtResource("13_nptgk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-4, 2)
+shape = SubResource("CapsuleShape2D_8ndlq")
+script = ExtResource("25_8obrc")
+max_health = null
+poolable = null
+
+[node name="debug" type="Node2D" parent="CollisionShape2D"]
+position = Vector2(4, -2)
+scale = Vector2(0.999999, 0.999999)
+script = ExtResource("22_jdcyq")

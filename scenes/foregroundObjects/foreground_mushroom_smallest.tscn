@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://231h87o3byif"]
+
+[ext_resource type="Texture2D" uid="uid://chg556f7anrrk" path="res://assets/sprites/foreground/foreground_mushroom_1.png" id="1_d5n8g"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ca42v"]
+radius = 11.3932
+height = 30.3818
+
+[node name="ForegroundMushroom1" type="Sprite2D"]
+scale = Vector2(0.156982, 0.156982)
+texture = ExtResource("1_d5n8g")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+z_index = 1
+position = Vector2(-3.8147e-05, 12.7397)
+scale = Vector2(3.35473, 3.35473)
+collision_layer = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, -28.4829)
+shape = SubResource("CapsuleShape2D_ca42v")

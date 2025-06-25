@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://ck5udyukjhwrb"]
+
+[ext_resource type="Script" uid="uid://rxrcx5kjo0sh" path="res://scripts/weapon.gd" id="1_gf721"]
+[ext_resource type="PackedScene" uid="uid://b1e7035oti8oc" path="res://scenes/projectiles/blue_laser.tscn" id="2_gf721"]
+[ext_resource type="Texture2D" uid="uid://ydnfovw4753h" path="res://assets/sprites/weapons/minigun.png" id="4_6ybgm"]
+[ext_resource type="Material" uid="uid://4d2su4w8x8ou" path="res://assets/shaders/emotional_material_creature.tres" id="5_6ybgm"]
+
+[node name="Shotgun" type="Node2D"]
+z_index = 1
+script = ExtResource("1_gf721")
+projectile_scene = ExtResource("2_gf721")
+metadata/_custom_type_script = "uid://rxrcx5kjo0sh"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -1
+material = ExtResource("5_6ybgm")
+position = Vector2(8, -3)
+scale = Vector2(0.032, 0.032)
+texture = ExtResource("4_6ybgm")
+
+[node name="Barrel" type="Marker2D" parent="."]
+material = ExtResource("5_6ybgm")
+position = Vector2(20, -4)

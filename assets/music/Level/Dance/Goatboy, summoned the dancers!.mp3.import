@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bn61hp0x72qb1"
+path="res://.godot/imported/Goatboy, summoned the dancers!.mp3-c2adca6dbe8aef6be7e95681928167e1.mp3str"
+
+[deps]
+
+source_file="res://assets/music/Level/Dance/Goatboy, summoned the dancers!.mp3"
+dest_files=["res://.godot/imported/Goatboy, summoned the dancers!.mp3-c2adca6dbe8aef6be7e95681928167e1.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

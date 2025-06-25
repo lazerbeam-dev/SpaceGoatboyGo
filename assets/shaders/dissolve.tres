@@ -1,0 +1,15 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://ukfdvyp37m5n"]
+
+[ext_resource type="Shader" uid="uid://bomw340d2i6kp" path="res://assets/shaders/dissolve.gdshader" id="1_ldndc"]
+[ext_resource type="Texture2D" uid="uid://dghvjqmmc306h" path="res://assets/sprites/misc/MMFlowNoise.png" id="2_8csxq"]
+
+[resource]
+shader = ExtResource("1_ldndc")
+shader_parameter/noise_texture = ExtResource("2_8csxq")
+shader_parameter/dissolve_amount = 0.0
+shader_parameter/edge_width = 0.1
+shader_parameter/edge_color = Color(1, 0.6, 0.1, 1)
+shader_parameter/noise_scale = 1.0
+shader_parameter/noise_offset = Vector2(0, 0)
+shader_parameter/blend_color = Color(0.244763, 0.492539, 0.272264, 1)
+shader_parameter/blend_amount = 0.4

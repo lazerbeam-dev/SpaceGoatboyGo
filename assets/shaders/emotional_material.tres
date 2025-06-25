@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dwbinypbteft4"]
+
+[ext_resource type="Shader" uid="uid://viaorshxul33" path="res://assets/shaders/emotional_material.gdshader" id="1_nqhc8"]
+
+[resource]
+shader = ExtResource("1_nqhc8")
+shader_parameter/blend_color = Color(0.259093, 0.335126, 0.442152, 1)
+shader_parameter/blend_amount = 0.667

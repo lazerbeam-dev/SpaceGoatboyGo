@@ -1,0 +1,34 @@
+[gd_scene load_steps=8 format=3 uid="uid://dtgoieb78hhf3"]
+
+[ext_resource type="Script" uid="uid://clieya4aq3od7" path="res://scripts/creature_movement.gd" id="1_2k48a"]
+[ext_resource type="Script" uid="uid://cmn6umx8ffps5" path="res://scripts/health.gd" id="2_al2sp"]
+[ext_resource type="Material" uid="uid://4d2su4w8x8ou" path="res://assets/shaders/emotional_material_creature.tres" id="2_gha5o"]
+[ext_resource type="Texture2D" uid="uid://65sjkxwpxj4m" path="res://assets/sprites/shrooms/shroom_lvl2_compressi.png" id="2_m62oi"]
+[ext_resource type="Script" uid="uid://ct6k65qr1co7h" path="res://scripts/creature_ai.gd" id="3_gha5o"]
+[ext_resource type="Script" uid="uid://gm4ldccgiuao" path="res://scripts/smart_model.gd" id="5_ouh6f"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_264po"]
+radius = 8.0
+height = 48.0
+
+[node name="ShroomLvl2" type="CharacterBody2D"]
+collision_layer = 4
+floor_stop_on_slope = false
+floor_max_angle = 1.64585
+safe_margin = 2.0
+script = ExtResource("1_2k48a")
+planet_path = NodePath("../Planet")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+shape = SubResource("CapsuleShape2D_264po")
+script = ExtResource("2_al2sp")
+
+[node name="Model" type="Sprite2D" parent="."]
+material = ExtResource("2_gha5o")
+scale = Vector2(0.123949, 0.124732)
+texture = ExtResource("2_m62oi")
+script = ExtResource("5_ouh6f")
+
+[node name="AI" type="Node2D" parent="."]
+script = ExtResource("3_gha5o")

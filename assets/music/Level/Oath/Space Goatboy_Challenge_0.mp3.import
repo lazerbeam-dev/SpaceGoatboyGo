@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://n72bkw37egnw"
+path="res://.godot/imported/Space Goatboy_Challenge_0.mp3-9e42afbe198e7eb9f8880bd8efa6f858.mp3str"
+
+[deps]
+
+source_file="res://assets/music/Level/Oath/Space Goatboy_Challenge_0.mp3"
+dest_files=["res://.godot/imported/Space Goatboy_Challenge_0.mp3-9e42afbe198e7eb9f8880bd8efa6f858.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

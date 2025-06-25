@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://pi4m53ln3mms"
+path="res://.godot/imported/Christ is King_3.mp3-fe28c163447df86838ddc2fa4b56f0e5.mp3str"
+
+[deps]
+
+source_file="res://assets/music/Level/Farm/Christ is King_3.mp3"
+dest_files=["res://.godot/imported/Christ is King_3.mp3-fe28c163447df86838ddc2fa4b56f0e5.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

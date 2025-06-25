@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://crdvqqhdv3g5q"
+path="res://.godot/imported/Venetian Goatwave.mp3-1d6fc4f12e141372353b4eaaf24f5785.mp3str"
+
+[deps]
+
+source_file="res://assets/music/Level/Mushroom/Venetian Goatwave.mp3"
+dest_files=["res://.godot/imported/Venetian Goatwave.mp3-1d6fc4f12e141372353b4eaaf24f5785.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

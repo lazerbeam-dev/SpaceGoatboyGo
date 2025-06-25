@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://26dwaepumji"
+path="res://.godot/imported/One-Winged Angel of Death_8.mp3-39230d13524253397c3df755d295f7c9.mp3str"
+
+[deps]
+
+source_file="res://assets/music/Boss/One-Winged Angel of Death_8.mp3"
+dest_files=["res://.godot/imported/One-Winged Angel of Death_8.mp3-39230d13524253397c3df755d295f7c9.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
