@@ -12,14 +12,14 @@ var score := 0
 @export var player: Node2D
 
 func _ready():
-	_register_globals()
+	#_register_globals()
 	_update_score_display()
 
-func _register_globals():
-	IC.planet = planet
-	IC.pathwright = pathwright
-	IC.teleporter_main = teleporter_main
-	IC.player = player
+#func _register_globals():
+	#IC.planet = planet
+	#IC.pathwright = pathwright
+	#IC.teleporter_main = teleporter_main
+	#IC.player = player
 
 
 func add_point():

@@ -1,13 +1,14 @@
-[gd_scene load_steps=61 format=3 uid="uid://cuv4vme4rwno0"]
+[gd_scene load_steps=74 format=3 uid="uid://cuv4vme4rwno0"]
 
 [ext_resource type="Script" uid="uid://5f7iwrxydbco" path="res://scripts/game_manager.gd" id="1_l4ihi"]
 [ext_resource type="FontFile" uid="uid://c53kogtyjwsss" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="2_nlliu"]
+[ext_resource type="Script" uid="uid://18uu0arynjm7" path="res://scripts/spin.gd" id="3_rm0al"]
 [ext_resource type="Script" uid="uid://cu4ry1xm5vnoh" path="res://scripts/cameraSG.gd" id="6_bhx41"]
 [ext_resource type="PackedScene" uid="uid://231h87o3byif" path="res://scenes/foregroundObjects/foreground_mushroom_smallest.tscn" id="7_rysoc"]
 [ext_resource type="PackedScene" uid="uid://cnwp5683pkh5h" path="res://assets/goatboy/Goatboy.tscn" id="8_vtaks"]
 [ext_resource type="Script" uid="uid://daecrtd28qh2c" path="res://scripts/path_generator.gd" id="11_kvpfn"]
 [ext_resource type="Script" uid="uid://2gc1c1kxhts6" path="res://scripts/path_renderer.gd" id="12_dinhu"]
-[ext_resource type="Material" uid="uid://dwbinypbteft4" path="res://shaders/emotional_material.tres" id="14_rm0al"]
+[ext_resource type="Material" uid="uid://dwbinypbteft4" path="res://assets/shaders/emotional_material.tres" id="14_rm0al"]
 [ext_resource type="Script" uid="uid://b8t5ufck200sx" path="res://scripts/path_colliders.gd" id="14_trtic"]
 [ext_resource type="Script" uid="uid://cp73pcc2n0v76" path="res://scripts/foreground_mushroom_placer.gd" id="15_ssvqc"]
 [ext_resource type="Script" uid="uid://b6wliaxvgfeyb" path="res://scripts/path_analyzer.gd" id="16_264po"]
@@ -35,24 +36,33 @@
 [ext_resource type="Texture2D" uid="uid://gof3g7hi8oss" path="res://assets/sprites/gov/transporter_door_open3.png" id="30_js0lu"]
 [ext_resource type="Script" uid="uid://bubtocxrjmlmq" path="res://scripts/inoutcolliders.gd" id="32_v2yb1"]
 [ext_resource type="Texture2D" uid="uid://cwrpjit2wcttm" path="res://assets/sprites/gov/transporter_base_B.png" id="34_gxtfn"]
-[ext_resource type="Texture2D" uid="uid://cskabipetuafs" path="res://assets/sprites/turret bottom.png" id="35_twgab"]
-[ext_resource type="Texture2D" uid="uid://djrhqeina5j2p" path="res://assets/sprites/turret top.png" id="36_02fa5"]
-[ext_resource type="Script" uid="uid://crjs0w0wpnm2d" path="res://scripts/ui_canvas_control.gd" id="36_twgab"]
-[ext_resource type="Texture2D" uid="uid://cs8hsav37702r" path="res://assets/sprites/turret_top_front.png" id="37_7025r"]
-[ext_resource type="Texture2D" uid="uid://bjkpk0e7l8gif" path="res://assets/sprites/turret_top_back.png" id="38_m4url"]
-[ext_resource type="Texture2D" uid="uid://tbn84nt5enkc" path="res://assets/sprites/turret_barrel.png" id="39_8ool0"]
-[ext_resource type="Script" uid="uid://c1o2e0o6o4cgl" path="res://tentacle2d.gd" id="40_m4url"]
+[ext_resource type="Texture2D" uid="uid://cskabipetuafs" path="res://assets/sprites/metal/turret bottom.png" id="35_twgab"]
+[ext_resource type="Texture2D" uid="uid://djrhqeina5j2p" path="res://assets/sprites/metal/turret top.png" id="36_02fa5"]
+[ext_resource type="Texture2D" uid="uid://cs8hsav37702r" path="res://assets/sprites/metal/turret_top_front.png" id="37_7025r"]
+[ext_resource type="Texture2D" uid="uid://bjkpk0e7l8gif" path="res://assets/sprites/metal/turret_top_back.png" id="38_m4url"]
+[ext_resource type="Texture2D" uid="uid://tbn84nt5enkc" path="res://assets/sprites/metal/turret_barrel.png" id="39_8ool0"]
+[ext_resource type="Script" uid="uid://mvr14tlk81oe" path="res://scripts/planetcoreteleporter.gd" id="40_ms3bu"]
 [ext_resource type="PackedScene" uid="uid://dc1dau4up7k24" path="res://scenes/creatures/shroom_lvl_1.tscn" id="47_h3rex"]
-[ext_resource type="Script" uid="uid://dlomd84djsgip" path="res://scripts/parallax_manager.gd" id="48_fedci"]
 [ext_resource type="PackedScene" uid="uid://bohuusl66hf6t" path="res://scenes/creatures/slime.tscn" id="49_8qswn"]
-[ext_resource type="Material" uid="uid://4d2su4w8x8ou" path="res://shaders/emotional_material_creature.tres" id="49_o8ni1"]
-[ext_resource type="Script" uid="uid://bijtu3rj7biyw" path="res://scripts/parallax_trick.gd" id="49_rm0al"]
-[ext_resource type="Texture2D" uid="uid://bs7vqlimu1vjm" path="res://assets/sprites/terrain/pink background.png" id="50_rm0al"]
+[ext_resource type="Shader" uid="uid://viaorshxul33" path="res://assets/shaders/emotional_material.gdshader" id="49_i4re6"]
+[ext_resource type="Material" uid="uid://4d2su4w8x8ou" path="res://assets/shaders/emotional_material_creature.tres" id="49_o8ni1"]
+[ext_resource type="Shader" uid="uid://cjayp7kimdcjv" path="res://assets/shaders/stars.gdshader" id="49_pf7vy"]
+[ext_resource type="Texture2D" uid="uid://bw8pyiwd3uqur" path="res://assets/sprites/metal/metal_backwall_tile.png" id="49_rm0al"]
+[ext_resource type="Texture2D" uid="uid://cjwa1mikiu8st" path="res://assets/sprites/misc/1x1WhiteSquare.png" id="50_o8ni1"]
 [ext_resource type="Script" uid="uid://ccq4d2r32i8t6" path="res://scripts/the_sky.gd" id="51_i4re6"]
+[ext_resource type="Script" uid="uid://crxgovvh8dulx" path="res://scripts/flying_creature.gd" id="52_ms3bu"]
+[ext_resource type="Texture2D" uid="uid://bgblqp3oiqqsw" path="res://assets/sprites/aliensandhexagons/ufoship.png" id="52_o8ni1"]
 [ext_resource type="PackedScene" uid="uid://dtgoieb78hhf3" path="res://scenes/creatures/shroom_lvl_2.tscn" id="52_pf7vy"]
+[ext_resource type="Texture2D" uid="uid://dvv3sul3hgkmu" path="res://assets/sprites/aliensandhexagons/ufo laser.png" id="53_3hbvx"]
+[ext_resource type="Script" uid="uid://gm4ldccgiuao" path="res://scripts/smart_model.gd" id="53_q8j3a"]
+[ext_resource type="Script" uid="uid://cmn6umx8ffps5" path="res://scripts/health.gd" id="54_3hbvx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qnb83"]
 size = Vector2(8, 85.5)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_q8j3a"]
+radius = 12.0
+height = 64.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sww3w"]
 size = Vector2(33.75, 11)
@@ -72,7 +82,7 @@ size = Vector2(23, 70)
 [sub_resource type="CircleShape2D" id="CircleShape2D_7025r"]
 radius = 24.0
 
-[sub_resource type="Curve2D" id="Curve2D_458eo"]
+[sub_resource type="Curve2D" id="Curve2D_ms3bu"]
 _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 999.011, 9.11677, 0, 0, 0, 0, 1215.43, 76.4684, 0, 0, 0, 0, 1211.84, 153.222, 0, 0, 0, 0, 1198.27, 228.273, 0, 0, 0, 0, 1171.73, 300.257, 0, 0, 0, 0, 1138.07, 369.781, 0, 0, 0, 0, 1026.23, 406.311, 0, 0, 0, 0, 997.454, 469.454, 0, 0, 0, 0, 971.484, 534.623, 0, 0, 0, 0, 946.799, 601.639, 0, 0, 0, 0, 921.54, 669.538, 0, 0, 0, 0, 947, 783.426, 0, 0, 0, 0, 890.284, 835.574, 0, 0, 0, 0, 828.75, 881.624, 0, 0, 0, 0, 762.395, 921.578, 0, 0, 0, 0, 646.996, 890.514, 0, 0, 0, 0, 588.066, 926.643, 0, 0, 0, 0, 530.624, 966.048, 0, 0, 0, 0, 473.882, 1008.59, 0, 0, 0, 0, 414.604, 1048.63, 0, 0, 0, 0, 352.44, 1084.7, 0, 0, 0, 0, 303.43, 1181.78, 0, 0, 0, 0, 226.315, 1183.02, 0, 0, 0, 0, 149.785, 1180.32, 0, 0, 0, 0, 73.8408, 1173.67, 0, 0, 0, 0, -1.23965e-13, 770.855, 0, 0, 0, 0, -49.267, 776.617, 0, 0, 0, 0, -99.7693, 784.408, 0, 0, 0, 0, -151.435, 790.601, 0, 0, 0, 0, -203.755, 793.575, 0, 0, 0, 0, -278.326, 856.599, 0, 0, 0, 0, -326.385, 825.757, 0, 0, 0, 0, -371.94, 791.846, 0, 0, 0, 0, -415.455, 756.601, 0, 0, 0, 0, -459.868, 724.642, 0, 0, 0, 0, -506.224, 696.757, 0, 0, 0, 0, -507.972, 614.032, 0, 0, 0, 0, -555.801, 590.958, 0, 0, 0, 0, -599.54, 562.541, 0, 0, 0, 0, -635.056, 525.548, 0, 0, 0, 0, -663.35, 481.952, 0, 0, 0, 0, -745.487, 473.1, 0, 0, 0, 0, -761.199, 419.032, 0, 0, 0, 0, -780.402, 367.321, 0, 0, 0, 0, -803.096, 317.968, 0, 0, 0, 0, -756.772, 245.89, 0, 0, 0, 0, -784.339, 200.767, 0, 0, 0, 0, -805.519, 153.347, 0, 0, 0, 0, -814.843, 103.11, 0, 0, 0, 0, -814.553, 51.2473, 0, 0, 0, 0, -1199.4, -3.85762e-13, 0, 0, 0, 0, -1181.03, -73.7454, 0, 0, 0, 0, -1166.37, -147.214, 0, 0, 0, 0, -1156.06, -220.824, 0, 0, 0, 0, -1149.26, -295.08, 0, 0, 0, 0, -1068.95, -347.322, 0, 0, 0, 0, -1052.37, -417.03, 0, 0, 0, 0, -1026.69, -483.026, 0, 0, 0, 0, -988.937, -543.118, 0, 0, 0, 0, -943.149, -598.541, 0, 0, 0, 0, -955.16, -693.965, 0, 0, 0, 0, -904.244, -747.859, 0, 0, 0, 0, -856.338, -804.57, 0, 0, 0, 0, -811.52, -865.131, 0, 0, 0, 0, -767.754, -928.055, 0, 0, 0, 0, -669.398, -921.348, 0, 0, 0, 0, -610.368, -961.802, 0, 0, 0, 0, -546.926, -994.045, 0, 0, 0, 0, -478.623, -1015.6, 0, 0, 0, 0, -408.827, -1031.06, 0, 0, 0, 0, -339.45, -1044.72, 0, 0, 0, 0, -293.42, -1142.8, 0, 0, 0, 0, -222.74, -1170.91, 0, 0, 0, 0, -150.54, -1196.98, 0, 0, 0, 0, -76.1199, -1217.07, 0, 0, 0, 0, -2.26059e-13, -1230.65, 0, 0, 0, 0, 51.7685, -822.837, 0, 0, 0, 0, 100.537, -801.272, 0, 0, 0, 0, 147.991, -779.026, 0, 0, 0, 0, 194.437, -758.347, 0, 0, 0, 0, 240.796, -741.094, 0, 0, 0, 0, 319.461, -806.866, 0, 0, 0, 0, 376.357, -798.248, 0, 0, 0, 0, 431.24, -783.573, 0, 0, 0, 0, 484.112, -762.839, 0, 0, 0, 0, 480.983, -662.016, 0, 0, 0, 0, 510.769, -618.456, 0, 0, 0, 0, 538.205, -574.106, 0, 0, 0, 0, 565.337, -531.325, 0, 0, 0, 0, 594.295, -491.643, 0, 0, 0, 0, 696.343, -505.923, 0, 0, 0, 0, 739.36, -468.442, 0, 0, 0, 0, 778.819, -427.594, 0, 0, 0, 0, 809.707, -380.925, 0, 0, 0, 0, 832.923, -329.778, 0, 0, 0, 0, 765.072, -248.587, 0, 0, 0, 0, 762.844, -196.51, 0, 0, 0, 0, 763.622, -145.963, 0, 0, 0, 0, 769.661, -97.069, 0, 0, 0, 0, 999.011, 9.11677)
 }
@@ -83,6 +93,35 @@ colors = PackedColorArray(0.109804, 1, 0.137255, 1, 1, 0.129412, 0.113725, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_1kice"]
 gradient = SubResource("Gradient_264po")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_q8j3a"]
+radius = 138.924
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pf7vy"]
+shader = ExtResource("49_i4re6")
+shader_parameter/blend_color = Color(0.739951, 0.748951, 0.491945, 1)
+shader_parameter/blend_amount = 0.5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o8ni1"]
+shader = ExtResource("49_i4re6")
+shader_parameter/blend_color = Color(0.287003, 0.348828, 0.171906, 1)
+shader_parameter/blend_amount = 0.5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3hbvx"]
+shader = ExtResource("49_pf7vy")
+shader_parameter/star_density = 0.5
+shader_parameter/brightness = 1.2
+shader_parameter/twinkle_speed = 0.5
+shader_parameter/time_offset = 0.0
+shader_parameter/star_sharpness = 0.15
+shader_parameter/jitter_amount = 3.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o8ni1"]
+radius = 22.0
+height = 82.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7ixpq"]
+size = Vector2(1000, 10000)
 
 [node name="Game" type="Node2D"]
 
@@ -105,7 +144,7 @@ autowrap_mode = 2
 [node name="Planet" type="Node2D" parent="."]
 
 [node name="teleporter" type="Node2D" parent="Planet"]
-position = Vector2(-93, -1379)
+position = Vector2(-99, -1384)
 script = ExtResource("27_fedci")
 goatboy_scene = ExtResource("8_vtaks")
 spawn_point = NodePath("spawnpoint")
@@ -129,6 +168,10 @@ texture = ExtResource("28_sww3w")
 [node name="Backwall" type="CollisionShape2D" parent="Planet/teleporter/Construction"]
 position = Vector2(-40, 117)
 shape = SubResource("RectangleShape2D_qnb83")
+
+[node name="Backwall2" type="CollisionShape2D" parent="Planet/teleporter/Construction"]
+position = Vector2(-49, 119)
+shape = SubResource("CapsuleShape2D_q8j3a")
 
 [node name="Floor" type="CollisionShape2D" parent="Planet/teleporter/Construction"]
 position = Vector2(-19, 163.5)
@@ -291,7 +334,7 @@ position = Vector2(21.798, 0)
 scale = Vector2(0.122867, 0.122867)
 texture = ExtResource("39_8ool0")
 
-[node name="Pathwright" type="Node2D" parent="."]
+[node name="Pathwright" type="Node2D" parent="Planet"]
 script = ExtResource("11_kvpfn")
 auto_generate = true
 seed = 123
@@ -301,11 +344,11 @@ amplitude_1 = 25.0
 amplitude_2 = 5.0
 noise_strength = 1.0
 
-[node name="GeneratedPath" type="Path2D" parent="Pathwright"]
+[node name="GeneratedPath" type="Path2D" parent="Planet/Pathwright"]
 texture_repeat = 2
-curve = SubResource("Curve2D_458eo")
+curve = SubResource("Curve2D_ms3bu")
 
-[node name="PathRenderer" type="Node2D" parent="Pathwright"]
+[node name="PathRenderer" type="Node2D" parent="Planet/Pathwright"]
 z_index = -3
 texture_repeat = 2
 material = ExtResource("14_rm0al")
@@ -314,29 +357,29 @@ texture = ExtResource("16_js0lu")
 cliff_texture = ExtResource("17_gxtfn")
 line_material = ExtResource("14_rm0al")
 
-[node name="PathColliders" type="StaticBody2D" parent="Pathwright"]
+[node name="PathColliders" type="StaticBody2D" parent="Planet/Pathwright"]
 script = ExtResource("14_trtic")
 
-[node name="PathAnalyzer" type="Node2D" parent="Pathwright"]
+[node name="PathAnalyzer" type="Node2D" parent="Planet/Pathwright"]
 script = ExtResource("16_264po")
 curve_path = NodePath("../GeneratedPath")
 color_gradient = SubResource("GradientTexture1D_1kice")
 
-[node name="ForegroundMushroomPlacer" type="Node2D" parent="Pathwright"]
+[node name="ForegroundMushroomPlacer" type="Node2D" parent="Planet/Pathwright"]
 script = ExtResource("15_ssvqc")
 path_node = NodePath("../GeneratedPath")
 mushroom_scenes = Array[PackedScene]([ExtResource("7_rysoc")])
 clear_existing = true
 
-[node name="FillRenderer" type="Node2D" parent="Pathwright"]
+[node name="FillRenderer" type="Node2D" parent="Planet/Pathwright"]
 z_index = -3
 script = ExtResource("19_5newe")
 fill_texture = ExtResource("20_37s47")
 fill_material = ExtResource("14_rm0al")
 uv_scale = Vector2(12, 12)
 
-[node name="CornerSprites" type="Node2D" parent="Pathwright"]
-z_index = -3
+[node name="CornerSprites" type="Node2D" parent="Planet/Pathwright"]
+z_index = -4
 y_sort_enabled = true
 script = ExtResource("21_8ool0")
 curve_path = NodePath("../GeneratedPath")
@@ -348,37 +391,22 @@ ir_sprite = ExtResource("23_05nbr")
 il_sprite = ExtResource("24_0sl42")
 shared_material = ExtResource("14_rm0al")
 
-[node name="cliffTransitionAnalyser" type="Node2D" parent="Pathwright"]
-visible = false
+[node name="cliffTransitionAnalyser" type="Node2D" parent="Planet/Pathwright"]
 script = ExtResource("26_458eo")
 curve_path = NodePath("../GeneratedPath")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-script = ExtResource("36_twgab")
-emoji_nodes = Array[NodePath]([NodePath("Control/Label")])
+[node name="planetcoreteleporter" type="Area2D" parent="Planet/Pathwright"]
+collision_layer = 64
+collision_mask = 6
+script = ExtResource("40_ms3bu")
+planet_path = NodePath("../..")
+teleport_radius = 1200.0
 
-[node name="Control" type="Control" parent="CanvasLayer"]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Planet/Pathwright/planetcoreteleporter"]
+shape = SubResource("CircleShape2D_q8j3a")
 
-[node name="Label" type="Label" parent="CanvasLayer/Control"]
-layout_mode = 0
-offset_left = -410.0
-offset_top = -1271.0
-offset_right = -347.0
-offset_bottom = -1222.0
-text = "Soe text
-"
-
-[node name="tentacle" type="Node2D" parent="."]
-position = Vector2(-494, -1119)
-script = ExtResource("40_m4url")
-target_path = NodePath("../Planet/teleporter")
-
-[node name="Line2D" type="Line2D" parent="tentacle"]
-position = Vector2(384, 1057)
+[node name="slime" parent="Planet" instance=ExtResource("49_8qswn")]
+position = Vector2(264, -1422)
 
 [node name="ShroomLvl1" parent="." instance=ExtResource("47_h3rex")]
 position = Vector2(608, -540)
@@ -387,10 +415,12 @@ position = Vector2(608, -540)
 script = ExtResource("51_i4re6")
 emotional_material = ExtResource("14_rm0al")
 emotional_material_creature = ExtResource("49_o8ni1")
+day_color = Color(0.81135, 0.595171, 0.786192, 1)
+the_sun_path = NodePath("../GiantSkyCuubeFrameOfReference/pivot/TheSun")
 camera_path = NodePath("../CameraController")
 color_rect_path = NodePath("../CameraController/single color")
 creature_blend_amount = 0.346
-object_blend_amount = 0.667
+object_blend_amount = 0.451
 
 [node name="ShroomLvl2" parent="." instance=ExtResource("47_h3rex")]
 position = Vector2(-507, -1084)
@@ -413,37 +443,107 @@ script = ExtResource("6_bhx41")
 target_path = NodePath("../Planet/teleporter")
 
 [node name="single color" type="ColorRect" parent="CameraController"]
-visible = false
-z_index = -20
+z_index = -19
 custom_minimum_size = Vector2(1080, 720)
-offset_left = -575.193
-offset_top = -390.03
-offset_right = 504.807
-offset_bottom = 329.97
-
-[node name="PinkBackground" type="Sprite2D" parent="CameraController"]
-visible = false
-z_index = -11
-position = Vector2(21.807, 34.97)
-scale = Vector2(3.70193, 3.70193)
-texture = ExtResource("50_rm0al")
+offset_left = -588.193
+offset_top = -347.03
+offset_right = 491.807
+offset_bottom = 372.97
+mouse_filter = 2
+color = Color(0.259093, 0.335126, 0.442152, 1)
 
 [node name="slime" parent="." instance=ExtResource("49_8qswn")]
 position = Vector2(-299, -1290)
 floor_max_angle = 1.34565
 
 [node name="ParallaWorld" type="Node2D" parent="."]
-
-[node name="ParallaxManager" type="Node2D" parent="ParallaWorld"]
 visible = false
-script = ExtResource("48_fedci")
-radius = 2400.0
-camera_path = NodePath("../../CameraController")
-bake_now = true
 
-[node name="Node2D" type="Node2D" parent="ParallaWorld"]
+[node name="GiantSkyCuubeFrameOfReference" type="Node2D" parent="."]
+position = Vector2(1209, -691)
+
+[node name="pivot" type="Node2D" parent="GiantSkyCuubeFrameOfReference"]
+position = Vector2(-1201, 690)
+script = ExtResource("3_rm0al")
+spin_speed = 0.01
+
+[node name="ShipLightSide" type="Node2D" parent="GiantSkyCuubeFrameOfReference/pivot"]
+z_index = -13
+position = Vector2(1556, -1419)
+script = ExtResource("19_5newe")
+path_node_path = NodePath("../../Line2D")
+fill_texture = ExtResource("49_rm0al")
+fill_material = SubResource("ShaderMaterial_pf7vy")
+uv_scale = Vector2(12, 12)
+
+[node name="ShipShadowSide" type="Node2D" parent="GiantSkyCuubeFrameOfReference/pivot"]
+z_index = -13
+position = Vector2(1316, -717)
+script = ExtResource("19_5newe")
+path_node_path = NodePath("../../Line2D2")
+fill_texture = ExtResource("49_rm0al")
+fill_material = SubResource("ShaderMaterial_o8ni1")
+uv_scale = Vector2(18, 12)
+
+[node name="TheStars" type="Sprite2D" parent="GiantSkyCuubeFrameOfReference/pivot"]
+z_index = -20
+material = SubResource("ShaderMaterial_3hbvx")
+position = Vector2(15, 556)
+scale = Vector2(12945, 15088)
+texture = ExtResource("50_o8ni1")
+
+[node name="TheSun" type="Node2D" parent="GiantSkyCuubeFrameOfReference/pivot"]
+position = Vector2(36673, -417)
+
+[node name="Line2D" type="Line2D" parent="GiantSkyCuubeFrameOfReference"]
 visible = false
-z_index = -12
-script = ExtResource("49_rm0al")
-camera_path = NodePath("../../CameraController")
-texture = ExtResource("50_rm0al")
+position = Vector2(161, -606)
+points = PackedVector2Array(-1904, 2008, -1932, -3191, 4082, -3191, 4041, 2105, -1924, 2047)
+
+[node name="Line2D2" type="Line2D" parent="GiantSkyCuubeFrameOfReference"]
+visible = false
+position = Vector2(-87, 87)
+points = PackedVector2Array(-1426, -3854, -1618, 1329, -3981, 41, -3951, -3171, -1444, -3923)
+
+[node name="Ufo" type="CharacterBody2D" parent="."]
+position = Vector2(237, -1270)
+motion_mode = 1
+script = ExtResource("52_ms3bu")
+planet_path = NodePath("../Planet")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ufo"]
+position = Vector2(-14, -44)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_o8ni1")
+script = ExtResource("54_3hbvx")
+
+[node name="Model" type="Node2D" parent="Ufo"]
+position = Vector2(-14, -44)
+script = ExtResource("53_q8j3a")
+metadata/_custom_type_script = "uid://gm4ldccgiuao"
+
+[node name="Ufoship" type="Sprite2D" parent="Ufo/Model"]
+material = ExtResource("49_o8ni1")
+position = Vector2(3, 5)
+scale = Vector2(0.14452, 0.14452)
+texture = ExtResource("52_o8ni1")
+
+[node name="UfoLaser" type="Sprite2D" parent="Ufo/Model/Ufoship"]
+z_index = -1
+material = ExtResource("49_o8ni1")
+position = Vector2(72.6543, 238.722)
+texture = ExtResource("53_3hbvx")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(-415, -1277)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-685, -83)
+shape = SubResource("RectangleShape2D_7ixpq")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+position = Vector2(1685, -1112)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(-685, -83)
+shape = SubResource("RectangleShape2D_7ixpq")
