@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://dsu0g6ovcj654"]
+
+[ext_resource type="Texture2D" uid="uid://cc1r2dcovmk54" path="res://assets/sprites/misc/BlueFlame.png" id="1_ysa1g"]
+[ext_resource type="Script" uid="uid://dkbgphe7oe08r" path="res://scripts/sprite_flash.gd" id="2_kauel"]
+
+[node name="SpriteFlash" type="Sprite2D"]
+z_index = 2
+rotation = -158.65
+scale = Vector2(0.0307722, 0.0307722)
+texture = ExtResource("1_ysa1g")
+script = ExtResource("2_kauel")
+flash_visible_duration = 0.13

@@ -1,0 +1,41 @@
+[gd_scene load_steps=8 format=3 uid="uid://26g4m73urvpu"]
+
+[ext_resource type="Script" uid="uid://crxgovvh8dulx" path="res://scripts/flying_creature.gd" id="1_jqhu5"]
+[ext_resource type="Script" uid="uid://cmn6umx8ffps5" path="res://scripts/health.gd" id="2_p4r45"]
+[ext_resource type="Script" uid="uid://gm4ldccgiuao" path="res://scripts/smart_model.gd" id="3_3w66d"]
+[ext_resource type="Material" uid="uid://4d2su4w8x8ou" path="res://assets/shaders/emotional_material_creature.tres" id="4_mgcba"]
+[ext_resource type="Texture2D" uid="uid://bgblqp3oiqqsw" path="res://assets/sprites/aliensandhexagons/ufoship.png" id="5_ep8qd"]
+[ext_resource type="Texture2D" uid="uid://dvv3sul3hgkmu" path="res://assets/sprites/aliensandhexagons/ufo laser.png" id="6_ooydv"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o8ni1"]
+radius = 22.0
+height = 82.0
+
+[node name="Ufo" type="CharacterBody2D"]
+motion_mode = 1
+script = ExtResource("1_jqhu5")
+planet_path = NodePath("../Planet")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-14, -44)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_o8ni1")
+script = ExtResource("2_p4r45")
+model_path = NodePath("../Model")
+
+[node name="Model" type="Node2D" parent="."]
+position = Vector2(-14, -44)
+script = ExtResource("3_3w66d")
+metadata/_custom_type_script = "uid://gm4ldccgiuao"
+
+[node name="Ufoship" type="Sprite2D" parent="Model"]
+material = ExtResource("4_mgcba")
+position = Vector2(3, 5)
+scale = Vector2(0.14452, 0.14452)
+texture = ExtResource("5_ep8qd")
+
+[node name="UfoLaser" type="Sprite2D" parent="Model/Ufoship"]
+z_index = -1
+material = ExtResource("4_mgcba")
+position = Vector2(72.6543, 238.722)
+texture = ExtResource("6_ooydv")

@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://bgyxvlfrqmsdu"]
+
+[ext_resource type="Script" uid="uid://dp567bmx7k3kx" path="res://scripts/projectile.gd" id="1_k3eqr"]
+[ext_resource type="Texture2D" uid="uid://bowt4u5fe032h" path="res://assets/sprites/projectiles/shroom_proj_01.png" id="2_k3eqr"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_q3m7n"]
+radius = 7.0
+
+[node name="shroom_gun_1" type="Area2D"]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_k3eqr")
+damage = 11.0
+
+[node name="01" type="Sprite2D" parent="."]
+scale = Vector2(0.695846, 0.603615)
+texture = ExtResource("2_k3eqr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(3, 0)
+shape = SubResource("CircleShape2D_q3m7n")
+debug_color = Color(0, 0.6, 0.701961, 1)

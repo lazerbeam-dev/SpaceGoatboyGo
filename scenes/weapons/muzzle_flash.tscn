@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://blvewi33pd1co"]
+
+[ext_resource type="Shader" uid="uid://cjl06cwivpkxs" path="res://assets/shaders/triangleColourFlash.gdshader" id="1_xoi2e"]
+[ext_resource type="Texture2D" uid="uid://dmabjvonccyaf" path="res://assets/sprites/misc/100pxDiameterCircleWhite.png" id="2_ty5qc"]
+[ext_resource type="Script" uid="uid://b80uh3u3a8let" path="res://scripts/muzzle_flash.gd" id="3_dxtfx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oaba0"]
+shader = ExtResource("1_xoi2e")
+shader_parameter/angle_degrees = 125.0
+shader_parameter/edge_softness = 0.072
+shader_parameter/blend_color = Color(0.341395, 0.278878, 0.932023, 1)
+shader_parameter/color_blend_falloff = 0.455
+shader_parameter/min_radius = 0.116
+shader_parameter/max_radius = 0.434
+shader_parameter/radial_softness = 0.066
+
+[node name="MuzzleFlash" type="Sprite2D"]
+material = SubResource("ShaderMaterial_oaba0")
+texture = ExtResource("2_ty5qc")
+script = ExtResource("3_dxtfx")

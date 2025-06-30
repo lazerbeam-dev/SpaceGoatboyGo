@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://cakicfd3ye6nf"]
+
+[ext_resource type="Script" uid="uid://rxrcx5kjo0sh" path="res://scripts/weapon.gd" id="1_xnmeu"]
+[ext_resource type="PackedScene" uid="uid://bgyxvlfrqmsdu" path="res://scenes/projectiles/shroom_projectile_1.tscn" id="2_pbokx"]
+[ext_resource type="Material" uid="uid://4d2su4w8x8ou" path="res://assets/shaders/emotional_material_creature.tres" id="3_8m0vt"]
+[ext_resource type="Texture2D" uid="uid://nk4dh0mbwa5r" path="res://assets/sprites/weapons/shroom gun 1.png" id="4_pbokx"]
+
+[node name="shroomGunPurple" type="Node2D"]
+z_index = 1
+script = ExtResource("1_xnmeu")
+projectile_scene = ExtResource("2_pbokx")
+dropped_radius = 1.0
+metadata/_custom_type_script = "uid://rxrcx5kjo0sh"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -1
+material = ExtResource("3_8m0vt")
+position = Vector2(49, -25)
+scale = Vector2(0.373704, 0.373704)
+texture = ExtResource("4_pbokx")
+
+[node name="Barrel" type="Marker2D" parent="."]
+position = Vector2(121, -32)
