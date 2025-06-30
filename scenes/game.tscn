@@ -1,11 +1,11 @@
-[gd_scene load_steps=74 format=3 uid="uid://cuv4vme4rwno0"]
+[gd_scene load_steps=54 format=3 uid="uid://cuv4vme4rwno0"]
 
 [ext_resource type="Script" uid="uid://5f7iwrxydbco" path="res://scripts/game_manager.gd" id="1_l4ihi"]
 [ext_resource type="FontFile" uid="uid://c53kogtyjwsss" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="2_nlliu"]
+[ext_resource type="PackedScene" uid="uid://dbmy0f2tt1x4r" path="res://scenes/government/teleporter.tscn" id="3_pr1ej"]
 [ext_resource type="Script" uid="uid://18uu0arynjm7" path="res://scripts/spin.gd" id="3_rm0al"]
 [ext_resource type="Script" uid="uid://cu4ry1xm5vnoh" path="res://scripts/cameraSG.gd" id="6_bhx41"]
 [ext_resource type="PackedScene" uid="uid://231h87o3byif" path="res://scenes/foregroundObjects/foreground_mushroom_smallest.tscn" id="7_rysoc"]
-[ext_resource type="PackedScene" uid="uid://cnwp5683pkh5h" path="res://assets/goatboy/Goatboy.tscn" id="8_vtaks"]
 [ext_resource type="Script" uid="uid://daecrtd28qh2c" path="res://scripts/path_generator.gd" id="11_kvpfn"]
 [ext_resource type="Script" uid="uid://2gc1c1kxhts6" path="res://scripts/path_renderer.gd" id="12_dinhu"]
 [ext_resource type="Material" uid="uid://dwbinypbteft4" path="res://assets/shaders/emotional_material.tres" id="14_rm0al"]
@@ -21,27 +21,19 @@
 [ext_resource type="Texture2D" uid="uid://w65g1hgplrm2" path="res://assets/sprites/terrain/inneRightt.png" id="23_05nbr"]
 [ext_resource type="Texture2D" uid="uid://cvvr1brwr0l6s" path="res://assets/sprites/terrain/outerLeft.png" id="23_oaba0"]
 [ext_resource type="Texture2D" uid="uid://xiylds0rrv6x" path="res://assets/sprites/terrain/InnerLeft.png" id="24_0sl42"]
-[ext_resource type="PackedScene" uid="uid://b8aade3wuo16m" path="res://scenes/projectiles/info_projectile.tscn" id="24_gxtfn"]
-[ext_resource type="Script" uid="uid://bd2aybmb2xfkv" path="res://scripts/goatboy_control_antenna.gd" id="24_js0lu"]
-[ext_resource type="Texture2D" uid="uid://ca6n8h6morgjh" path="res://assets/sprites/gov/transporter_antenna_B.png" id="25_pl11u"]
 [ext_resource type="Script" uid="uid://be20oyaekv606" path="res://scripts/cliff_transition_analyser.gd" id="26_458eo"]
-[ext_resource type="Script" uid="uid://m007xamvnvw4" path="res://scripts/teleporter_main.gd" id="27_fedci"]
-[ext_resource type="Texture2D" uid="uid://djcmj7a8yof0m" path="res://assets/sprites/gov/transporter_door_open_B.png" id="27_qnb83"]
-[ext_resource type="Texture2D" uid="uid://dpncqsik2uhpu" path="res://assets/sprites/gov/transporter_door_closed.png" id="27_qouja"]
-[ext_resource type="Texture2D" uid="uid://dn8drfl2qli1s" path="res://assets/sprites/gov/transporter_back_wall_B.png" id="27_sww3w"]
-[ext_resource type="Script" uid="uid://ci7rovg1hnyoq" path="res://scripts/teleporter_door.gd" id="27_wljb1"]
-[ext_resource type="Texture2D" uid="uid://d4ictt74ert2w" path="res://assets/sprites/gov/transporter_door_open_FRONT_LAYER_B.png" id="28_sww3w"]
-[ext_resource type="Texture2D" uid="uid://0xsv8muapm24" path="res://assets/sprites/gov/transporter_door_open1.png" id="28_wljb1"]
-[ext_resource type="Texture2D" uid="uid://c8hgnov1wjoef" path="res://assets/sprites/gov/transporter_door_open2.png" id="29_v2yb1"]
-[ext_resource type="Texture2D" uid="uid://gof3g7hi8oss" path="res://assets/sprites/gov/transporter_door_open3.png" id="30_js0lu"]
-[ext_resource type="Script" uid="uid://bubtocxrjmlmq" path="res://scripts/inoutcolliders.gd" id="32_v2yb1"]
-[ext_resource type="Texture2D" uid="uid://cwrpjit2wcttm" path="res://assets/sprites/gov/transporter_base_B.png" id="34_gxtfn"]
 [ext_resource type="Texture2D" uid="uid://cskabipetuafs" path="res://assets/sprites/metal/turret bottom.png" id="35_twgab"]
 [ext_resource type="Texture2D" uid="uid://djrhqeina5j2p" path="res://assets/sprites/metal/turret top.png" id="36_02fa5"]
 [ext_resource type="Texture2D" uid="uid://cs8hsav37702r" path="res://assets/sprites/metal/turret_top_front.png" id="37_7025r"]
+[ext_resource type="Texture2D" uid="uid://c0b0jr7d0v1gl" path="res://assets/sprites/metal/metal_thick_slab.png" id="38_05nbr"]
 [ext_resource type="Texture2D" uid="uid://bjkpk0e7l8gif" path="res://assets/sprites/metal/turret_top_back.png" id="38_m4url"]
+[ext_resource type="PackedScene" uid="uid://26g4m73urvpu" path="res://scenes/mics/ufo.tscn" id="38_nepv3"]
 [ext_resource type="Texture2D" uid="uid://tbn84nt5enkc" path="res://assets/sprites/metal/turret_barrel.png" id="39_8ool0"]
+[ext_resource type="Shader" uid="uid://dfqqx4aehytoo" path="res://assets/shaders/laser.gdshader" id="39_m4url"]
+[ext_resource type="Texture2D" uid="uid://dmabjvonccyaf" path="res://assets/sprites/misc/100pxDiameterCircleWhite.png" id="40_8ool0"]
 [ext_resource type="Script" uid="uid://mvr14tlk81oe" path="res://scripts/planetcoreteleporter.gd" id="40_ms3bu"]
+[ext_resource type="Texture2D" uid="uid://ccyn1gwlymn1r" path="res://assets/sprites/crystals4.png" id="41_8ool0"]
+[ext_resource type="Texture2D" uid="uid://hcp7oe86sp1b" path="res://assets/sprites/gov/2024-3-20-slime-eyes-new_0001s_0005_angry-eye-1.png" id="42_pr1ej"]
 [ext_resource type="PackedScene" uid="uid://dc1dau4up7k24" path="res://scenes/creatures/shroom_lvl_1.tscn" id="47_h3rex"]
 [ext_resource type="PackedScene" uid="uid://bohuusl66hf6t" path="res://scenes/creatures/slime.tscn" id="49_8qswn"]
 [ext_resource type="Shader" uid="uid://viaorshxul33" path="res://assets/shaders/emotional_material.gdshader" id="49_i4re6"]
@@ -50,39 +42,9 @@
 [ext_resource type="Texture2D" uid="uid://bw8pyiwd3uqur" path="res://assets/sprites/metal/metal_backwall_tile.png" id="49_rm0al"]
 [ext_resource type="Texture2D" uid="uid://cjwa1mikiu8st" path="res://assets/sprites/misc/1x1WhiteSquare.png" id="50_o8ni1"]
 [ext_resource type="Script" uid="uid://ccq4d2r32i8t6" path="res://scripts/the_sky.gd" id="51_i4re6"]
-[ext_resource type="Script" uid="uid://crxgovvh8dulx" path="res://scripts/flying_creature.gd" id="52_ms3bu"]
-[ext_resource type="Texture2D" uid="uid://bgblqp3oiqqsw" path="res://assets/sprites/aliensandhexagons/ufoship.png" id="52_o8ni1"]
 [ext_resource type="PackedScene" uid="uid://dtgoieb78hhf3" path="res://scenes/creatures/shroom_lvl_2.tscn" id="52_pf7vy"]
-[ext_resource type="Texture2D" uid="uid://dvv3sul3hgkmu" path="res://assets/sprites/aliensandhexagons/ufo laser.png" id="53_3hbvx"]
-[ext_resource type="Script" uid="uid://gm4ldccgiuao" path="res://scripts/smart_model.gd" id="53_q8j3a"]
-[ext_resource type="Script" uid="uid://cmn6umx8ffps5" path="res://scripts/health.gd" id="54_3hbvx"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_qnb83"]
-size = Vector2(8, 85.5)
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_q8j3a"]
-radius = 12.0
-height = 64.0
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_sww3w"]
-size = Vector2(33.75, 11)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_wljb1"]
-size = Vector2(35.4375, 14.75)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_suyxu"]
-size = Vector2(5.9375, 70)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_i4re6"]
-size = Vector2(50, 68)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_v2yb1"]
-size = Vector2(23, 70)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_7025r"]
-radius = 24.0
-
-[sub_resource type="Curve2D" id="Curve2D_ms3bu"]
+[sub_resource type="Curve2D" id="Curve2D_0sl42"]
 _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 999.011, 9.11677, 0, 0, 0, 0, 1215.43, 76.4684, 0, 0, 0, 0, 1211.84, 153.222, 0, 0, 0, 0, 1198.27, 228.273, 0, 0, 0, 0, 1171.73, 300.257, 0, 0, 0, 0, 1138.07, 369.781, 0, 0, 0, 0, 1026.23, 406.311, 0, 0, 0, 0, 997.454, 469.454, 0, 0, 0, 0, 971.484, 534.623, 0, 0, 0, 0, 946.799, 601.639, 0, 0, 0, 0, 921.54, 669.538, 0, 0, 0, 0, 947, 783.426, 0, 0, 0, 0, 890.284, 835.574, 0, 0, 0, 0, 828.75, 881.624, 0, 0, 0, 0, 762.395, 921.578, 0, 0, 0, 0, 646.996, 890.514, 0, 0, 0, 0, 588.066, 926.643, 0, 0, 0, 0, 530.624, 966.048, 0, 0, 0, 0, 473.882, 1008.59, 0, 0, 0, 0, 414.604, 1048.63, 0, 0, 0, 0, 352.44, 1084.7, 0, 0, 0, 0, 303.43, 1181.78, 0, 0, 0, 0, 226.315, 1183.02, 0, 0, 0, 0, 149.785, 1180.32, 0, 0, 0, 0, 73.8408, 1173.67, 0, 0, 0, 0, -1.23965e-13, 770.855, 0, 0, 0, 0, -49.267, 776.617, 0, 0, 0, 0, -99.7693, 784.408, 0, 0, 0, 0, -151.435, 790.601, 0, 0, 0, 0, -203.755, 793.575, 0, 0, 0, 0, -278.326, 856.599, 0, 0, 0, 0, -326.385, 825.757, 0, 0, 0, 0, -371.94, 791.846, 0, 0, 0, 0, -415.455, 756.601, 0, 0, 0, 0, -459.868, 724.642, 0, 0, 0, 0, -506.224, 696.757, 0, 0, 0, 0, -507.972, 614.032, 0, 0, 0, 0, -555.801, 590.958, 0, 0, 0, 0, -599.54, 562.541, 0, 0, 0, 0, -635.056, 525.548, 0, 0, 0, 0, -663.35, 481.952, 0, 0, 0, 0, -745.487, 473.1, 0, 0, 0, 0, -761.199, 419.032, 0, 0, 0, 0, -780.402, 367.321, 0, 0, 0, 0, -803.096, 317.968, 0, 0, 0, 0, -756.772, 245.89, 0, 0, 0, 0, -784.339, 200.767, 0, 0, 0, 0, -805.519, 153.347, 0, 0, 0, 0, -814.843, 103.11, 0, 0, 0, 0, -814.553, 51.2473, 0, 0, 0, 0, -1199.4, -3.85762e-13, 0, 0, 0, 0, -1181.03, -73.7454, 0, 0, 0, 0, -1166.37, -147.214, 0, 0, 0, 0, -1156.06, -220.824, 0, 0, 0, 0, -1149.26, -295.08, 0, 0, 0, 0, -1068.95, -347.322, 0, 0, 0, 0, -1052.37, -417.03, 0, 0, 0, 0, -1026.69, -483.026, 0, 0, 0, 0, -988.937, -543.118, 0, 0, 0, 0, -943.149, -598.541, 0, 0, 0, 0, -955.16, -693.965, 0, 0, 0, 0, -904.244, -747.859, 0, 0, 0, 0, -856.338, -804.57, 0, 0, 0, 0, -811.52, -865.131, 0, 0, 0, 0, -767.754, -928.055, 0, 0, 0, 0, -669.398, -921.348, 0, 0, 0, 0, -610.368, -961.802, 0, 0, 0, 0, -546.926, -994.045, 0, 0, 0, 0, -478.623, -1015.6, 0, 0, 0, 0, -408.827, -1031.06, 0, 0, 0, 0, -339.45, -1044.72, 0, 0, 0, 0, -293.42, -1142.8, 0, 0, 0, 0, -222.74, -1170.91, 0, 0, 0, 0, -150.54, -1196.98, 0, 0, 0, 0, -76.1199, -1217.07, 0, 0, 0, 0, -2.26059e-13, -1230.65, 0, 0, 0, 0, 51.7685, -822.837, 0, 0, 0, 0, 100.537, -801.272, 0, 0, 0, 0, 147.991, -779.026, 0, 0, 0, 0, 194.437, -758.347, 0, 0, 0, 0, 240.796, -741.094, 0, 0, 0, 0, 319.461, -806.866, 0, 0, 0, 0, 376.357, -798.248, 0, 0, 0, 0, 431.24, -783.573, 0, 0, 0, 0, 484.112, -762.839, 0, 0, 0, 0, 480.983, -662.016, 0, 0, 0, 0, 510.769, -618.456, 0, 0, 0, 0, 538.205, -574.106, 0, 0, 0, 0, 565.337, -531.325, 0, 0, 0, 0, 594.295, -491.643, 0, 0, 0, 0, 696.343, -505.923, 0, 0, 0, 0, 739.36, -468.442, 0, 0, 0, 0, 778.819, -427.594, 0, 0, 0, 0, 809.707, -380.925, 0, 0, 0, 0, 832.923, -329.778, 0, 0, 0, 0, 765.072, -248.587, 0, 0, 0, 0, 762.844, -196.51, 0, 0, 0, 0, 763.622, -145.963, 0, 0, 0, 0, 769.661, -97.069, 0, 0, 0, 0, 999.011, 9.11677)
 }
@@ -96,6 +58,8 @@ gradient = SubResource("Gradient_264po")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_q8j3a"]
 radius = 138.924
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_05nbr"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pf7vy"]
 shader = ExtResource("49_i4re6")
@@ -116,12 +80,14 @@ shader_parameter/time_offset = 0.0
 shader_parameter/star_sharpness = 0.15
 shader_parameter/jitter_amount = 3.0
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o8ni1"]
-radius = 22.0
-height = 82.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oaba0"]
+size = Vector2(2535.58, 1126.07)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_7ixpq"]
-size = Vector2(1000, 10000)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0sl42"]
+shader = ExtResource("39_m4url")
+shader_parameter/radius = 0.1
+shader_parameter/edge_softness = 0.02
+shader_parameter/rainbow_scale = 3.0
 
 [node name="Game" type="Node2D"]
 
@@ -143,148 +109,8 @@ autowrap_mode = 2
 
 [node name="Planet" type="Node2D" parent="."]
 
-[node name="teleporter" type="Node2D" parent="Planet"]
+[node name="teleporter" parent="Planet" instance=ExtResource("3_pr1ej")]
 position = Vector2(-99, -1384)
-script = ExtResource("27_fedci")
-goatboy_scene = ExtResource("8_vtaks")
-spawn_point = NodePath("spawnpoint")
-
-[node name="TransporterDoorOpenB" type="Sprite2D" parent="Planet/teleporter"]
-z_index = -2
-material = ExtResource("14_rm0al")
-position = Vector2(-23, 115)
-scale = Vector2(0.059, 0.059)
-texture = ExtResource("27_qnb83")
-
-[node name="TransporterDoorOpenFrontLayerB" type="Sprite2D" parent="Planet/teleporter"]
-z_index = 2
-material = ExtResource("14_rm0al")
-position = Vector2(-23, 115)
-scale = Vector2(0.059, 0.059)
-texture = ExtResource("28_sww3w")
-
-[node name="Construction" type="StaticBody2D" parent="Planet/teleporter"]
-
-[node name="Backwall" type="CollisionShape2D" parent="Planet/teleporter/Construction"]
-position = Vector2(-40, 117)
-shape = SubResource("RectangleShape2D_qnb83")
-
-[node name="Backwall2" type="CollisionShape2D" parent="Planet/teleporter/Construction"]
-position = Vector2(-49, 119)
-shape = SubResource("CapsuleShape2D_q8j3a")
-
-[node name="Floor" type="CollisionShape2D" parent="Planet/teleporter/Construction"]
-position = Vector2(-19, 163.5)
-shape = SubResource("RectangleShape2D_sww3w")
-
-[node name="ceiling" type="CollisionShape2D" parent="Planet/teleporter/Construction"]
-position = Vector2(-23.7188, 77.625)
-shape = SubResource("RectangleShape2D_wljb1")
-
-[node name="Door" type="CollisionShape2D" parent="Planet/teleporter/Construction"]
-position = Vector2(-13.0313, 120)
-shape = SubResource("RectangleShape2D_suyxu")
-script = ExtResource("27_wljb1")
-detector_path = NodePath("detec")
-visual_sprite_path = NodePath("TransporterDoorClosed")
-collider_path = NodePath(".")
-
-[node name="detec" type="Area2D" parent="Planet/teleporter/Construction/Door"]
-position = Vector2(9.0313, 2)
-collision_layer = 64
-collision_mask = 6
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Planet/teleporter/Construction/Door/detec"]
-position = Vector2(12.0313, 0)
-shape = SubResource("RectangleShape2D_i4re6")
-
-[node name="TransporterDoorClosed" type="Sprite2D" parent="Planet/teleporter/Construction/Door"]
-visible = false
-z_index = 1
-position = Vector2(0.03125, 0)
-scale = Vector2(0.059, 0.059)
-texture = ExtResource("27_qouja")
-
-[node name="TransporterDoorOpen1" type="Sprite2D" parent="Planet/teleporter/Construction/Door"]
-visible = false
-z_index = 1
-position = Vector2(0.0822449, 0.0460205)
-scale = Vector2(0.059, 0.059)
-texture = ExtResource("28_wljb1")
-
-[node name="TransporterDoorOpen2" type="Sprite2D" parent="Planet/teleporter/Construction/Door"]
-visible = false
-z_index = 1
-position = Vector2(0.0822449, 0.0460205)
-scale = Vector2(0.059, 0.059)
-texture = ExtResource("29_v2yb1")
-
-[node name="TransporterDoorOpen3" type="Sprite2D" parent="Planet/teleporter/Construction/Door"]
-visible = false
-z_index = 1
-position = Vector2(0.0822449, 0.0460205)
-scale = Vector2(0.059, 0.059)
-texture = ExtResource("30_js0lu")
-
-[node name="InOut" type="Node2D" parent="Planet/teleporter/Construction/Door"]
-position = Vector2(-4.9687, -1)
-script = ExtResource("32_v2yb1")
-inner_area_path = NodePath("In")
-outer_area_path = NodePath("Out")
-visual_reference_sprite_path = NodePath("../TransporterDoorClosed")
-
-[node name="In" type="Area2D" parent="Planet/teleporter/Construction/Door/InOut"]
-position = Vector2(-14, 14)
-collision_layer = 32
-collision_mask = 6
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Planet/teleporter/Construction/Door/InOut/In"]
-position = Vector2(3.5, -14)
-shape = SubResource("RectangleShape2D_v2yb1")
-
-[node name="Out" type="Area2D" parent="Planet/teleporter/Construction/Door/InOut"]
-position = Vector2(11, 1)
-collision_layer = 32
-collision_mask = 6
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Planet/teleporter/Construction/Door/InOut/Out"]
-position = Vector2(3, 1)
-shape = SubResource("RectangleShape2D_v2yb1")
-
-[node name="DoorModel" type="Node2D" parent="Planet/teleporter/Construction/Door"]
-
-[node name="ControlSystem" type="StaticBody2D" parent="Planet/teleporter/Construction"]
-position = Vector2(-20, 41)
-collision_layer = 64
-collision_mask = 64
-script = ExtResource("24_js0lu")
-laser_projectile_scene = ExtResource("24_gxtfn")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Planet/teleporter/Construction/ControlSystem"]
-position = Vector2(1, 1)
-shape = SubResource("CircleShape2D_7025r")
-
-[node name="TransporterAntennaB" type="Sprite2D" parent="Planet/teleporter/Construction/ControlSystem"]
-material = ExtResource("14_rm0al")
-position = Vector2(5, 4)
-scale = Vector2(0.05, 0.05)
-texture = ExtResource("25_pl11u")
-
-[node name="TransporterBaseB" type="Sprite2D" parent="Planet/teleporter"]
-z_index = -3
-material = ExtResource("14_rm0al")
-position = Vector2(-21, 167)
-scale = Vector2(0.059, 0.059)
-texture = ExtResource("34_gxtfn")
-
-[node name="spawnpoint" type="Node2D" parent="Planet/teleporter"]
-position = Vector2(-17, 121)
-
-[node name="TransporterBackWallB" type="Sprite2D" parent="Planet/teleporter"]
-z_index = -6
-position = Vector2(-13, 123)
-scale = Vector2(0.059, 0.059)
-texture = ExtResource("27_sww3w")
 
 [node name="ForegroundMushroom1" parent="Planet" instance=ExtResource("7_rysoc")]
 position = Vector2(-55, -1247)
@@ -346,10 +172,10 @@ noise_strength = 1.0
 
 [node name="GeneratedPath" type="Path2D" parent="Planet/Pathwright"]
 texture_repeat = 2
-curve = SubResource("Curve2D_ms3bu")
+curve = SubResource("Curve2D_0sl42")
 
 [node name="PathRenderer" type="Node2D" parent="Planet/Pathwright"]
-z_index = -3
+z_index = -5
 texture_repeat = 2
 material = ExtResource("14_rm0al")
 script = ExtResource("12_dinhu")
@@ -372,7 +198,7 @@ mushroom_scenes = Array[PackedScene]([ExtResource("7_rysoc")])
 clear_existing = true
 
 [node name="FillRenderer" type="Node2D" parent="Planet/Pathwright"]
-z_index = -3
+z_index = -6
 script = ExtResource("19_5newe")
 fill_texture = ExtResource("20_37s47")
 fill_material = ExtResource("14_rm0al")
@@ -408,6 +234,15 @@ shape = SubResource("CircleShape2D_q8j3a")
 [node name="slime" parent="Planet" instance=ExtResource("49_8qswn")]
 position = Vector2(264, -1422)
 
+[node name="ShroomLvl2" parent="Planet" instance=ExtResource("52_pf7vy")]
+position = Vector2(247, -794)
+
+[node name="ShroomLvl3" parent="Planet" instance=ExtResource("52_pf7vy")]
+position = Vector2(150, -822)
+
+[node name="ShroomLvl4" parent="Planet" instance=ExtResource("52_pf7vy")]
+position = Vector2(81, -841)
+
 [node name="ShroomLvl1" parent="." instance=ExtResource("47_h3rex")]
 position = Vector2(608, -540)
 
@@ -434,10 +269,11 @@ position = Vector2(-423, -1138)
 [node name="CameraController" type="Camera2D" parent="."]
 position = Vector2(-328.807, -1331.97)
 ignore_rotation = false
-zoom = Vector2(2, 2)
+zoom = Vector2(1.55, 1.55)
 limit_bottom = 100000000
 limit_smoothed = true
 position_smoothing_enabled = true
+position_smoothing_speed = 12.0
 rotation_smoothing_enabled = true
 script = ExtResource("6_bhx41")
 target_path = NodePath("../Planet/teleporter")
@@ -453,11 +289,9 @@ mouse_filter = 2
 color = Color(0.259093, 0.335126, 0.442152, 1)
 
 [node name="slime" parent="." instance=ExtResource("49_8qswn")]
+material = SubResource("ShaderMaterial_05nbr")
 position = Vector2(-299, -1290)
 floor_max_angle = 1.34565
-
-[node name="ParallaWorld" type="Node2D" parent="."]
-visible = false
 
 [node name="GiantSkyCuubeFrameOfReference" type="Node2D" parent="."]
 position = Vector2(1209, -691)
@@ -485,13 +319,6 @@ fill_texture = ExtResource("49_rm0al")
 fill_material = SubResource("ShaderMaterial_o8ni1")
 uv_scale = Vector2(18, 12)
 
-[node name="TheStars" type="Sprite2D" parent="GiantSkyCuubeFrameOfReference/pivot"]
-z_index = -20
-material = SubResource("ShaderMaterial_3hbvx")
-position = Vector2(15, 556)
-scale = Vector2(12945, 15088)
-texture = ExtResource("50_o8ni1")
-
 [node name="TheSun" type="Node2D" parent="GiantSkyCuubeFrameOfReference/pivot"]
 position = Vector2(36673, -417)
 
@@ -505,45 +332,42 @@ visible = false
 position = Vector2(-87, 87)
 points = PackedVector2Array(-1426, -3854, -1618, 1329, -3981, 41, -3951, -3171, -1444, -3923)
 
-[node name="Ufo" type="CharacterBody2D" parent="."]
+[node name="starspivot" type="Node2D" parent="GiantSkyCuubeFrameOfReference"]
+position = Vector2(-1161, 743)
+
+[node name="TheStars" type="Sprite2D" parent="GiantSkyCuubeFrameOfReference/starspivot"]
+z_index = -20
+material = SubResource("ShaderMaterial_3hbvx")
+position = Vector2(52, 1161)
+scale = Vector2(12945, 15088)
+texture = ExtResource("50_o8ni1")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="GiantSkyCuubeFrameOfReference"]
+position = Vector2(-837, -403)
+scale = Vector2(0.130542, 0.130542)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GiantSkyCuubeFrameOfReference/StaticBody2D"]
+position = Vector2(26.8113, -11.4941)
+shape = SubResource("RectangleShape2D_oaba0")
+
+[node name="sprites" type="Sprite2D" parent="GiantSkyCuubeFrameOfReference/StaticBody2D"]
+z_index = -4
+texture = ExtResource("38_05nbr")
+
+[node name="Ufo" parent="." instance=ExtResource("38_nepv3")]
 position = Vector2(237, -1270)
-motion_mode = 1
-script = ExtResource("52_ms3bu")
-planet_path = NodePath("../Planet")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Ufo"]
-position = Vector2(-14, -44)
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_o8ni1")
-script = ExtResource("54_3hbvx")
+[node name="100PxDiameterCircleWhite" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_0sl42")
+position = Vector2(-35, -1335)
+texture = ExtResource("40_8ool0")
 
-[node name="Model" type="Node2D" parent="Ufo"]
-position = Vector2(-14, -44)
-script = ExtResource("53_q8j3a")
-metadata/_custom_type_script = "uid://gm4ldccgiuao"
+[node name="Crystals4" type="Sprite2D" parent="."]
+position = Vector2(-15, -1277)
+scale = Vector2(0.175665, 0.175665)
+texture = ExtResource("41_8ool0")
 
-[node name="Ufoship" type="Sprite2D" parent="Ufo/Model"]
-material = ExtResource("49_o8ni1")
-position = Vector2(3, 5)
-scale = Vector2(0.14452, 0.14452)
-texture = ExtResource("52_o8ni1")
-
-[node name="UfoLaser" type="Sprite2D" parent="Ufo/Model/Ufoship"]
-z_index = -1
-material = ExtResource("49_o8ni1")
-position = Vector2(72.6543, 238.722)
-texture = ExtResource("53_3hbvx")
-
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2(-415, -1277)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(-685, -83)
-shape = SubResource("RectangleShape2D_7ixpq")
-
-[node name="StaticBody2D2" type="StaticBody2D" parent="."]
-position = Vector2(1685, -1112)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
-position = Vector2(-685, -83)
-shape = SubResource("RectangleShape2D_7ixpq")
+[node name="2024-3-20-slime-eyes-new0001s0005Angry-eye-1" type="Sprite2D" parent="."]
+position = Vector2(-131, -1338)
+scale = Vector2(0.0688403, 0.0688403)
+texture = ExtResource("42_pr1ej")

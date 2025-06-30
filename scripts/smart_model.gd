@@ -3,13 +3,14 @@ class_name SmartModel
 
 @export var dissolve_material: ShaderMaterial = preload("res://assets/shaders/dissolve.tres")
 @export var default_noise_texture: Texture2D = preload("res://assets/sprites/misc/MMFlowNoise.png")
-@export var dissolve_speed := 1.0
+@export var dissolve_speed := 2
 
 var sprite_map: Dictionary = {}
 var is_dissolved := false
 var dissolve_coroutine_running := false
 
 func _ready():
+	dissolve_speed = 2 # sorry for hack
 	cache_all_sprites(self)
 
 func cache_all_sprites(root: Node) -> void:
@@ -43,6 +44,7 @@ func revert_materials():
 	is_dissolved = false
 
 func begin_dissolve(payload: Dictionary = {}):
+	print("bd")
 	if dissolve_coroutine_running:
 		return
 	dissolve_coroutine_running = true

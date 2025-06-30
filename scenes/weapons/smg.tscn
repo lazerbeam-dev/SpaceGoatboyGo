@@ -1,9 +1,21 @@
-[gd_scene load_steps=5 format=3 uid="uid://b8gu7x3cgwwvh"]
+[gd_scene load_steps=8 format=3 uid="uid://b8gu7x3cgwwvh"]
 
 [ext_resource type="Script" uid="uid://x6sgbpv3myln" path="res://weapon_SMG.gd" id="1_hi22h"]
 [ext_resource type="PackedScene" uid="uid://dj147c2levb5i" path="res://scenes/projectiles/red_laser.tscn" id="2_hi22h"]
 [ext_resource type="Texture2D" uid="uid://chmuuyy4yprlb" path="res://assets/sprites/weapons/lasersmg_blue.png" id="4_06rib"]
 [ext_resource type="Material" uid="uid://4d2su4w8x8ou" path="res://assets/shaders/emotional_material_creature.tres" id="5_eux8k"]
+[ext_resource type="PackedScene" uid="uid://blvewi33pd1co" path="res://scenes/weapons/muzzle_flash.tscn" id="5_txeqq"]
+[ext_resource type="Shader" uid="uid://cjl06cwivpkxs" path="res://assets/shaders/triangleColourFlash.gdshader" id="6_txeqq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_06rib"]
+shader = ExtResource("6_txeqq")
+shader_parameter/angle_degrees = 59.286
+shader_parameter/edge_softness = 0.056
+shader_parameter/blend_color = Color(0.341395, 0.278878, 0.932023, 1)
+shader_parameter/color_blend_falloff = 0.299
+shader_parameter/min_radius = 0.116
+shader_parameter/max_radius = 0.482
+shader_parameter/radial_softness = 0.066
 
 [node name="Smg" type="Node2D"]
 z_index = 1
@@ -22,3 +34,9 @@ texture = ExtResource("4_06rib")
 material = ExtResource("5_eux8k")
 position = Vector2(13, -5)
 scale = Vector2(0.0447351, 0.0447351)
+
+[node name="MuzzleFlash" parent="." instance=ExtResource("5_txeqq")]
+z_index = 1
+material = SubResource("ShaderMaterial_06rib")
+position = Vector2(10, -5)
+scale = Vector2(0.302505, 0.373764)

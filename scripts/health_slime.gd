@@ -3,7 +3,6 @@ class_name DestructibleSlime
 
 var split_scene = preload("res://scenes/creatures/slime.tscn")
 
-@export var model_path: NodePath = "Model"
 @export var gloop_path: NodePath = "GloopArea2D/CollisionShape2D"
 @export var collider_base_radius := 10.0
 @export var invulnerability_duration := 0.5

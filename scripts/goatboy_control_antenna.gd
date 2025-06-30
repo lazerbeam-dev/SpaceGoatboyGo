@@ -7,7 +7,7 @@ class_name GoatboyControlAntenna
 @export var laser_projectile_scene: PackedScene
 @export var laser_speed := 600.0
 
-var target: Node2D
+@export var target: Node2D
 var teleporter: Node
 var time_accum := 0.0
 

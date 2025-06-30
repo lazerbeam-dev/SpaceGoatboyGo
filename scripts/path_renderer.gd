@@ -126,7 +126,7 @@ func _render_cliffs():
 	for segment in cliff_segments:
 		var line := Line2D.new()
 		add_child(line)
-		line.z_index = -1
+		line.z_index = -2
 		line.texture = cliff_texture
 		line.material = line_material
 		line.texture_mode = Line2D.LINE_TEXTURE_TILE

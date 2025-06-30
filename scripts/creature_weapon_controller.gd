@@ -1,8 +1,8 @@
 extends Node2D
 class_name CreatureWeaponController
 
-var arm_weapon_map := {}  # Arm -> Weapon
-var weapon_groups := {}  # cooldown -> Array[WeaponFireData]
+var arm_weapon_map := {}
+var weapon_groups := {}
 var facing_right := true
 var arms := []
 var click_to_aim_direction := Vector2.ZERO
@@ -11,6 +11,7 @@ var is_mouse_down := false
 var camera: Camera2D
 @export var health_node_path: NodePath
 var health_node: Node = null
+var click_world_target_position := Vector2.ZERO
 # Internal firing data structure
 class WeaponFireData:
 	var weapon: Weapon
@@ -38,6 +39,8 @@ func _unhandled_input(event):
 		is_mouse_down = event.pressed
 		if event.pressed:
 			print("click")
+			# Store the mouse's world position directly when clicked
+			click_world_target_position = camera.get_global_mouse_position()
 
 	if event.is_action_pressed("switch_weapon"):
 		if arms.is_empty():
@@ -64,7 +67,7 @@ func _ready():
 	if not camera:
 		push_warning("Camera not found in parent tree.")
 
-	await get_tree().process_frame  # <- ensures onready vars are fully initialized
+	await get_tree().process_frame
 
 	if has_node(health_node_path):
 		health_node = get_node(health_node_path)
@@ -73,50 +76,73 @@ func _ready():
 	else:
 		push_warning("Health node not found at path: %s" % health_node_path)
 
+func get_aim_target_world_position() -> Vector2:
+	if is_mouse_down and camera:
+		return camera.get_global_mouse_position()
 
+	var x = int(Input.is_action_pressed("ui_right")) - int(Input.is_action_pressed("ui_left"))
+	var y = int(Input.is_action_pressed("ui_down")) - int(Input.is_action_pressed("ui_up"))
+	var keyboard_input_dir = Vector2(x, y).normalized()
+
+	if keyboard_input_dir == Vector2.ZERO:
+		return Vector2.ZERO # No active aim if no keyboard input
+
+	# --- Corrected Keyboard Aiming Logic ---
+
+	# 1. Get the raw keyboard direction (e.g., Vector2(0, -1) for up)
+	# 2. Rotate this direction by the camera's *global rotation*.
+	#    This ensures that "ui_up" always points "away from the planet"
+	#    relative to how the camera is oriented.
+	var world_aim_dir_from_keyboard = keyboard_input_dir.rotated(camera.global_rotation)
+	
+	# 3. Project this rotated direction out from the player's global position
+	#    by a fixed distance. This distance should be large enough to be
+	#    off-screen or at least well away from the player.
+	#    Adjust 500.0 to a suitable aiming distance for your game.
+	var aiming_distance = 500.0 # You can make this an @export var if you want to tweak in editor
+	return global_position + world_aim_dir_from_keyboard * aiming_distance
+
+# The rest of your code remains the same.
 func _process(delta):
 	if arm_weapon_map.is_empty():
 		return
 
-	var aim_dir = get_aim_vector()
-	point_arms(aim_dir)
+	var aim_target_world_pos = get_aim_target_world_position()
+	
+	# Always call point_arms, even if aim_target_world_pos is ZERO.
+	# The point_arms function will now handle setting target_direction to ZERO.
+	point_arms(aim_target_world_pos)
 
-	if aim_dir == Vector2.ZERO:
+	# Only proceed with firing logic if there's an active aim target
+	if aim_target_world_pos == Vector2.ZERO:
+		# If no aim, ensure is_mouse_down is false to prevent accidental firing.
+		is_mouse_down = false 
 		return
 
 	var current_time = Time.get_ticks_msec() / 1000.0
 	
-	# Process each weapon group
 	for cooldown in weapon_groups:
 		var group = weapon_groups[cooldown]
 		
-		# Clean up invalid weapons first
 		group = group.filter(func(fire_data): return is_instance_valid(fire_data.weapon))
 		weapon_groups[cooldown] = group
 		
-		# Check if weapons are aimed and fire if ready
 		for fire_data in group:
-			# Find the arm holding this weapon
 			var weapon_arm = arm_weapon_map.find_key(fire_data.weapon)
 			if weapon_arm:
-				# Check if arm is close enough to target direction
-				var target_angle = aim_dir.angle()
-				var current_angle = weapon_arm.rotation
-				
-				# Handle mirrored arms when facing left
-				if weapon_arm.is_mirrored:
-					# When mirrored, we need to flip the comparison
-					target_angle = PI - target_angle
-				
-				var angle_diff = abs(angle_difference(current_angle, target_angle))
-				fire_data.is_aimed = angle_diff < 0.15  # ~8.5 degrees tolerance
-			
-			# Fire if aimed and ready
+				var current_arm_aim_dir = (aim_target_world_pos - weapon_arm.global_position).normalized()
+				var current_arm_global_angle = weapon_arm.global_rotation
+				var target_arm_global_angle = current_arm_aim_dir.angle()
+
+				var angle_diff = abs(angle_difference(current_arm_global_angle, target_arm_global_angle))
+				fire_data.is_aimed = angle_diff < 0.15
+
 			if current_time >= fire_data.next_fire_time and fire_data.is_aimed:
-				fire_data.weapon.attempt_fire(aim_dir, current_time)
-				fire_data.next_fire_time = current_time + cooldown
-				click_to_aim_direction = Vector2.ZERO
+				# Assuming the weapon's "forward" is Vector2.RIGHT when its rotation is 0.
+				var fire_aim_dir = Vector2.RIGHT.rotated(fire_data.weapon.global_rotation)
 				
+				fire_data.weapon.attempt_fire(fire_aim_dir, current_time)
+				fire_data.next_fire_time = current_time + cooldown
 
 func switch_weapon_for_arm(arm: Arm, new_weapon):
 	if arm_weapon_map.has(arm):
@@ -136,8 +162,11 @@ func equip_weapon(weapon: Weapon, arm: Arm):
 	arm_weapon_map[arm] = weapon
 
 	# Position correctly
-	if arm.has_method("get_hand_pos"):
-		weapon.global_position = arm.get_hand_pos()
+	if arm.has_method("get_hand_pos_gun_z"):
+		var gnz = arm.get_hand_pos_gun_z()
+		print(gnz, "ngutngtnugt")
+		weapon.global_position = gnz.hp
+		weapon.z_index = gnz.gz
 	else:
 		weapon.global_position = arm.global_position
 	weapon.rotation = 0
@@ -164,26 +193,47 @@ func equip_weapon(weapon: Weapon, arm: Arm):
 	
 	var fire_data = WeaponFireData.new(weapon, offset)
 	group.append(fire_data)
-	
-	print("Equipped weapon %s with cooldown %f and offset %f" % [weapon.name, cd, offset])
 
 func get_aim_vector() -> Vector2:
 	if is_mouse_down and camera:
-		var from = global_position
 		var mouse_world_pos = camera.get_global_mouse_position()
-		return (mouse_world_pos - from).rotated(-camera.rotation).normalized()
+		
+		# Get the vector from the creature's global position to the mouse's global position
+		var to_mouse_vector = mouse_world_pos - global_position
+		
+		# Rotate this vector by the inverse of the camera's global rotation.
+		# This effectively converts the world-space mouse position into a
+		# direction relative to the camera's "up" (which is effectively the planet's up).
+		# By using -camera.global_rotation, we're un-rotating the vector
+		# so it's as if the camera (and the planet) were at 0 rotation.
+		return to_mouse_vector.rotated(-camera.global_rotation).normalized()
 
 	var x = int(Input.is_action_pressed("ui_right")) - int(Input.is_action_pressed("ui_left"))
 	var y = int(Input.is_action_pressed("ui_down")) - int(Input.is_action_pressed("ui_up"))
-	return Vector2(x, y).normalized()
+	
+	# For keyboard input, we also need to account for the camera's rotation
+	# to ensure that "up" on the keyboard still means "away from the planet"
+	# and "right" means "clockwise around the planet".
+	var keyboard_dir = Vector2(x, y).normalized()
+	return keyboard_dir.rotated(-camera.global_rotation)
 
 
-
-func point_arms(aim_dir: Vector2):
-	var dir = aim_dir if aim_dir != Vector2.ZERO else Vector2.DOWN
+func point_arms(aim_target_world_pos: Vector2):
+	# Change starts here: Always iterate through arms
 	for arm in arms:
-		arm.target_direction = dir
-		arm.is_mirrored = not facing_right
+		if aim_target_world_pos == Vector2.ZERO:
+			# If no active target, set target_direction to ZERO so Arm script can default
+			arm.target_direction = Vector2.ZERO
+		else:
+			# Calculate the direction from the arm's *global position* to the *world target*
+			var dir_to_target = (aim_target_world_pos - arm.global_position).normalized()
+			
+			# Set the arm's target_direction.
+			# The Arm script will then use this global direction to set its local rotation.
+			arm.target_direction = dir_to_target
+			
+		arm.is_mirrored = not facing_right # This logic remains the same regardless of aiming
+										  # as it's typically tied to character facing.
 
 func find_weapons_recursive(root: Node) -> Array:
 	var found := []
@@ -250,8 +300,6 @@ func drop_weapons():
 		drop_weapon(weapon)
 		
 func _on_death_signal():
-	print("dddddddieeeeeeeeeing")
-	#die()
 	drop_weapons()
 	set_process(false)
 	set_physics_process(false)

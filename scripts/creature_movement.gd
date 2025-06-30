@@ -1,19 +1,18 @@
 extends CharacterBody2D
 class_name Creature
-
 @export var planet_path: NodePath
 @export var gravity_strength: float = 980.0
 @export var speed: float = 260.0
 @export var jump_velocity: float = -300.0
 @export var coyote_time: float = 0.15
 @export var death_delay: float = 1.0
-
+@export var facing_right := true
 func can_jump() -> bool:
-	return coyote_timer <= coyote_time
+	return coyote_timer <= coyote_time and not is_stunned
 
 var jump_strength_ratio: float = 1.0
 var planet: Node2D
-var facing_right := true
+
 var move_input: float = 0.0
 var jump_requested: bool = false
 var coyote_timer := 0.0
@@ -22,6 +21,11 @@ var death_timer := 0.0
 var is_dying := false
 var did_jump := false
 var externally_controlled := false
+
+# Stunlock system
+var is_stunned := false
+var stun_timer := 0.0
+var stored_move_input := 0.0  # Store input during stun for smooth recovery
 
 @onready var model: Node = $Model
 @onready var arms: CreatureWeaponController = model.get_node_or_null("Torso/Arms") if model else null
@@ -44,7 +48,16 @@ func _ready():
 func _physics_process(delta):
 	if not planet:
 		return
-
+	
+	# Handle stunlock timer
+	if is_stunned:
+		stun_timer -= delta
+		if stun_timer <= 0.0:
+			is_stunned = false
+			# Restore stored input for smooth transition
+			move_input = stored_move_input
+			print("Creature: ", name, " recovered from stun")
+	
 	if is_dying:
 		death_timer += delta
 		if death_timer >= death_delay:
@@ -52,101 +65,138 @@ func _physics_process(delta):
 			is_dying = false
 			move_input = 0.0
 			jump_requested = false
-
+	
 	if is_dead:
 		return
-
+	
 	var gravity_dir = (planet.global_position - global_position).normalized()
 	var up_dir = -gravity_dir
 	up_direction = up_dir
 	velocity += gravity_dir * gravity_strength * delta
-
+	
 	if is_on_floor() and velocity.dot(up_dir) <= 0:
 		coyote_timer = 0.0
 	else:
 		coyote_timer += delta
-
-	if jump_requested and coyote_timer <= coyote_time:
+	
+	# Block jumping during stun
+	if jump_requested and coyote_timer <= coyote_time and not is_stunned:
 		var strength := 0.25 + pow(jump_strength_ratio, 0.7) * 0.9
 		velocity += up_dir * abs(jump_velocity) * strength
 		coyote_timer = coyote_time + 1.0
 		did_jump = true
 		jump_requested = false
-
+	
 	var right_dir = Vector2(-up_dir.y, up_dir.x)
 	var tangent_speed = velocity.dot(right_dir)
-	var desired_speed = move_input * speed
+	
+	# Use move_input only if not stunned
+	var effective_move_input = 0.0 if is_stunned else move_input
+	var desired_speed = effective_move_input * speed
 	var accel = 2000.0 if is_on_floor() else 800.0
 	tangent_speed = move_toward(tangent_speed, desired_speed, accel * delta)
+	
 	velocity = right_dir * tangent_speed + up_dir * velocity.dot(up_dir)
-
-	if move_input > 0:
-		facing_right = true
-		if arms:
-			arms.facing_right = true
-	elif move_input < 0:
-		facing_right = false
-		if arms:
-			arms.facing_right = false
-
+	
+	# Only update facing direction if not stunned
+	if not is_stunned:
+		if move_input > 0:
+			facing_right = true
+			if arms:
+				arms.facing_right = true
+		elif move_input < 0:
+			facing_right = false
+			if arms:
+				arms.facing_right = false
+	
 	rotation = up_dir.angle() + PI / 2
 	if model:
 		model.scale.x = abs(model.scale.x) * (1 if facing_right else -1)
-
+	
 	velocity.x = clamp(velocity.x, -800.0, 800.0)
 	velocity.y = clamp(velocity.y, -1200.0, 1200.0)
-
+	creature_animate()
 	move_and_slide()
-
-	# Animation control
-	if not legs_animator:
-		return
-
-	if not is_on_floor():
-		if legs_animator.current_animation != "jump":
-			legs_animator.play("jump")
-		legs_animator.playback_active = true
-
-	elif abs(move_input) > 0.1:
-		if legs_animator.current_animation != "walk":
-			legs_animator.play("walk")
-		legs_animator.playback_active = true
-
-	else:
-		if legs_animator.current_animation == "walk":
-			legs_animator.playback_active = false
-
 # External API
 func set_move_input(dir: float):
 	if is_dead:
 		return
-	move_input = clampf(dir, -1.0, 1.0)
+	
+	var new_input = clampf(dir, -1.0, 1.0)
+	
+	if is_stunned:
+		# Store the input for when stun ends
+		stored_move_input = new_input
+	else:
+		move_input = new_input
 
 func trigger_jump(charge_ratio: float = 1.0):
-	if is_dead:
+	if is_dead or is_stunned:
 		return
 	jump_requested = true
 	jump_strength_ratio = clampf(charge_ratio, 0.0, 1.0)
 
 func set_gravity_scale(tog: float):
 	gravity_strength = tog
+	
+# New virtual function for animation
+func creature_animate():
+	if not legs_animator:
+		return
+	
+	if not is_on_floor():
+		if legs_animator.current_animation != "jump":
+			legs_animator.play("jump")
+		legs_animator.playback_active = true
+	elif abs(move_input) > 0.1: # Use effective input for animation
+		if legs_animator.current_animation != "walk":
+			legs_animator.play("walk")
+		legs_animator.playback_active = true
+	else:
+		if legs_animator.current_animation == "walk": # You might want an "idle" animation here
+			legs_animator.playback_active = false
 
 func set_ext(ext: bool):
 	externally_controlled = ext
 
-# Death
+# Stunlock system
+func apply_stun(duration: float):
+	"""Apply stunlock for the specified duration in seconds"""
+	if is_dead:
+		return
+	
+	is_stunned = true
+	stun_timer = duration
+	stored_move_input = move_input  # Store current input
+	move_input = 0.0  # Clear movement immediately
+	jump_requested = false  # Cancel any pending jumps
+	
+	print("Creature: ", name, " stunned for ", duration, " seconds")
+
+func is_currently_stunned() -> bool:
+	"""Check if creature is currently stunned"""
+	return is_stunned
+
+## Death
 func die(custom_delay: float = -1.0):
-	if custom_delay >= 0.0:
-		death_delay = custom_delay
 	is_dying = true
-	death_timer = 0.0
-	if legs_animator:
-		legs_animator.play("death")
+	#if custom_delay >= 0.0:
+		#death_delay = custom_delay
+	#is_dying = true
+	#death_timer = 0.0
+	## Clear stun when dying
+	#is_stunned = false
+	#stun_timer = 0.0
+	#if legs_animator:
+		#legs_animator.play("death")
 
 func revive():
 	is_dead = false
 	is_dying = false
 	death_timer = 0.0
+	# Clear stun when reviving
+	is_stunned = false
+	stun_timer = 0.0
 
 func get_move_input():
 	return move_input

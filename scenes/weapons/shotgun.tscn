@@ -1,15 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://d0xww7i3bxoe0"]
+[gd_scene load_steps=6 format=3 uid="uid://d0xww7i3bxoe0"]
 
-[ext_resource type="Script" uid="uid://rxrcx5kjo0sh" path="res://scripts/weapon.gd" id="1_uukpr"]
+[ext_resource type="Script" uid="uid://dqsiluasiad2y" path="res://scripts/weapon_shotgun.gd" id="1_uukpr"]
 [ext_resource type="PackedScene" uid="uid://b1e7035oti8oc" path="res://scenes/projectiles/blue_laser.tscn" id="2_uukpr"]
 [ext_resource type="Texture2D" uid="uid://c1q3xkse0yl37" path="res://assets/sprites/weapons/laser_shotgun_blue.png" id="4_uukpr"]
 [ext_resource type="Material" uid="uid://4d2su4w8x8ou" path="res://assets/shaders/emotional_material_creature.tres" id="5_qn8fy"]
+[ext_resource type="PackedScene" uid="uid://dsu0g6ovcj654" path="res://scenes/weapons/sprite_flash.tscn" id="5_xtykv"]
 
 [node name="Shotgun" type="Node2D"]
 z_index = 1
 script = ExtResource("1_uukpr")
+spread_angle_degrees = 33.0
 projectile_scene = ExtResource("2_uukpr")
-metadata/_custom_type_script = "uid://rxrcx5kjo0sh"
+metadata/_custom_type_script = "uid://dqsiluasiad2y"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = -1
@@ -19,5 +21,13 @@ scale = Vector2(0.032, 0.032)
 texture = ExtResource("4_uukpr")
 
 [node name="Barrel" type="Marker2D" parent="."]
+z_index = 1
 material = ExtResource("5_qn8fy")
 position = Vector2(20, -4)
+
+[node name="SpriteFlash" parent="." instance=ExtResource("5_xtykv")]
+z_index = 1
+position = Vector2(24, -5)
+
+[node name="SpriteFlash2" parent="." instance=ExtResource("5_xtykv")]
+position = Vector2(22, -4)

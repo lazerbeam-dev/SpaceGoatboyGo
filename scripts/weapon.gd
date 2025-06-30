@@ -1,9 +1,9 @@
 extends Node2D
 class_name Weapon
-
+signal fire_signal # Changed to 'fire_signal' 
 @export var cooldown := 0.5
 @export var projectile_scene: PackedScene
-@export var muzzle_offset := Vector2(20, 0)
+var muzzle_offset : Vector2
 # Preload the item drop wrapper scene
 var dropped_item_scene := preload("res://scenes/creatures/item_drop.tscn")
 @export var dropped_radius := 3.0  # Size of the pickup circle
@@ -31,27 +31,14 @@ func attempt_fire(direction: Vector2, global_time: float) -> void:
 	if global_time - _last_fired_time < cooldown:
 		return
 	_last_fired_time = global_time
+	emit_signal("fire_signal") 
 	fire(direction)
+	
 
 func fire(_direction: Vector2) -> void:
-	if not projectile_scene or not is_instance_valid(barrel):
-		push_warning("Missing projectile scene or barrel")
-		return
-
-	var projectile = projectile_scene.instantiate()
-	get_tree().current_scene.add_child(projectile)
-
 	var barrel_dir = barrel.global_transform.x.normalized()
-
-	projectile.global_position = barrel.global_position
-	projectile.rotation = barrel_dir.angle()  # FIXED: true orientation
-
-	if projectile.has_method("set_velocity"):
-		projectile.set_velocity(barrel_dir * projectile.speed, owner_body)
-	elif "velocity" in projectile:
-		projectile.velocity = barrel_dir * projectile.speed
-
-
+	
+	spawn_projectile(barrel_dir)
 
 func find_owner_body() -> Node2D:
 	var node := get_parent()
@@ -98,3 +85,19 @@ func drop_self():
 
 	# Add to scene
 	scene_root.add_child(wrapper)
+	
+func spawn_projectile(direction: Vector2) -> void:
+	if not projectile_scene or not is_instance_valid(barrel):
+		push_warning("Missing projectile scene or barrel")
+		return
+
+	var projectile = projectile_scene.instantiate()
+	get_tree().current_scene.add_child(projectile)
+
+	projectile.global_position = barrel.global_position
+	projectile.rotation = direction.angle()
+
+	if projectile.has_method("set_velocity"):
+		projectile.set_velocity(direction.normalized() * projectile.speed, owner_body)
+	elif "velocity" in projectile:
+		projectile.velocity = direction.normalized() * projectile.speed

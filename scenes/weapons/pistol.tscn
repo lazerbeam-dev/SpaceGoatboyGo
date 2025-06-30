@@ -1,13 +1,26 @@
-[gd_scene load_steps=5 format=3 uid="uid://c0iefbjow1cug"]
+[gd_scene load_steps=8 format=3 uid="uid://c0iefbjow1cug"]
 
 [ext_resource type="Script" uid="uid://rxrcx5kjo0sh" path="res://scripts/weapon.gd" id="1_ivc8v"]
 [ext_resource type="PackedScene" uid="uid://b1e7035oti8oc" path="res://scenes/projectiles/blue_laser.tscn" id="2_ivc8v"]
 [ext_resource type="Material" uid="uid://4d2su4w8x8ou" path="res://assets/shaders/emotional_material_creature.tres" id="3_ivc8v"]
 [ext_resource type="Texture2D" uid="uid://ry2s560btklj" path="res://assets/sprites/weapons/laser_pistol_blue.png" id="4_ivc8v"]
+[ext_resource type="PackedScene" uid="uid://blvewi33pd1co" path="res://scenes/weapons/muzzle_flash.tscn" id="5_61dc8"]
+[ext_resource type="Shader" uid="uid://cjl06cwivpkxs" path="res://assets/shaders/triangleColourFlash.gdshader" id="6_red3f"]
 
-[node name="Shotgun" type="Node2D"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_c5u5x"]
+shader = ExtResource("6_red3f")
+shader_parameter/angle_degrees = 125.0
+shader_parameter/edge_softness = 0.024
+shader_parameter/blend_color = Color(0.341395, 0.278878, 0.932023, 1)
+shader_parameter/color_blend_falloff = 0.455
+shader_parameter/min_radius = 0.148
+shader_parameter/max_radius = 0.434
+shader_parameter/radial_softness = 0.066
+
+[node name="Pistol" type="Node2D"]
 z_index = 1
 script = ExtResource("1_ivc8v")
+cooldown = 0.9
 projectile_scene = ExtResource("2_ivc8v")
 metadata/_custom_type_script = "uid://rxrcx5kjo0sh"
 
@@ -20,3 +33,10 @@ texture = ExtResource("4_ivc8v")
 
 [node name="Barrel" type="Marker2D" parent="."]
 position = Vector2(9, -4)
+
+[node name="MuzzleFlash" parent="." instance=ExtResource("5_61dc8")]
+material = SubResource("ShaderMaterial_c5u5x")
+position = Vector2(5, -4)
+scale = Vector2(0.237262, 0.237262)
+min_radius = 0.02
+grow_duration = 0.03

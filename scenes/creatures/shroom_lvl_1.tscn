@@ -21,6 +21,7 @@ planet_path = NodePath("../Planet")
 [node name="Health" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_264po")
 script = ExtResource("3_21ae2")
+model_path = NodePath("../Model")
 
 [node name="Model" type="Sprite2D" parent="."]
 material = ExtResource("2_ak5br")

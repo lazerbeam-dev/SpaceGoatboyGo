@@ -6,14 +6,13 @@ class_name CollarSystem
 @export var reply_delay := 0.5
 @export var health_node_path: NodePath
 @export var arms_node_path: NodePath
-
+@export var owner_body_path: NodePath
 var arms_node: Node = null
 var health_node: Node = null
-var owner_body: Node2D
+@onready var owner_body = get_node_or_null(owner_body_path)
 
 
 func _ready():
-	owner_body = get_parent() as Node2D
 	if not owner_body:
 		push_error("CollarSystem must be a child of a Node2D (like Goatboy)")
 
@@ -21,8 +20,8 @@ func _ready():
 		health_node = get_node(health_node_path)
 		if health_node.has_signal("died"):
 			health_node.connect("died", Callable(self, "_on_owner_died"))
-		if health_node.has_signal("health_changed"):
-			health_node.connect("health_changed", Callable(self, "_on_health_changed"))
+		if health_node.has_signal("damaged"):
+			health_node.connect("damaged", Callable(self, "_on_health_damaged"))
 	else:
 		push_warning("CollarSystem: Health node not found at path: %s" % health_node_path)
 
@@ -66,8 +65,8 @@ func _send_status_report(event_type: String, data: Dictionary):
 func _spawn_laser(payload: Dictionary, direction: Vector2):
 	var response = laser_scene.instantiate()
 	response.global_position = owner_body.global_position
-	response.owner = owner_body
-
+	#response.owner = owner_body
+	print("sendingresponse", response)
 	if response.has_method("set_velocity"):
 		response.set_velocity(direction.normalized() * reply_speed, owner_body)
 	else:
@@ -79,11 +78,18 @@ func _spawn_laser(payload: Dictionary, direction: Vector2):
 	get_tree().current_scene.add_child(response)
 
 
-func _on_health_changed(new_health: float):
-	print("COLLAR: Health changed to %s" % new_health)
-	_send_status_report("health_changed", {
-		"current_health": new_health
-	})
+func _on_health_damaged(amount: float, source: Node) -> void:
+	if health_node and health_node.has_meta("mostRecentPayload"):
+		var payload :Dictionary= health_node.get_meta("mostRecentPayload")
+		receive_payload(payload)
+	else:
+		receive_payload({
+			"type": "hit",
+			"amount": amount,
+			"source": source,
+			"origin": owner_body.name,
+			"time": Time.get_unix_time_from_system()
+		})
 
 func _on_owner_died():
 	print("COLLAR: Owner died!")

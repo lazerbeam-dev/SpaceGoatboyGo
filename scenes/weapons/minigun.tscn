@@ -1,15 +1,18 @@
-[gd_scene load_steps=5 format=3 uid="uid://ck5udyukjhwrb"]
+[gd_scene load_steps=6 format=3 uid="uid://ck5udyukjhwrb"]
 
-[ext_resource type="Script" uid="uid://rxrcx5kjo0sh" path="res://scripts/weapon.gd" id="1_gf721"]
+[ext_resource type="Script" uid="uid://dcdi701w12as4" path="res://scripts/weapon_minigun.gd" id="1_6ybgm"]
 [ext_resource type="PackedScene" uid="uid://b1e7035oti8oc" path="res://scenes/projectiles/blue_laser.tscn" id="2_gf721"]
 [ext_resource type="Texture2D" uid="uid://ydnfovw4753h" path="res://assets/sprites/weapons/minigun.png" id="4_6ybgm"]
 [ext_resource type="Material" uid="uid://4d2su4w8x8ou" path="res://assets/shaders/emotional_material_creature.tres" id="5_6ybgm"]
+[ext_resource type="PackedScene" uid="uid://blvewi33pd1co" path="res://scenes/weapons/muzzle_flash.tscn" id="5_iini3"]
 
-[node name="Shotgun" type="Node2D"]
+[node name="Minigun" type="Node2D"]
 z_index = 1
-script = ExtResource("1_gf721")
+script = ExtResource("1_6ybgm")
+barrel_radius = 2.0
+cooldown = 0.05
 projectile_scene = ExtResource("2_gf721")
-metadata/_custom_type_script = "uid://rxrcx5kjo0sh"
+metadata/_custom_type_script = "uid://dcdi701w12as4"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = -1
@@ -20,4 +23,9 @@ texture = ExtResource("4_6ybgm")
 
 [node name="Barrel" type="Marker2D" parent="."]
 material = ExtResource("5_6ybgm")
-position = Vector2(20, -4)
+position = Vector2(19, -4)
+
+[node name="MuzzleFlash" parent="Barrel" instance=ExtResource("5_iini3")]
+z_index = 2
+position = Vector2(-3, 0)
+scale = Vector2(0.213387, 0.213387)

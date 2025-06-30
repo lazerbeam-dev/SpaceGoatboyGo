@@ -5,7 +5,7 @@ class_name TeleporterMain
 @export var goatboys_required := 1
 @export var spawn_point: NodePath  # Assign a Marker2D or Position2D
 @export var check_interval := 1.0  # seconds
-
+@export var control_antenna : NodePath
 var goatboys_alive := 0
 var spawn_node: Node2D
 
@@ -45,7 +45,9 @@ func _spawn_goatboy():
 		cs.init_goatboy(cam_controller, goatboy)
 	else:
 		push_warning("CameraController not found under Game.")
-
+	var antenna = get_node_or_null(control_antenna) as GoatboyControlAntenna
+	if antenna:
+		antenna.target = goatboy
 	# Set GameControl player
 	if GameControl.player == null:
 		GameControl.set_player(goatboy)
