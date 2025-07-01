@@ -10,14 +10,17 @@ var is_dissolved := false
 var dissolve_coroutine_running := false
 
 func _ready():
-	dissolve_speed = 2 # sorry for hack
+	dissolve_speed = 2
 	cache_all_sprites(self)
 
 func cache_all_sprites(root: Node) -> void:
 	for child in root.get_children():
 		cache_all_sprites(child)
 	if root is Sprite2D:
-		sprite_map[root] = root.material
+		sprite_map[root] = {
+			"material": root.material,
+			"z_index": root.z_index,
+		}
 
 func apply_dissolve(blend_color: Color, blend_amount: float, dissolve_amount: float = 0.0, edge_color: Color = Color(1,1,1)):
 	if not dissolve_material:
@@ -25,6 +28,8 @@ func apply_dissolve(blend_color: Color, blend_amount: float, dissolve_amount: fl
 		return
 
 	for sprite in sprite_map.keys():
+		if not is_instance_valid(sprite):
+			continue
 		var mat := dissolve_material.duplicate() as ShaderMaterial
 		mat.set_shader_parameter("blend_color", blend_color)
 		mat.set_shader_parameter("blend_amount", blend_amount)
@@ -40,11 +45,14 @@ func apply_dissolve(blend_color: Color, blend_amount: float, dissolve_amount: fl
 
 func revert_materials():
 	for sprite in sprite_map.keys():
-		sprite.material = sprite_map[sprite]
+		if not is_instance_valid(sprite):
+			continue
+		var data = sprite_map[sprite]
+		sprite.material = data.material
+		sprite.z_index = data.z_index
 	is_dissolved = false
 
 func begin_dissolve(payload: Dictionary = {}):
-	print("bd")
 	if dissolve_coroutine_running:
 		return
 	dissolve_coroutine_running = true
@@ -54,16 +62,14 @@ func _start_dissolve(payload: Dictionary) -> void:
 	var blend_color := Color(1, 1, 1)
 	var blend_amount := 0.0
 
-	for mat in sprite_map.values():
-		if mat is ShaderMaterial:
-			blend_color = mat.get_shader_parameter("blend_color")
-			blend_amount = mat.get_shader_parameter("blend_amount")
+	for mat_data in sprite_map.values():
+		if mat_data.material is ShaderMaterial:
+			blend_color = mat_data.material.get_shader_parameter("blend_color")
+			blend_amount = mat_data.material.get_shader_parameter("blend_amount")
 			break
 
-	# Log payload contents
-	print("Dissolve payload received:", payload)
+	#print("Dissolve payload received:", payload)
 
-	# Determine edge_color from 'colour' in payload
 	var edge_color := Color(1, 1, 1)
 	if payload.has("colour"):
 		var named_color = payload["colour"]
@@ -74,8 +80,7 @@ func _start_dissolve(payload: Dictionary) -> void:
 				"blue": edge_color = Color(0, 0.4, 1)
 				"yellow": edge_color = Color(1, 1, 0)
 				"purple": edge_color = Color(0.7, 0, 1)
-				_:
-					push_warning("Unknown dissolve colour: %s" % named_color)
+				_: push_warning("Unknown dissolve colour: %s" % named_color)
 		else:
 			push_warning("Dissolve payload 'colour' was not a string: %s" % typeof(named_color))
 	else:
@@ -87,14 +92,23 @@ func _start_dissolve(payload: Dictionary) -> void:
 	print("Done dissolving")
 	dissolve_coroutine_running = false
 
-
-func _dissolve_over_time(blend_color: Color, blend_amount: float) -> void:
+func _dissolve_over_time(_blend_color: Color, _blend_amount: float) -> void:
 	var dissolve := 0.01
 	while dissolve < 1.0:
 		dissolve += dissolve_speed * get_process_delta_time()
 		dissolve = min(dissolve, 1.0)
 		for sprite in sprite_map.keys():
+			if not is_instance_valid(sprite):
+				continue
 			var mat := sprite.material as ShaderMaterial
 			if mat:
 				mat.set_shader_parameter("dissolve_amount", dissolve)
 		await get_tree().process_frame
+
+func remove_sprite_for_node(sprite: Node2D):
+	if sprite_map.has(sprite):
+		sprite_map.erase(sprite)
+		
+func shift_z_index(offset: int):
+	z_index += offset
+	print(owner, "changing z index to", z_index)

@@ -21,6 +21,7 @@ floor_stop_on_slope = false
 floor_max_angle = 1.64585
 safe_margin = 2.0
 script = ExtResource("1_2k48a")
+size = 50
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -1)
@@ -36,7 +37,6 @@ script = ExtResource("5_ouh6f")
 
 [node name="Arms" type="Node2D" parent="Model"]
 script = ExtResource("6_dq66b")
-health_path = NodePath("../../CollisionShape2D")
 
 [node name="Arm" type="Node2D" parent="Model/Arms"]
 script = ExtResource("6_w54bn")

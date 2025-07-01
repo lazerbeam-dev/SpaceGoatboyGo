@@ -2,12 +2,14 @@ extends Node
 class_name CreatureControlCollar
 
 @export var max_jump_charge_time := 0.7
-@export var enable_move := true
+@export var enable_move := false
 @export var enable_jump := true
 @export var enable_goat_mode := true  # Optional toggle
 
 var creature: Creature = null
 var goatboy: Goatboy = null  # Optional cast
+var rocketboots: Node = null
+
 var jump_charging: bool = false
 var jump_charge_time: float = 0.0
 var buffered_jump_ratio := -1.0
@@ -20,18 +22,34 @@ func _ready():
 	creature = find_parent_creature()
 	if not creature:
 		push_error("CreatureControlCollar could not find a parent Creature node.")
+		return
+
+	print("Controlling creature: %s" % creature.name)
+
+	if creature is Goatboy:
+		goatboy = creature
+
+	rocketboots = creature.get_node_or_null("Rocketboots")
+	if rocketboots and rocketboots.has_method("set_rocketing"):
+		print("RocketBoots found and ready for external control.")
+	elif rocketboots:
+		push_warning("RocketBoots found but missing set_rocketing method.")
 	else:
-		print("Controlling creature: %s" % creature.name)
-		if creature is Goatboy:
-			goatboy = creature
+		print("No RocketBoots found on creature.")
 
 func _process(delta: float) -> void:
 	if not creature:
 		return
 
-	if enable_move:
-		var dir = Input.get_axis("move_left", "move_right")
-		creature.set_move_input(dir)
+	if not enable_move:
+		return
+	var dir = Input.get_axis("move_left", "move_right")
+	creature.set_move_input(dir)
+
+	# Rocket input (W key, or "move_up" action)
+	if rocketboots and rocketboots.has_method("set_rocketing"):
+		var is_up_pressed = Input.is_action_pressed("move_up")
+		rocketboots.set_rocketing(is_up_pressed)
 
 	# Jump buffering
 	if buffered_jump_ratio >= 0.0:
@@ -55,7 +73,7 @@ func _process(delta: float) -> void:
 			jump_charge_time = min(jump_charge_time, max_jump_charge_time)
 
 		elif Input.is_action_just_released("jump") and jump_charging:
-			var ratio := clampf(jump_charge_time / max_jump_charge_time, 0.0, 1.0)
+			var ratio = clampf(jump_charge_time / max_jump_charge_time, 0.0, 1.0)
 
 			if creature.can_jump():
 				creature.trigger_jump(ratio)

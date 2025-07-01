@@ -24,13 +24,12 @@ initial_push = -220.0
 [node name="Model" type="Sprite2D" parent="."]
 z_index = -3
 material = ExtResource("2_tthg0")
-position = Vector2(-21, -9)
+position = Vector2(1, 0)
 scale = Vector2(1.06172, 1.06172)
 texture = ExtResource("4_tthg0")
 script = ExtResource("4_fnmo2")
 
 [node name="DestructibleSlime" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource("CircleShape2D_264po")
 script = ExtResource("4_htqpv")
 gloop_path = NodePath("../GloopArea/CollisionShape2D2")
@@ -46,7 +45,7 @@ script = ExtResource("5_r75lb")
 cooldown_duration = 1.0
 pull_strength = 75.0
 snap_threshold = 0.1
+max_engulf_radius = 150.0
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="GloopArea"]
-visible = false
 shape = SubResource("CircleShape2D_r75lb")

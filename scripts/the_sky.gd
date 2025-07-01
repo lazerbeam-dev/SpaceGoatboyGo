@@ -15,6 +15,8 @@ class_name TheSky
 @export_range(0.0, 1.0) var creature_blend_amount := 0.2
 @export_range(0.0, 1.0) var object_blend_amount := 0.5
 
+@export var atmosphere_fade_distance := 4000.0  # Distance at which sky becomes fully transparent
+
 var the_sun: Node2D
 var camera: Camera2D
 var color_rect: ColorRect
@@ -36,9 +38,14 @@ func _process(_delta):
 	var cam_dir = (camera.global_position - center_of_planet).normalized()
 	var day_ratio = clamp(sun_dir.dot(cam_dir), -1.0, 1.0) * 0.5 + 0.5  # 0 = midnight, 1 = noon
 
-	# Compute base sky color and alpha fade at night
 	current_color = day_color.lerp(night_color, 1.0 - day_ratio)
-	var sky_alpha: float = clamp(day_ratio * 1.5, 0.0, 1.0)
+
+	# Fade out alpha as camera gets far from the planet
+	var distance = camera.global_position.distance_to(center_of_planet)
+	var height_fade = clamp(1.0 - (distance / atmosphere_fade_distance), 0.0, 1.0)
+
+	# Sky alpha is a combo of day/night and height
+	var sky_alpha = clamp(day_ratio * 1.5, 0.0, 1.0) * height_fade
 
 	# Apply to world shaders
 	emotional_material.set_shader_parameter("blend_color", current_color)

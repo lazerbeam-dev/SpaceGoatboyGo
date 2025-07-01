@@ -8,7 +8,7 @@ var arms := []
 var click_to_aim_direction := Vector2.ZERO
 var is_mouse_down := false
 @export var camera_path: NodePath
-var camera: Camera2D
+@export var camera: Camera2D
 @export var health_node_path: NodePath
 var health_node: Node = null
 var click_world_target_position := Vector2.ZERO
@@ -63,10 +63,6 @@ func _ready():
 		equip_weapon(weapon_instance, arm)
 	print("Found %d arms." % arms.size())
 
-	camera = find_parent_camera()
-	if not camera:
-		push_warning("Camera not found in parent tree.")
-
 	await get_tree().process_frame
 
 	if has_node(health_node_path):
@@ -103,9 +99,12 @@ func get_aim_target_world_position() -> Vector2:
 	return global_position + world_aim_dir_from_keyboard * aiming_distance
 
 # The rest of your code remains the same.
-func _process(delta):
+func _process(_delta):
 	if arm_weapon_map.is_empty():
 		return
+	if camera == null:
+		print("Camera lost — rechecking")
+		camera = Utils.get_current_camera()
 
 	var aim_target_world_pos = get_aim_target_world_position()
 	
@@ -250,15 +249,6 @@ func find_arms_recursive(root: Node) -> Array:
 	for child in root.get_children():
 		found += find_arms_recursive(child)
 	return found
-
-func find_parent_camera() -> Camera2D:
-	var current = get_parent()
-	while current:
-		var cam := current.get_node_or_null("Camera2D")
-		if cam and cam is Camera2D:
-			return cam
-		current = current.get_parent()
-	return null
 
 func drop_weapon(weapon: Weapon):
 	if not is_instance_valid(weapon):

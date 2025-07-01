@@ -22,7 +22,6 @@ shape = SubResource("CapsuleShape2D_264po")
 script = ExtResource("2_hc75k")
 
 [node name="Model" type="Sprite2D" parent="."]
-visible = false
 material = ExtResource("3_ei285")
 position = Vector2(4.76837e-07, -0.999999)
 scale = Vector2(0.05, 0.05)

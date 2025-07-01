@@ -5,6 +5,11 @@ var drop_toggled := false
 var destroy_toggled := false
 
 func _process(_delta):
+	#if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and Util.try_once_per_frame("debug_click_drop"):
+		#var test = preload("res://scenes/creatures/item_drop.tscn").instantiate()
+		#test.global_position = get_viewport().get_camera_2d().get_global_mouse_position()
+		#get_tree().current_scene.add_child(test)
+		#print("drop")
 	# L → toggle dissolve
 	if Input.is_key_pressed(KEY_L) and not toggled:
 		toggled = true

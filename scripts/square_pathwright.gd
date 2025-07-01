@@ -35,7 +35,6 @@ func generate_path():
 		curve.add_point(p)
 
 	path_node.curve = curve
-	print("Square curve assigned to path_node")
 
 	var renderer := get_node_or_null("PathRenderer")
 	if renderer and "update_render" in renderer:

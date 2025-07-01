@@ -5,10 +5,13 @@
 .import/
 .export/
 *.godot-export
-
+.tmp
 # OS-specific
 .DS_Store
 Thumbs.db
 
 # Godot build cache
 *.mono/
+/assets/goatboy/*.tmp
+/scenes/weapons/*.tmp
+*.tmp

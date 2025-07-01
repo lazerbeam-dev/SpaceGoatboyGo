@@ -19,5 +19,4 @@ func attempt_fire(direction: Vector2, global_time: float) -> void:
 	for i in range(num_pellets):
 		var angle_offset_rad = lerp(-half_spread_rad, half_spread_rad, float(i) / (num_pellets - 1.0)) if num_pellets > 1 else 0.0
 		var pellet_direction = direction.rotated(angle_offset_rad)
-		print("Pellet %d: %.2f° | Dir: %s" % [i, rad_to_deg(angle_offset_rad), pellet_direction])
 		spawn_projectile(pellet_direction)

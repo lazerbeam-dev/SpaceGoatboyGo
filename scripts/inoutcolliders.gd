@@ -1,6 +1,7 @@
 extends Node2D
 class_name InOutCollisionArea
 
+@export var depth_in := 0
 @export var inner_area_path: NodePath
 @export var outer_area_path: NodePath
 @export var visual_reference_sprite_path: NodePath  # Used for z-sorting
@@ -8,6 +9,7 @@ class_name InOutCollisionArea
 var _inner_area: Area2D
 var _outer_area: Area2D
 var _visual_reference_sprite: Node2D
+var _z_shift_states := {}  # Tracks last applied z-offset per model
 
 var body_states := {}  # "inside", "outside", or "between"
 
@@ -52,11 +54,15 @@ func _on_inner_exited(body):
 		emit_signal("goatboy_exited_inner", body)
 
 func _on_outer_entered(body):
+	# Only act if this body has previously been seen in inner
+	if not body_states.has(body):
+		return
+
 	var in_inner = _inner_area.get_overlapping_bodies().has(body)
 	var prev = body_states.get(body, "unknown")
 
 	if in_inner:
-		body_states[body] = "inside"  # do not transition
+		body_states[body] = "inside"
 		return
 
 	body_states[body] = "outside"
@@ -65,6 +71,10 @@ func _on_outer_entered(body):
 		emit_signal("goatboy_entered_outer", body)
 
 func _on_outer_exited(body):
+	# Only act if this body has previously been seen in inner
+	if not body_states.has(body):
+		return
+
 	var still_in_inner = _inner_area.get_overlapping_bodies().has(body)
 	var still_in_outer = _outer_area.get_overlapping_bodies().has(body)
 	var prev = body_states.get(body, "unknown")
@@ -77,9 +87,23 @@ func _on_outer_exited(body):
 		emit_signal("goatboy_exited_outer", body)
 
 func _apply_inner_z_order(body: Node):
-	if body is Node2D and _visual_reference_sprite:
-		body.z_index = _visual_reference_sprite.z_index - 3
+	if _visual_reference_sprite:
+		if body.owner == self.owner or body == self:
+			return
+		var model = body.get_node_or_null("Model")
+		if model and model is SmartModel:
+			var offset = -depth_in
+			if _z_shift_states.get(model, null) != offset:
+				model.shift_z_index(offset)
+				_z_shift_states[model] = offset
 
 func _apply_outer_z_order(body: Node):
-	if body is Node2D and _visual_reference_sprite:
-		body.z_index = _visual_reference_sprite.z_index + 3
+	if _visual_reference_sprite:
+		if body.owner == self.owner:
+			return
+		var model = body.get_node_or_null("Model")
+		if model and model is SmartModel:
+			var offset = depth_in
+			if _z_shift_states.get(model, null) != offset:
+				model.shift_z_index(offset)
+				_z_shift_states[model] = offset

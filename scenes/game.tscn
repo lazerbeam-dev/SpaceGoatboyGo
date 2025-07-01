@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://cuv4vme4rwno0"]
+[gd_scene load_steps=55 format=3 uid="uid://cuv4vme4rwno0"]
 
 [ext_resource type="Script" uid="uid://5f7iwrxydbco" path="res://scripts/game_manager.gd" id="1_l4ihi"]
 [ext_resource type="FontFile" uid="uid://c53kogtyjwsss" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="2_nlliu"]
@@ -34,6 +34,7 @@
 [ext_resource type="Script" uid="uid://mvr14tlk81oe" path="res://scripts/planetcoreteleporter.gd" id="40_ms3bu"]
 [ext_resource type="Texture2D" uid="uid://ccyn1gwlymn1r" path="res://assets/sprites/crystals4.png" id="41_8ool0"]
 [ext_resource type="Texture2D" uid="uid://hcp7oe86sp1b" path="res://assets/sprites/gov/2024-3-20-slime-eyes-new_0001s_0005_angry-eye-1.png" id="42_pr1ej"]
+[ext_resource type="PackedScene" uid="uid://dkrm3idrr7kbx" path="res://scenes/creatures/shroom_lvl_3.tscn" id="44_0sl42"]
 [ext_resource type="PackedScene" uid="uid://dc1dau4up7k24" path="res://scenes/creatures/shroom_lvl_1.tscn" id="47_h3rex"]
 [ext_resource type="PackedScene" uid="uid://bohuusl66hf6t" path="res://scenes/creatures/slime.tscn" id="49_8qswn"]
 [ext_resource type="Shader" uid="uid://viaorshxul33" path="res://assets/shaders/emotional_material.gdshader" id="49_i4re6"]
@@ -59,6 +60,15 @@ gradient = SubResource("Gradient_264po")
 [sub_resource type="CircleShape2D" id="CircleShape2D_q8j3a"]
 radius = 138.924
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3hbvx"]
+shader = ExtResource("49_pf7vy")
+shader_parameter/star_density = 0.5
+shader_parameter/brightness = 1.2
+shader_parameter/twinkle_speed = 0.5
+shader_parameter/time_offset = 0.0
+shader_parameter/star_sharpness = 0.15
+shader_parameter/jitter_amount = 3.0
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_05nbr"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pf7vy"]
@@ -70,15 +80,6 @@ shader_parameter/blend_amount = 0.5
 shader = ExtResource("49_i4re6")
 shader_parameter/blend_color = Color(0.287003, 0.348828, 0.171906, 1)
 shader_parameter/blend_amount = 0.5
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_3hbvx"]
-shader = ExtResource("49_pf7vy")
-shader_parameter/star_density = 0.5
-shader_parameter/brightness = 1.2
-shader_parameter/twinkle_speed = 0.5
-shader_parameter/time_offset = 0.0
-shader_parameter/star_sharpness = 0.15
-shader_parameter/jitter_amount = 3.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oaba0"]
 size = Vector2(2535.58, 1126.07)
@@ -110,7 +111,7 @@ autowrap_mode = 2
 [node name="Planet" type="Node2D" parent="."]
 
 [node name="teleporter" parent="Planet" instance=ExtResource("3_pr1ej")]
-position = Vector2(-99, -1384)
+position = Vector2(-112, -1347)
 
 [node name="ForegroundMushroom1" parent="Planet" instance=ExtResource("7_rysoc")]
 position = Vector2(-55, -1247)
@@ -250,7 +251,7 @@ position = Vector2(608, -540)
 script = ExtResource("51_i4re6")
 emotional_material = ExtResource("14_rm0al")
 emotional_material_creature = ExtResource("49_o8ni1")
-day_color = Color(0.81135, 0.595171, 0.786192, 1)
+day_color = Color(0.969718, 0.531159, 0.527599, 1)
 the_sun_path = NodePath("../GiantSkyCuubeFrameOfReference/pivot/TheSun")
 camera_path = NodePath("../CameraController")
 color_rect_path = NodePath("../CameraController/single color")
@@ -287,6 +288,16 @@ offset_right = 491.807
 offset_bottom = 372.97
 mouse_filter = 2
 color = Color(0.259093, 0.335126, 0.442152, 1)
+
+[node name="starspivot" type="Node2D" parent="."]
+position = Vector2(48, 52)
+
+[node name="TheStars" type="Sprite2D" parent="starspivot"]
+z_index = -20
+material = SubResource("ShaderMaterial_3hbvx")
+position = Vector2(52, 1161)
+scale = Vector2(12945, 15088)
+texture = ExtResource("50_o8ni1")
 
 [node name="slime" parent="." instance=ExtResource("49_8qswn")]
 material = SubResource("ShaderMaterial_05nbr")
@@ -332,25 +343,16 @@ visible = false
 position = Vector2(-87, 87)
 points = PackedVector2Array(-1426, -3854, -1618, 1329, -3981, 41, -3951, -3171, -1444, -3923)
 
-[node name="starspivot" type="Node2D" parent="GiantSkyCuubeFrameOfReference"]
-position = Vector2(-1161, 743)
-
-[node name="TheStars" type="Sprite2D" parent="GiantSkyCuubeFrameOfReference/starspivot"]
-z_index = -20
-material = SubResource("ShaderMaterial_3hbvx")
-position = Vector2(52, 1161)
-scale = Vector2(12945, 15088)
-texture = ExtResource("50_o8ni1")
-
-[node name="StaticBody2D" type="StaticBody2D" parent="GiantSkyCuubeFrameOfReference"]
+[node name="randomcube" type="StaticBody2D" parent="GiantSkyCuubeFrameOfReference"]
+z_index = -2
 position = Vector2(-837, -403)
 scale = Vector2(0.130542, 0.130542)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GiantSkyCuubeFrameOfReference/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GiantSkyCuubeFrameOfReference/randomcube"]
 position = Vector2(26.8113, -11.4941)
 shape = SubResource("RectangleShape2D_oaba0")
 
-[node name="sprites" type="Sprite2D" parent="GiantSkyCuubeFrameOfReference/StaticBody2D"]
+[node name="sprites" type="Sprite2D" parent="GiantSkyCuubeFrameOfReference/randomcube"]
 z_index = -4
 texture = ExtResource("38_05nbr")
 
@@ -371,3 +373,6 @@ texture = ExtResource("41_8ool0")
 position = Vector2(-131, -1338)
 scale = Vector2(0.0688403, 0.0688403)
 texture = ExtResource("42_pr1ej")
+
+[node name="ShroomLvl5" parent="." instance=ExtResource("44_0sl42")]
+position = Vector2(378, -1230)

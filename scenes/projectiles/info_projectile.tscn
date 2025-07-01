@@ -13,13 +13,11 @@ script = ExtResource("1_lsgty")
 damage = 0.0
 
 [node name="01" type="Sprite2D" parent="."]
-visible = false
 z_index = 15
 scale = Vector2(0.695846, 0.603615)
 texture = ExtResource("2_mu241")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(3, 0)
 shape = SubResource("CircleShape2D_q3m7n")
 debug_color = Color(0, 0.6, 0.701961, 1)

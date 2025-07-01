@@ -4,16 +4,52 @@ extends Area2D
 @export var pull_interval := 0.2
 @export var pull_strength := 800.0
 @export var snap_threshold := 2.0
-@export var wall_collision_mask := 1  # Mask for walls/solid objects
+@export var wall_collision_mask := 1
+@export var max_engulf_radius := -1.0  # If negative, auto-set from self
 
 var _last_absorbed_time := {}
 var _absorbed_bodies: Array[Node2D] = []
-var _body_cores := {}  # Node2D -> Node2D (core node)
-var _core_velocities := {}  # Node2D -> Vector2
+var _body_cores := {}
+var _core_velocities := {}
+var _self_radius := 0.0
 
 func _ready():
 	body_entered.connect(_on_body_entered)
+	_self_radius = get_body_radius(self)
 	set_process(true)
+
+func _on_body_entered(body: Node):
+	var body_radius = get_body_radius(body)
+	print(body, body.owner, body_radius, "body owner, slime", max_engulf_radius)
+
+	if body_radius > max_engulf_radius:
+		# Too big — bounce off!
+		if owner is SlimeBounce and owner.has_method("velocity"):
+			
+			var slime: SlimeBounce = owner
+			var dir :Vector2= (slime.global_position - body.global_position).normalized()
+			
+			# Simulate a bounce
+			var normal := dir
+			slime.velocity = -slime.velocity
+			
+			## Optional: Add a little vertical impulse if we're hitting the ground
+			#var up_dir = -(slime.planet.global_position - slime.global_position).normalized()
+			#if normal.dot(up_dir) > 0.7:
+				#slime.velocity += up_dir * abs(slime.jump_velocity)
+
+		return
+
+	if not has_clear_path_for_body(global_position, body.global_position, body_radius):
+		return
+
+	var now := Time.get_unix_time_from_system()
+	if _last_absorbed_time.has(body) and now - _last_absorbed_time[body] < cooldown_duration:
+		return
+
+	_last_absorbed_time[body] = now
+	call_deferred("_reparent_and_absorb", body)
+
 
 func _process(delta):
 	for body in _absorbed_bodies.duplicate():
@@ -117,22 +153,17 @@ func find_safe_ejection_position(body: Node2D, preferred_pos: Vector2) -> Vector
 	return Vector2.INF  # No safe position found - be strict!
 
 func get_body_radius(body: Node2D) -> float:
-	# Try to get collision shape radius/size
-	if body is CharacterBody2D or body is RigidBody2D or body is StaticBody2D:
-		for child in body.get_children():
-			if child is CollisionShape2D:
-				var shape = child.shape
-				if shape is CircleShape2D:
-					return shape.radius
-				elif shape is RectangleShape2D:
-					return max(shape.size.x, shape.size.y) * 0.5
-				elif shape is CapsuleShape2D:
-					return max(shape.radius, shape.height * 0.5)
+	var bodyForInspection :Node2D= null
+	if body is Creature:
+		return body.size
 	
-	# Fallback to a reasonable default
-	return 16.0
+	var owner := body.owner
+	if owner and owner is Creature:
+		return owner.sizea
+	return 16.0  # Fallback radius if not a Creature or no owner
 
-func is_position_completely_safe(pos: Vector2, body_radius: float, body: Node2D) -> bool:
+
+func is_position_completely_safe(pos: Vector2, body_radius: float, _body: Node2D) -> bool:
 	# First, check if there's a clear path from absorber to the ejection position
 	if not has_clear_path_for_body(global_position, pos, body_radius):
 		return false
@@ -199,19 +230,6 @@ func has_clear_path_for_body(from: Vector2, to: Vector2, body_radius: float) -> 
 	
 	return true
 
-func _on_body_entered(body: Node):
-	# Check if there's a clear line of sight before absorbing
-	var body_radius = get_body_radius(body)
-	if not has_clear_path_for_body(global_position, body.global_position, body_radius):
-		return
-	
-	var now := Time.get_unix_time_from_system()
-	if _last_absorbed_time.has(body) and now - _last_absorbed_time[body] < cooldown_duration:
-		return
-
-	_last_absorbed_time[body] = now
-	call_deferred("_reparent_and_absorb", body)
-
 func _reparent_and_absorb(body: Node2D):
 	if not is_instance_valid(body):
 		return
@@ -237,11 +255,18 @@ func _set_external_control(body: Node, state: bool):
 	if body.has_method("set_ext"):
 		body.set_ext(state)
 
-func _cleanup_body(body: Node2D):
+func _cleanup_body(body):
+	if not is_instance_valid(body):
+		return
+	if not (body is Node2D):
+		return
+
 	_absorbed_bodies.erase(body)
+
 	if _body_cores.has(body):
 		var core = _body_cores[body]
 		if is_instance_valid(core) and core.get_parent():
 			core.queue_free()
 		_body_cores.erase(body)
+
 	_core_velocities.erase(body)

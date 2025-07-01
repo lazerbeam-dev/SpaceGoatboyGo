@@ -7,7 +7,7 @@ var split_scene = preload("res://scenes/creatures/slime.tscn")
 @export var collider_base_radius := 10.0
 @export var invulnerability_duration := 0.5
 @export var quantization_unit := 10
-@export var starting_health := 40
+@export var starting_health := 40.0
 @export var split_on_damage := false  # toggle to enable slime splitting
 
 var is_invulnerable := false
@@ -86,17 +86,17 @@ func _finalize_spawn(new_slime: Node) -> void:
 
 func update_scale():
 	var ratio := health / starting_health
-	var scale: float = clamp(ratio, 0.1, 1.0)
+	var scale1: float = clamp(ratio, 0.1, 1.0)
 
 	if shape is CircleShape2D:
-		shape.radius = collider_base_radius * scale
+		shape.radius = collider_base_radius * scale1
 		print("Updated shape radius to %.2f" % shape.radius)
 
 	var gloop_shape := get_node_or_null(gloop_path)
 	if gloop_shape and gloop_shape is CollisionShape2D:
 		var gloop_circle :CircleShape2D = gloop_shape.shape
 		if gloop_circle is CircleShape2D:
-			gloop_circle.radius = collider_base_radius * scale
+			gloop_circle.radius = collider_base_radius * scale1
 			print("Gloop radius updated to %.2f" % gloop_circle.radius)
 		else:
 			push_warning("Gloop shape is not CircleShape2D")
@@ -105,8 +105,8 @@ func update_scale():
 
 	var model := get_node_or_null(model_path)
 	if model:
-		model.scale = Vector2.ONE * scale
-		print("Model scaled to %.2f" % scale)
+		model.scale = Vector2.ONE * scale1
+		print("Model scaled to %.2f" % scale1)
 	else:
 		push_warning("Model node not found at path: %s" % model_path)
 		
@@ -116,4 +116,4 @@ func update_scale():
 		controller.jump_strength = controller.jump_strength_base * jump_scale
 		print("Jump strength scaled to %.2f" % controller.jump_strength)
 
-	print("Slime updated → health: %.1f / %d, scale: %.2f" % [health, starting_health, scale])
+	print("Slime updated → health: %.1f / %d, scale: %.2f" % [health, starting_health, scale1])

@@ -46,23 +46,10 @@ radius = 24.0
 script = ExtResource("1_duj8f")
 goatboy_scene = ExtResource("2_h26hi")
 spawn_point = NodePath("spawnpoint")
-control_antenna = NodePath("Construction/ControlSystem")
-
-[node name="TransporterDoorOpenB" type="Sprite2D" parent="."]
-z_index = -2
-material = ExtResource("3_h7b6g")
-position = Vector2(-23, 115)
-scale = Vector2(0.059, 0.059)
-texture = ExtResource("4_dmd2w")
-
-[node name="TransporterDoorOpenFrontLayerB" type="Sprite2D" parent="."]
-z_index = 2
-material = ExtResource("3_h7b6g")
-position = Vector2(-23, 115)
-scale = Vector2(0.059, 0.059)
-texture = ExtResource("5_de3ap")
+control_antenna = NodePath("Antenna")
 
 [node name="Construction" type="StaticBody2D" parent="."]
+position = Vector2(19, -41)
 
 [node name="Backwall" type="CollisionShape2D" parent="Construction"]
 position = Vector2(-40, 117)
@@ -81,6 +68,7 @@ position = Vector2(-23.7188, 77.625)
 shape = SubResource("RectangleShape2D_wljb1")
 
 [node name="Door" type="CollisionShape2D" parent="Construction"]
+visible = false
 position = Vector2(-13.0313, 120)
 shape = SubResource("RectangleShape2D_suyxu")
 script = ExtResource("6_m1awj")
@@ -128,6 +116,7 @@ texture = ExtResource("10_4j1je")
 [node name="InOut" type="Node2D" parent="Construction/Door"]
 position = Vector2(-4.9687, -1)
 script = ExtResource("11_it0g0")
+depth_in = 5
 inner_area_path = NodePath("In")
 outer_area_path = NodePath("Out")
 visual_reference_sprite_path = NodePath("../TransporterDoorClosed")
@@ -152,35 +141,57 @@ shape = SubResource("RectangleShape2D_v2yb1")
 
 [node name="DoorModel" type="Node2D" parent="Construction/Door"]
 
-[node name="ControlSystem" type="StaticBody2D" parent="Construction"]
-position = Vector2(-20, 41)
+[node name="spawnpoint" type="Node2D" parent="."]
+position = Vector2(-5, 95)
+
+[node name="Antenna" type="StaticBody2D" parent="." node_paths=PackedStringArray("source")]
+position = Vector2(0, -1)
 collision_layer = 64
 collision_mask = 64
 script = ExtResource("12_0rrxa")
+teleporter_path = NodePath("..")
 laser_projectile_scene = ExtResource("13_4m43j")
+source = NodePath("Source")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Construction/ControlSystem"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Antenna"]
 position = Vector2(1, 1)
 shape = SubResource("CircleShape2D_7025r")
 
-[node name="TransporterAntennaB" type="Sprite2D" parent="Construction/ControlSystem"]
+[node name="TransporterAntennaB" type="Sprite2D" parent="Antenna"]
 material = ExtResource("3_h7b6g")
 position = Vector2(5, 4)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("14_odcqf")
 
-[node name="TransporterBaseB" type="Sprite2D" parent="."]
+[node name="Source" type="Node2D" parent="Antenna"]
+position = Vector2(1, 2)
+
+[node name="Mode" type="Node2D" parent="."]
+position = Vector2(14, -39)
+
+[node name="TransporterBaseB" type="Sprite2D" parent="Mode"]
 z_index = -3
 material = ExtResource("3_h7b6g")
 position = Vector2(-21, 167)
 scale = Vector2(0.059, 0.059)
 texture = ExtResource("15_xe34j")
 
-[node name="spawnpoint" type="Node2D" parent="."]
-position = Vector2(-17, 121)
-
-[node name="TransporterBackWallB" type="Sprite2D" parent="."]
-z_index = -6
+[node name="TransporterBackWallB" type="Sprite2D" parent="Mode"]
+z_index = -10
 position = Vector2(-13, 123)
 scale = Vector2(0.059, 0.059)
 texture = ExtResource("16_h7jxk")
+
+[node name="TransporterDoorOpenFrontLayerB" type="Sprite2D" parent="Mode"]
+z_index = 2
+material = ExtResource("3_h7b6g")
+position = Vector2(-23, 115)
+scale = Vector2(0.059, 0.059)
+texture = ExtResource("5_de3ap")
+
+[node name="TransporterDoorOpenB" type="Sprite2D" parent="Mode"]
+z_index = -2
+material = ExtResource("3_h7b6g")
+position = Vector2(-23, 115)
+scale = Vector2(0.059, 0.059)
+texture = ExtResource("4_dmd2w")

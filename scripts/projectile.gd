@@ -17,9 +17,9 @@ func _on_body_entered(body):
 		return  # Ignore collisions with sender
 
 	var target: Node = null
-
-	# Check if body is DestructibleShape
-	if body is DestructibleShape:
+	
+	# Check if body is DestructibleShape or valid StaticBody2D with method
+	if body is DestructibleShape or (body is StaticBody2D and body.has_method("receive_impact")):
 		target = body
 	else:
 		# Check for DestructibleShape in children
@@ -28,7 +28,7 @@ func _on_body_entered(body):
 				target = child
 				break
 
-	if target:
+	if target and is_instance_valid(sender):
 		var impact_payload := {
 			"amount": damage,
 			"source": sender,
@@ -37,14 +37,14 @@ func _on_body_entered(body):
 			"type": "projectile",
 			"colour": colour,
 		}
-		
-		# Manually merge payload entries
+
 		for key in payload.keys():
 			impact_payload[key] = payload[key]
 
 		target.receive_impact(impact_payload, sender)
-	
+
 	queue_free()
+
 
 
 func _ready():

@@ -1,0 +1,226 @@
+[gd_scene load_steps=26 format=3 uid="uid://dkrm3idrr7kbx"]
+
+[ext_resource type="Script" uid="uid://clieya4aq3od7" path="res://scripts/creature_movement.gd" id="1_1m1mb"]
+[ext_resource type="Script" uid="uid://cmn6umx8ffps5" path="res://scripts/health.gd" id="2_pmmxh"]
+[ext_resource type="Material" uid="uid://4d2su4w8x8ou" path="res://assets/shaders/emotional_material_creature.tres" id="3_njl8r"]
+[ext_resource type="Material" uid="uid://dwbinypbteft4" path="res://assets/shaders/emotional_material.tres" id="4_7b5bm"]
+[ext_resource type="Texture2D" uid="uid://dnr13p0ovngu1" path="res://scenes/creatures/sprites/shroom_lvl3_body.png" id="4_njl8r"]
+[ext_resource type="Script" uid="uid://gm4ldccgiuao" path="res://scripts/smart_model.gd" id="5_gaoui"]
+[ext_resource type="Script" uid="uid://c6i2gqvkwouw7" path="res://scripts/creature_arms.gd" id="6_3olfj"]
+[ext_resource type="Script" uid="uid://brd2qqnlr6hv2" path="res://scripts/arm.gd" id="7_ocjfq"]
+[ext_resource type="PackedScene" uid="uid://cakicfd3ye6nf" path="res://scenes/weapons/shroom_weapons/shroom_pistol.tscn" id="8_7b5bm"]
+[ext_resource type="Texture2D" uid="uid://1gpayjq7h71m" path="res://assets/sprites/shrooms/shroom_lvl2_arm.png" id="9_b55nt"]
+[ext_resource type="Script" uid="uid://ct6k65qr1co7h" path="res://scripts/creature_ai.gd" id="10_qc5hx"]
+[ext_resource type="Texture2D" uid="uid://bvp2jjw5b0kex" path="res://scenes/creatures/sprites/shroom_lvl3_cap_whole.png" id="11_p8l43"]
+[ext_resource type="Texture2D" uid="uid://du1x27gn42eg2" path="res://scenes/creatures/sprites/shroom_lvl3_cap_mask.png" id="12_3olfj"]
+[ext_resource type="Texture2D" uid="uid://dpr5tki1gwhhs" path="res://scenes/creatures/sprites/2024-3-20-slime-eyes-new_0001s_0003_angry-eye-3.png" id="12_gaoui"]
+[ext_resource type="Script" uid="uid://yame5ovy7pgb" path="res://scripts/sub_health.gd" id="13_p8l43"]
+[ext_resource type="Script" uid="uid://bubtocxrjmlmq" path="res://scripts/inoutcolliders.gd" id="14_gaoui"]
+[ext_resource type="Texture2D" uid="uid://5h8dldkvxt0i" path="res://scenes/creatures/sprites/shroom_lvl3_body_mask.png" id="14_ocjfq"]
+[ext_resource type="Script" uid="uid://bpcldqcgsi8fm" path="res://scripts/modular_spawner.gd" id="18_b55nt"]
+[ext_resource type="PackedScene" uid="uid://dc1dau4up7k24" path="res://scenes/creatures/shroom_lvl_1.tscn" id="19_qc5hx"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pmmxh"]
+radius = 17.3564
+height = 76.8897
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_264po"]
+radius = 13.0
+height = 78.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_njl8r"]
+radius = 12.0
+height = 122.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3olfj"]
+size = Vector2(45, 74.25)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gaoui"]
+size = Vector2(91, 104)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ocjfq"]
+size = Vector2(63, 15.5)
+
+[node name="ShroomLvl3" type="CharacterBody2D"]
+collision_layer = 5
+floor_stop_on_slope = false
+floor_max_angle = 1.64585
+safe_margin = 2.0
+script = ExtResource("1_1m1mb")
+speed = 0.0
+jump_velocity = 0.0
+coyote_time = 0.0
+is_static = true
+size = 1000
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+z_index = 1
+position = Vector2(46, -83)
+rotation = -1.0472
+shape = SubResource("CapsuleShape2D_pmmxh")
+script = ExtResource("13_p8l43")
+main_health_path = NodePath("../Health")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
+z_index = 1
+position = Vector2(-42, -84)
+rotation = 1.0472
+shape = SubResource("CapsuleShape2D_pmmxh")
+script = ExtResource("13_p8l43")
+
+[node name="Health" type="CollisionShape2D" parent="."]
+z_index = 1
+position = Vector2(0, 50)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_264po")
+script = ExtResource("2_pmmxh")
+max_health = 100.0
+model_path = NodePath("../Model")
+
+[node name="Model" type="Sprite2D" parent="."]
+material = ExtResource("4_7b5bm")
+rotation = -0.00141779
+scale = Vector2(0.185855, 0.187029)
+texture = ExtResource("4_njl8r")
+script = ExtResource("5_gaoui")
+
+[node name="Arms" type="Node2D" parent="Model"]
+z_index = 4
+script = ExtResource("6_3olfj")
+
+[node name="Arm" type="Node2D" parent="Model/Arms"]
+position = Vector2(75.3732, -31.9744)
+script = ExtResource("7_ocjfq")
+gun_z_index = 1
+metadata/_custom_type_script = "uid://brd2qqnlr6hv2"
+
+[node name="HandPos" type="Node2D" parent="Model/Arms/Arm"]
+position = Vector2(104.882, 16.0344)
+
+[node name="shroomGunPurple" parent="Model/Arms/Arm/HandPos" instance=ExtResource("8_7b5bm")]
+position = Vector2(-8.03228, 0.00588989)
+
+[node name="Sprite2D" type="Sprite2D" parent="Model/Arms/Arm"]
+material = ExtResource("3_njl8r")
+position = Vector2(56.4748, 8.01719)
+scale = Vector2(0.702468, 1)
+texture = ExtResource("9_b55nt")
+
+[node name="Arm2" type="Node2D" parent="Model/Arms"]
+position = Vector2(236.415, 230.244)
+script = ExtResource("7_ocjfq")
+gun_z_index = 1
+metadata/_custom_type_script = "uid://brd2qqnlr6hv2"
+
+[node name="HandPos" type="Node2D" parent="Model/Arms/Arm2"]
+position = Vector2(104.882, 16.0344)
+
+[node name="shroomGunPurple" parent="Model/Arms/Arm2/HandPos" instance=ExtResource("8_7b5bm")]
+position = Vector2(-8.03228, 0.00588989)
+
+[node name="Sprite2D" type="Sprite2D" parent="Model/Arms/Arm2"]
+material = ExtResource("3_njl8r")
+position = Vector2(56.4748, 8.01719)
+scale = Vector2(0.702468, 1)
+texture = ExtResource("9_b55nt")
+
+[node name="Arm3" type="Node2D" parent="Model/Arms"]
+position = Vector2(-247.794, 202.828)
+script = ExtResource("7_ocjfq")
+gun_z_index = 1
+metadata/_custom_type_script = "uid://brd2qqnlr6hv2"
+
+[node name="HandPos" type="Node2D" parent="Model/Arms/Arm3"]
+position = Vector2(104.882, 16.0344)
+
+[node name="shroomGunPurple" parent="Model/Arms/Arm3/HandPos" instance=ExtResource("8_7b5bm")]
+position = Vector2(-8.03228, 0.00588989)
+
+[node name="Sprite2D" type="Sprite2D" parent="Model/Arms/Arm3"]
+material = ExtResource("3_njl8r")
+position = Vector2(56.4748, 8.01719)
+scale = Vector2(0.702468, 1)
+texture = ExtResource("9_b55nt")
+
+[node name="ShroomLvl3CapWhole" type="Sprite2D" parent="Model"]
+z_index = -1
+material = ExtResource("3_njl8r")
+position = Vector2(0.58739, -411.7)
+rotation = 0.00140889
+scale = Vector2(3.45443, 3.43275)
+skew = 1.77622e-05
+texture = ExtResource("11_p8l43")
+
+[node name="CapMask" type="Sprite2D" parent="Model"]
+z_index = 4
+material = ExtResource("3_njl8r")
+position = Vector2(0.587392, -411.7)
+rotation = 0.00140889
+scale = Vector2(3.45443, 3.43275)
+skew = 1.77622e-05
+texture = ExtResource("12_3olfj")
+
+[node name="2024-3-20-slime-eyes-new0001s0003Angry-eye-3" type="Sprite2D" parent="Model"]
+position = Vector2(-161.355, -43.0015)
+rotation = 0.00140889
+scale = Vector2(3.72138, 3.69803)
+skew = 1.77622e-05
+texture = ExtResource("12_gaoui")
+
+[node name="Sprite2D" type="Sprite2D" parent="Model"]
+z_index = 3
+material = ExtResource("4_7b5bm")
+texture = ExtResource("14_ocjfq")
+
+[node name="AI" type="Node2D" parent="."]
+script = ExtResource("10_qc5hx")
+inout_area_path = NodePath("../InOutCollisionArea")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="."]
+position = Vector2(-49, 2)
+shape = SubResource("CapsuleShape2D_njl8r")
+script = ExtResource("13_p8l43")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="."]
+position = Vector2(50, 1)
+shape = SubResource("CapsuleShape2D_njl8r")
+script = ExtResource("13_p8l43")
+
+[node name="InOutCollisionArea" type="Node2D" parent="."]
+script = ExtResource("14_gaoui")
+depth_in = 3
+inner_area_path = NodePath("INI")
+outer_area_path = NodePath("OUTI")
+visual_reference_sprite_path = NodePath("../Model/ShroomLvl3CapWhole")
+metadata/_custom_type_script = "uid://bubtocxrjmlmq"
+
+[node name="INI" type="Area2D" parent="InOutCollisionArea"]
+position = Vector2(2, -91)
+collision_layer = 6
+collision_mask = 6
+
+[node name="inside" type="CollisionShape2D" parent="InOutCollisionArea/INI"]
+position = Vector2(1, 16)
+shape = SubResource("RectangleShape2D_3olfj")
+
+[node name="inside2" type="CollisionShape2D" parent="InOutCollisionArea/INI"]
+position = Vector2(-2.5, 80)
+shape = SubResource("RectangleShape2D_gaoui")
+
+[node name="OUTI" type="Area2D" parent="InOutCollisionArea"]
+position = Vector2(3, -122)
+collision_layer = 6
+collision_mask = 6
+
+[node name="inside2" type="CollisionShape2D" parent="InOutCollisionArea/OUTI"]
+shape = SubResource("RectangleShape2D_ocjfq")
+
+[node name="ModularSpawner" type="Node2D" parent="."]
+position = Vector2(4, -99)
+script = ExtResource("18_b55nt")
+object_to_spawn = ExtResource("19_qc5hx")
+reference_orientation = NodePath("..")
+velocity = Vector2(0, 1200)
+z_index_on_spawn = -1
+spawn_interval = 0.0
+metadata/_custom_type_script = "uid://bpcldqcgsi8fm"

@@ -5,11 +5,14 @@ class_name DestructibleShape
 var health: float = 10.0
 var modifiers := []
 @export var poolable := true
-@export var model_path :NodePath
-var mostRecentPayload :Dictionary
+@export var model_path: NodePath
+
+var mostRecentPayload: Dictionary
 
 signal damaged(amount: float, source)
 signal died
+signal last_frame_on_the_plane
+signal received_impact
 
 func _ready():
 	health = max_health
@@ -18,14 +21,20 @@ func receive_impact(payload: Dictionary, source: Node = null):
 	if health < 0:
 		return
 	
-	mostRecentPayload = payload
-	print("PL", payload)
-	for modifier in modifiers:
-		modifier.apply(self, payload, source)
+	# Safely store a deep copy of the original payload
+	mostRecentPayload = payload.duplicate(true)
+	set_meta("mostRecentPayload", mostRecentPayload)
 
-	var damage: float = payload.get("amount", 0.0)
-	take_damage(damage, source, payload)
-	set_meta("mostRecentPayload", payload)
+	print("DestructibleShape: Received payload:", mostRecentPayload)
+
+	# Allow modifiers to mutate payload if needed
+	for modifier in modifiers:
+		modifier.apply(self, mostRecentPayload, source)
+
+	var damage: float = mostRecentPayload.get("amount", 0.0)
+	emit_signal("received_impact", payload, source)
+	if damage > 0:
+		take_damage(damage, source, mostRecentPayload)
 
 func take_damage(amount: float, source: Node, payload: Dictionary):
 	emit_signal("damaged", amount, source)
@@ -34,22 +43,23 @@ func take_damage(amount: float, source: Node, payload: Dictionary):
 		_destroy_self()
 
 func _destroy_self():
+	emit_signal("last_frame_on_the_plane")
 	call_deferred("_really_destroy_self")
 
 func _really_destroy_self():
 	var body := get_parent()
-	print("die health")
+	#print("DestructibleShape: Destroying parent")
+
 	emit_signal("died")
+
 	if body and body is CharacterBody2D:
 		if body.has_method("die"):
 			body.die()
-		elif "gravity_scale" in body:
-			body.gravity_scale = 0.0
-	
+
 	var model := get_node_or_null(model_path)
 	if model and model.has_method("begin_dissolve"):
-		print("model dis")
+		#print("DestructibleShape: Triggering model dissolve")
 		model.begin_dissolve(mostRecentPayload)
 
 	await get_tree().create_timer(0.5).timeout
-	queue_free()
+	body.queue_free()

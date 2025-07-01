@@ -12,7 +12,7 @@ func _ready():
 	if not parent:
 		push_error("SlimeAI must be child of a Slime")
 
-func _process(delta):
+func _process(_delta):
 	pass
 	#if not parent or not parent.planet:
 		#return

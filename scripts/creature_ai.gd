@@ -3,6 +3,7 @@ class_name CreatureAI
 
 @export var ai_tick_rate := 1.5
 @export var shoot_distance := 400.0
+@export var inout_area_path: NodePath  # Assign this to your local InOutCollisionArea
 
 var target: Node2D = null
 var parent: Node = null
@@ -10,6 +11,8 @@ var time_accum := 0.0
 var tick_interval := 1.0
 var arms: CreatureArms = null
 var los_target := false
+var suppress_shooting := false
+var inout_area: Node = null
 
 func _ready():
 	parent = get_parent()
@@ -17,6 +20,13 @@ func _ready():
 	if not parent:
 		push_error("CreatureAI must be child of a Creature")
 		return
+
+	if inout_area_path != NodePath():
+		inout_area = get_node_or_null(inout_area_path)
+		if inout_area:
+			inout_area.goatboy_entered_inner.connect(_on_target_went_inside)
+			inout_area.goatboy_exited_inner.connect(_on_target_left_inside)
+
 	_schedule_next_tick()
 
 func _process(delta):
@@ -57,7 +67,6 @@ func decide(perception: Dictionary) -> Dictionary:
 	los_target = false
 
 	if perception.target and perception.distance < 1000:
-		# Update los_target only if in range
 		if perception.distance < shoot_distance:
 			var space_state = parent.get_world_2d().direct_space_state
 			var query = PhysicsRayQueryParameters2D.create(parent.global_position, perception.target.global_position)
@@ -78,10 +87,23 @@ func act(actions: Dictionary):
 	if actions.has("move_input"):
 		parent.move_input = actions["move_input"]
 
-	if target and arms:
+	if target and arms and not suppress_shooting:
 		var dist = parent.global_position.distance_to(target.global_position)
 		if dist < shoot_distance and los_target:
 			arms.use_manual_aim = true
 			arms.manual_aim_target = target.global_position
 		else:
 			arms.use_manual_aim = false
+	else:
+		if arms:
+			arms.use_manual_aim = false
+
+# ----- Callbacks from InOut -----
+
+func _on_target_went_inside(body: Node):
+	if body == target:
+		suppress_shooting = true
+
+func _on_target_left_inside(body: Node):
+	if body == target:
+		suppress_shooting = false

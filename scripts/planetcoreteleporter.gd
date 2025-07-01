@@ -18,8 +18,8 @@ func _on_body_entered(body: Node2D) -> void:
 	if not planet:
 		return
 
-	var collision_layer :int= body.get_collision_layer()
-	if (collision_layer & (1 << 1)) == 0 and (collision_layer & (1 << 2)) == 0:
+	var body_collision_layer :int= body.get_collision_layer()
+	if (body_collision_layer & (1 << 1)) == 0 and (body_collision_layer & (1 << 2)) == 0:
 		return  # Not on layer 2 or 3
 
 	for i in range(safety_attempts):

@@ -25,16 +25,13 @@ func _on_apply_now_changed(value):
 		push_error("No edited_scene_root found.")
 		return
 
-	print("Applying emotional material to all Sprite2Ds under: %s" % root.name)
 	var count := _apply_to_all_sprite2ds(root)
-	print("Applied to %d Sprite2Ds." % count)
 
 func _apply_to_all_sprite2ds(node: Node) -> int:
 	var applied := 0
 	if node is Sprite2D:
 		node.material = shared_material
 		applied += 1
-		print(" -> Applied to: %s" % node.name)
 	for child in node.get_children():
 		applied += _apply_to_all_sprite2ds(child)
 	return applied

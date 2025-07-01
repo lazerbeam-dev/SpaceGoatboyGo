@@ -9,6 +9,9 @@ var sprite: Sprite2D
 var collider: CollisionShape2D
 var goatboys_inside := {}
 
+var poll_timer := 0.0
+@export var poll_interval := 3.0  # Seconds between goatboy rechecks
+
 func _ready():
 	print("[Gate] Ready. Initializing references...")
 
@@ -32,6 +35,12 @@ func _ready():
 
 	print("[Gate] Setting initial state (closed)...")
 	_update_gate_state()
+
+func _process(delta: float) -> void:
+	poll_timer += delta
+	if poll_timer >= poll_interval:
+		poll_timer = 0.0
+		_poll_for_goatboys()
 
 func _on_body_entered(body):
 	print("[Gate] Body entered:", body)
@@ -64,3 +73,12 @@ func _is_goatboy(body: Node) -> bool:
 	var match := body.name.contains("Goatboy") or body.is_in_group("goatboy")
 	#print("[Gate] Checking if body is Goatboy:", body.name, "=>", match)
 	return match
+
+func _poll_for_goatboys():
+	var current := {}
+	for body in detector.get_overlapping_bodies():
+		if _is_goatboy(body):
+			current[body] = true
+	if current.keys() != goatboys_inside.keys():
+		goatboys_inside = current
+		_update_gate_state()

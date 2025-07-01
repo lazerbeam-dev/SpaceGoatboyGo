@@ -3,7 +3,6 @@ class_name MinigunWeapon
 
 @export var fire_rate := 0.05           # Time between shots (not shots/sec)
 @export var barrel_radius := 0.5        # Radius of the rotation circle
-var _fire_timer := 0.0
 var _barrel_index := 0                  # 0–5 for 6 positions around circle
 
 func attempt_fire(direction: Vector2, global_time: float) -> void:
