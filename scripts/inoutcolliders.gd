@@ -41,17 +41,35 @@ func _on_inner_entered(body):
 		emit_signal("goatboy_entered_inner", body)
 
 func _on_inner_exited(body):
-	var still_in_outer = _outer_area.get_overlapping_bodies().has(body)
-	var still_in_inner = _inner_area.get_overlapping_bodies().has(body)
+	var still_in_outer = _outer_area and _outer_area.get_overlapping_bodies().has(body)
+	var still_in_inner = _inner_area and _inner_area.get_overlapping_bodies().has(body)
 	var prev = body_states.get(body, "unknown")
 
 	if not still_in_inner and not still_in_outer:
 		body_states[body] = "outside"
+		_apply_outer_z_order(body)
 		emit_signal("goatboy_exited_inner", body)
 	elif still_in_outer:
 		body_states[body] = "outside"
 		_apply_outer_z_order(body)
 		emit_signal("goatboy_exited_inner", body)
+
+func _on_outer_exited(body):
+	if not body_states.has(body):
+		return
+
+	var still_in_inner = _inner_area and _inner_area.get_overlapping_bodies().has(body)
+	var still_in_outer = _outer_area and _outer_area.get_overlapping_bodies().has(body)
+	var prev = body_states.get(body, "unknown")
+
+	if not still_in_outer and not still_in_inner:
+		body_states[body] = "outside"
+		_apply_outer_z_order(body)
+		emit_signal("goatboy_exited_outer", body)
+	elif still_in_inner:
+		body_states[body] = "inside"
+		emit_signal("goatboy_exited_outer", body)
+
 
 func _on_outer_entered(body):
 	# Only act if this body has previously been seen in inner
@@ -69,22 +87,6 @@ func _on_outer_entered(body):
 	_apply_outer_z_order(body)
 	if prev != "outside":
 		emit_signal("goatboy_entered_outer", body)
-
-func _on_outer_exited(body):
-	# Only act if this body has previously been seen in inner
-	if not body_states.has(body):
-		return
-
-	var still_in_inner = _inner_area.get_overlapping_bodies().has(body)
-	var still_in_outer = _outer_area.get_overlapping_bodies().has(body)
-	var prev = body_states.get(body, "unknown")
-
-	if not still_in_outer and not still_in_inner:
-		body_states[body] = "inside"
-		emit_signal("goatboy_exited_outer", body)
-	elif still_in_inner:
-		body_states[body] = "inside"
-		emit_signal("goatboy_exited_outer", body)
 
 func _apply_inner_z_order(body: Node):
 	if _visual_reference_sprite:

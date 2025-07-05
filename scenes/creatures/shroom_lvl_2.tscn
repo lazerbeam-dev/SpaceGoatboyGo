@@ -21,6 +21,7 @@ floor_stop_on_slope = false
 floor_max_angle = 1.64585
 safe_margin = 2.0
 script = ExtResource("1_2k48a")
+jump_velocity = -700.0
 size = 50
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

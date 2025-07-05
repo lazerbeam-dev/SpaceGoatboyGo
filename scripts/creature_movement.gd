@@ -46,6 +46,10 @@ func _ready():
 			current = current.get_parent()
 	if not planet:
 		push_error("Creature: Planet not found via path or Game/Planet search.")
+		return
+	var gravity_dir = (planet.global_position - global_position).normalized()
+	var up_dir = -gravity_dir
+	up_direction = up_dir
 
 func _physics_process(delta):
 	if not planet or is_dead:

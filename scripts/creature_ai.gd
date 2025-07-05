@@ -80,6 +80,14 @@ func decide(perception: Dictionary) -> Dictionary:
 		var angle_target = (perception.target.global_position - center).angle()
 		var delta_angle = wrapf(angle_target - angle_self, -PI, PI)
 		actions["move_input"] = signf(delta_angle)
+		# Jump inclination logic
+		var to_target = perception.target.global_position - parent.global_position
+		var vertical = to_target.dot(Vector2.UP.rotated(parent.up_direction.angle()))
+		var horizontal = to_target.dot(Vector2.RIGHT.rotated(parent.up_direction.angle()))
+		var angle = to_target.angle_to(-parent.up_direction)
+
+		if vertical > 30 and abs(horizontal) < 300 and angle < deg_to_rad(75):
+			actions["jump_strength"] = clampf(angle / deg_to_rad(75), 0.4, 1.0)  # higher angle → stronger jump
 
 	return actions
 
@@ -97,8 +105,8 @@ func act(actions: Dictionary):
 	else:
 		if arms:
 			arms.use_manual_aim = false
-
-# ----- Callbacks from InOut -----
+	if actions.has("jump_strength"):
+		parent.trigger_jump(actions["jump_strength"])
 
 func _on_target_went_inside(body: Node):
 	if body == target:

@@ -25,9 +25,9 @@
 [ext_resource type="Texture2D" uid="uid://cskabipetuafs" path="res://assets/sprites/metal/turret bottom.png" id="35_twgab"]
 [ext_resource type="Texture2D" uid="uid://djrhqeina5j2p" path="res://assets/sprites/metal/turret top.png" id="36_02fa5"]
 [ext_resource type="Texture2D" uid="uid://cs8hsav37702r" path="res://assets/sprites/metal/turret_top_front.png" id="37_7025r"]
-[ext_resource type="Texture2D" uid="uid://c0b0jr7d0v1gl" path="res://assets/sprites/metal/metal_thick_slab.png" id="38_05nbr"]
 [ext_resource type="Texture2D" uid="uid://bjkpk0e7l8gif" path="res://assets/sprites/metal/turret_top_back.png" id="38_m4url"]
 [ext_resource type="PackedScene" uid="uid://26g4m73urvpu" path="res://scenes/mics/ufo.tscn" id="38_nepv3"]
+[ext_resource type="PackedScene" uid="uid://bn7j666cp3tcq" path="res://scenes/foregroundObjects/metal_cube_big.tscn" id="38_oaba0"]
 [ext_resource type="Texture2D" uid="uid://tbn84nt5enkc" path="res://assets/sprites/metal/turret_barrel.png" id="39_8ool0"]
 [ext_resource type="Shader" uid="uid://dfqqx4aehytoo" path="res://assets/shaders/laser.gdshader" id="39_m4url"]
 [ext_resource type="Texture2D" uid="uid://dmabjvonccyaf" path="res://assets/sprites/misc/100pxDiameterCircleWhite.png" id="40_8ool0"]
@@ -35,6 +35,7 @@
 [ext_resource type="Texture2D" uid="uid://ccyn1gwlymn1r" path="res://assets/sprites/crystals4.png" id="41_8ool0"]
 [ext_resource type="Texture2D" uid="uid://hcp7oe86sp1b" path="res://assets/sprites/gov/2024-3-20-slime-eyes-new_0001s_0005_angry-eye-1.png" id="42_pr1ej"]
 [ext_resource type="PackedScene" uid="uid://dkrm3idrr7kbx" path="res://scenes/creatures/shroom_lvl_3.tscn" id="44_0sl42"]
+[ext_resource type="Script" uid="uid://dwskdh2lw7bh0" path="res://scripts/hud_main.gd" id="45_oaba0"]
 [ext_resource type="PackedScene" uid="uid://dc1dau4up7k24" path="res://scenes/creatures/shroom_lvl_1.tscn" id="47_h3rex"]
 [ext_resource type="PackedScene" uid="uid://bohuusl66hf6t" path="res://scenes/creatures/slime.tscn" id="49_8qswn"]
 [ext_resource type="Shader" uid="uid://viaorshxul33" path="res://assets/shaders/emotional_material.gdshader" id="49_i4re6"]
@@ -45,7 +46,7 @@
 [ext_resource type="Script" uid="uid://ccq4d2r32i8t6" path="res://scripts/the_sky.gd" id="51_i4re6"]
 [ext_resource type="PackedScene" uid="uid://dtgoieb78hhf3" path="res://scenes/creatures/shroom_lvl_2.tscn" id="52_pf7vy"]
 
-[sub_resource type="Curve2D" id="Curve2D_0sl42"]
+[sub_resource type="Curve2D" id="Curve2D_oaba0"]
 _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 999.011, 9.11677, 0, 0, 0, 0, 1215.43, 76.4684, 0, 0, 0, 0, 1211.84, 153.222, 0, 0, 0, 0, 1198.27, 228.273, 0, 0, 0, 0, 1171.73, 300.257, 0, 0, 0, 0, 1138.07, 369.781, 0, 0, 0, 0, 1026.23, 406.311, 0, 0, 0, 0, 997.454, 469.454, 0, 0, 0, 0, 971.484, 534.623, 0, 0, 0, 0, 946.799, 601.639, 0, 0, 0, 0, 921.54, 669.538, 0, 0, 0, 0, 947, 783.426, 0, 0, 0, 0, 890.284, 835.574, 0, 0, 0, 0, 828.75, 881.624, 0, 0, 0, 0, 762.395, 921.578, 0, 0, 0, 0, 646.996, 890.514, 0, 0, 0, 0, 588.066, 926.643, 0, 0, 0, 0, 530.624, 966.048, 0, 0, 0, 0, 473.882, 1008.59, 0, 0, 0, 0, 414.604, 1048.63, 0, 0, 0, 0, 352.44, 1084.7, 0, 0, 0, 0, 303.43, 1181.78, 0, 0, 0, 0, 226.315, 1183.02, 0, 0, 0, 0, 149.785, 1180.32, 0, 0, 0, 0, 73.8408, 1173.67, 0, 0, 0, 0, -1.23965e-13, 770.855, 0, 0, 0, 0, -49.267, 776.617, 0, 0, 0, 0, -99.7693, 784.408, 0, 0, 0, 0, -151.435, 790.601, 0, 0, 0, 0, -203.755, 793.575, 0, 0, 0, 0, -278.326, 856.599, 0, 0, 0, 0, -326.385, 825.757, 0, 0, 0, 0, -371.94, 791.846, 0, 0, 0, 0, -415.455, 756.601, 0, 0, 0, 0, -459.868, 724.642, 0, 0, 0, 0, -506.224, 696.757, 0, 0, 0, 0, -507.972, 614.032, 0, 0, 0, 0, -555.801, 590.958, 0, 0, 0, 0, -599.54, 562.541, 0, 0, 0, 0, -635.056, 525.548, 0, 0, 0, 0, -663.35, 481.952, 0, 0, 0, 0, -745.487, 473.1, 0, 0, 0, 0, -761.199, 419.032, 0, 0, 0, 0, -780.402, 367.321, 0, 0, 0, 0, -803.096, 317.968, 0, 0, 0, 0, -756.772, 245.89, 0, 0, 0, 0, -784.339, 200.767, 0, 0, 0, 0, -805.519, 153.347, 0, 0, 0, 0, -814.843, 103.11, 0, 0, 0, 0, -814.553, 51.2473, 0, 0, 0, 0, -1199.4, -3.85762e-13, 0, 0, 0, 0, -1181.03, -73.7454, 0, 0, 0, 0, -1166.37, -147.214, 0, 0, 0, 0, -1156.06, -220.824, 0, 0, 0, 0, -1149.26, -295.08, 0, 0, 0, 0, -1068.95, -347.322, 0, 0, 0, 0, -1052.37, -417.03, 0, 0, 0, 0, -1026.69, -483.026, 0, 0, 0, 0, -988.937, -543.118, 0, 0, 0, 0, -943.149, -598.541, 0, 0, 0, 0, -955.16, -693.965, 0, 0, 0, 0, -904.244, -747.859, 0, 0, 0, 0, -856.338, -804.57, 0, 0, 0, 0, -811.52, -865.131, 0, 0, 0, 0, -767.754, -928.055, 0, 0, 0, 0, -669.398, -921.348, 0, 0, 0, 0, -610.368, -961.802, 0, 0, 0, 0, -546.926, -994.045, 0, 0, 0, 0, -478.623, -1015.6, 0, 0, 0, 0, -408.827, -1031.06, 0, 0, 0, 0, -339.45, -1044.72, 0, 0, 0, 0, -293.42, -1142.8, 0, 0, 0, 0, -222.74, -1170.91, 0, 0, 0, 0, -150.54, -1196.98, 0, 0, 0, 0, -76.1199, -1217.07, 0, 0, 0, 0, -2.26059e-13, -1230.65, 0, 0, 0, 0, 51.7685, -822.837, 0, 0, 0, 0, 100.537, -801.272, 0, 0, 0, 0, 147.991, -779.026, 0, 0, 0, 0, 194.437, -758.347, 0, 0, 0, 0, 240.796, -741.094, 0, 0, 0, 0, 319.461, -806.866, 0, 0, 0, 0, 376.357, -798.248, 0, 0, 0, 0, 431.24, -783.573, 0, 0, 0, 0, 484.112, -762.839, 0, 0, 0, 0, 480.983, -662.016, 0, 0, 0, 0, 510.769, -618.456, 0, 0, 0, 0, 538.205, -574.106, 0, 0, 0, 0, 565.337, -531.325, 0, 0, 0, 0, 594.295, -491.643, 0, 0, 0, 0, 696.343, -505.923, 0, 0, 0, 0, 739.36, -468.442, 0, 0, 0, 0, 778.819, -427.594, 0, 0, 0, 0, 809.707, -380.925, 0, 0, 0, 0, 832.923, -329.778, 0, 0, 0, 0, 765.072, -248.587, 0, 0, 0, 0, 762.844, -196.51, 0, 0, 0, 0, 763.622, -145.963, 0, 0, 0, 0, 769.661, -97.069, 0, 0, 0, 0, 999.011, 9.11677)
 }
@@ -80,9 +81,6 @@ shader_parameter/blend_amount = 0.5
 shader = ExtResource("49_i4re6")
 shader_parameter/blend_color = Color(0.287003, 0.348828, 0.171906, 1)
 shader_parameter/blend_amount = 0.5
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_oaba0"]
-size = Vector2(2535.58, 1126.07)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0sl42"]
 shader = ExtResource("39_m4url")
@@ -173,7 +171,7 @@ noise_strength = 1.0
 
 [node name="GeneratedPath" type="Path2D" parent="Planet/Pathwright"]
 texture_repeat = 2
-curve = SubResource("Curve2D_0sl42")
+curve = SubResource("Curve2D_oaba0")
 
 [node name="PathRenderer" type="Node2D" parent="Planet/Pathwright"]
 z_index = -5
@@ -270,7 +268,7 @@ position = Vector2(-423, -1138)
 [node name="CameraController" type="Camera2D" parent="."]
 position = Vector2(-328.807, -1331.97)
 ignore_rotation = false
-zoom = Vector2(1.55, 1.55)
+zoom = Vector2(1.43, 1.43)
 limit_bottom = 100000000
 limit_smoothed = true
 position_smoothing_enabled = true
@@ -295,7 +293,7 @@ position = Vector2(48, 52)
 [node name="TheStars" type="Sprite2D" parent="starspivot"]
 z_index = -20
 material = SubResource("ShaderMaterial_3hbvx")
-position = Vector2(52, 1161)
+position = Vector2(52, 1169)
 scale = Vector2(12945, 15088)
 texture = ExtResource("50_o8ni1")
 
@@ -323,7 +321,8 @@ uv_scale = Vector2(12, 12)
 
 [node name="ShipShadowSide" type="Node2D" parent="GiantSkyCuubeFrameOfReference/pivot"]
 z_index = -13
-position = Vector2(1316, -717)
+position = Vector2(1295, -771)
+rotation = -0.0558313
 script = ExtResource("19_5newe")
 path_node_path = NodePath("../../Line2D2")
 fill_texture = ExtResource("49_rm0al")
@@ -343,18 +342,8 @@ visible = false
 position = Vector2(-87, 87)
 points = PackedVector2Array(-1426, -3854, -1618, 1329, -3981, 41, -3951, -3171, -1444, -3923)
 
-[node name="randomcube" type="StaticBody2D" parent="GiantSkyCuubeFrameOfReference"]
-z_index = -2
-position = Vector2(-837, -403)
-scale = Vector2(0.130542, 0.130542)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GiantSkyCuubeFrameOfReference/randomcube"]
-position = Vector2(26.8113, -11.4941)
-shape = SubResource("RectangleShape2D_oaba0")
-
-[node name="sprites" type="Sprite2D" parent="GiantSkyCuubeFrameOfReference/randomcube"]
-z_index = -4
-texture = ExtResource("38_05nbr")
+[node name="metal_cube_big" parent="GiantSkyCuubeFrameOfReference" instance=ExtResource("38_oaba0")]
+position = Vector2(-788, -409)
 
 [node name="Ufo" parent="." instance=ExtResource("38_nepv3")]
 position = Vector2(237, -1270)
@@ -375,4 +364,47 @@ scale = Vector2(0.0688403, 0.0688403)
 texture = ExtResource("42_pr1ej")
 
 [node name="ShroomLvl5" parent="." instance=ExtResource("44_0sl42")]
-position = Vector2(378, -1230)
+position = Vector2(829, -181)
+rotation = 1.53358
+
+[node name="ShroomLvl8" parent="." instance=ExtResource("44_0sl42")]
+position = Vector2(410, -1225)
+rotation = -0.0175571
+
+[node name="ShroomLvl6" parent="." instance=ExtResource("44_0sl42")]
+position = Vector2(-1229, -168)
+rotation = -1.44938
+
+[node name="ShroomLvl7" parent="." instance=ExtResource("44_0sl42")]
+position = Vector2(-111, 832)
+rotation = -3.21148
+
+[node name="UICanvas" type="CanvasLayer" parent="."]
+
+[node name="HUD" type="Control" parent="UICanvas"]
+layout_direction = 2
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("45_oaba0")
+
+[node name="HPBar" type="TextureProgressBar" parent="UICanvas/HUD"]
+modulate = Color(0.85843, 0.149774, 0.188614, 1)
+z_index = 23
+layout_mode = 0
+offset_left = 41.0
+offset_top = 23.0
+offset_right = 655.0
+offset_bottom = 55.0
+value = 100.0
+rounded = true
+nine_patch_stretch = true
+texture_progress = ExtResource("50_o8ni1")
+
+[node name="MissionLabel" type="RichTextLabel" parent="UICanvas/HUD"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0

@@ -88,7 +88,7 @@ func get_aim_target_world_position() -> Vector2:
 	# 1. Get the raw keyboard direction (e.g., Vector2(0, -1) for up)
 	# 2. Rotate this direction by the camera's *global rotation*.
 	#    This ensures that "ui_up" always points "away from the planet"
-	#    relative to how the camera is oriented.
+	#    relative to how the camera is oriented.s
 	var world_aim_dir_from_keyboard = keyboard_input_dir.rotated(camera.global_rotation)
 	
 	# 3. Project this rotated direction out from the player's global position

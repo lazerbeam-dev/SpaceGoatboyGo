@@ -14,6 +14,9 @@ signal died
 signal last_frame_on_the_plane
 signal received_impact
 
+func get_health_ratio():
+	return health/max_health
+
 func _ready():
 	health = max_health
 

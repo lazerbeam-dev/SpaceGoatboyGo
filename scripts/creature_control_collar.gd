@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 class_name CreatureControlCollar
 
 @export var max_jump_charge_time := 0.7

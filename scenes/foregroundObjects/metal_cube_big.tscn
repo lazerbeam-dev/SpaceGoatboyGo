@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://bn7j666cp3tcq"]
+
+[ext_resource type="Texture2D" uid="uid://c0b0jr7d0v1gl" path="res://assets/sprites/metal/metal_thick_slab.png" id="1_enkhx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oaba0"]
+size = Vector2(2535.58, 1126.07)
+
+[node name="metal_cube_big" type="StaticBody2D"]
+z_index = -2
+scale = Vector2(0.130542, 0.130542)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(26.8113, -11.4941)
+shape = SubResource("RectangleShape2D_oaba0")
+
+[node name="sprites" type="Sprite2D" parent="."]
+z_index = -4
+texture = ExtResource("1_enkhx")

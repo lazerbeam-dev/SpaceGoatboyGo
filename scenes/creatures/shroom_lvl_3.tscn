@@ -161,7 +161,8 @@ skew = 1.77622e-05
 texture = ExtResource("12_3olfj")
 
 [node name="2024-3-20-slime-eyes-new0001s0003Angry-eye-3" type="Sprite2D" parent="Model"]
-position = Vector2(-161.355, -43.0015)
+z_index = 4
+position = Vector2(-129.102, -21.569)
 rotation = 0.00140889
 scale = Vector2(3.72138, 3.69803)
 skew = 1.77622e-05
@@ -188,7 +189,6 @@ script = ExtResource("13_p8l43")
 
 [node name="InOutCollisionArea" type="Node2D" parent="."]
 script = ExtResource("14_gaoui")
-depth_in = 3
 inner_area_path = NodePath("INI")
 outer_area_path = NodePath("OUTI")
 visual_reference_sprite_path = NodePath("../Model/ShroomLvl3CapWhole")
@@ -216,11 +216,11 @@ collision_mask = 6
 shape = SubResource("RectangleShape2D_ocjfq")
 
 [node name="ModularSpawner" type="Node2D" parent="."]
-position = Vector2(4, -99)
+position = Vector2(0, -107)
 script = ExtResource("18_b55nt")
 object_to_spawn = ExtResource("19_qc5hx")
 reference_orientation = NodePath("..")
 velocity = Vector2(0, 1200)
 z_index_on_spawn = -1
-spawn_interval = 0.0
+spawn_interval = 5.0
 metadata/_custom_type_script = "uid://bpcldqcgsi8fm"

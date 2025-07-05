@@ -5,6 +5,8 @@
 .import/
 .export/
 *.godot-export
+*.import
+*.uid
 .tmp
 # OS-specific
 .DS_Store

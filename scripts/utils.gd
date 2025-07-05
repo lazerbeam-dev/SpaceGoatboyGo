@@ -3,7 +3,7 @@ class_name Util
 
 static var dropped_item_scene := preload("res://scenes/creatures/item_drop.tscn")
 static var _frame_token := {}
-
+var hud: HUDMain = null
 static func drop_node_as_wrapped_item(node: Node2D, allow_drop := true, dropped_radius := 3.0) -> void:
 	if not allow_drop:
 		print("drop_node_as_wrapped_item: not allowed")
@@ -38,7 +38,7 @@ static func drop_node_as_wrapped_item(node: Node2D, allow_drop := true, dropped_
 	node.scale = global_scale
 	wrapper.add_child(node)
 
-	scene_root.add_child(wrapper)
+	scene_root.add_child.call_deferred(wrapper)
 
 static func try_once_per_frame(key: String) -> bool:
 	var current_frame = Engine.get_frames_drawn()

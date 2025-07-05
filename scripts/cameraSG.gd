@@ -7,10 +7,10 @@ class_name CameraFollower
 
 var target: Node2D
 
-func _ready():
-	target = get_node_or_null(target_path)
-	if not target:
-		push_error("Camera target not found.")
+#func _ready():
+	#target = get_node_or_null(target_path)
+	#if not target:
+		#push_error("Camera target not found.")
 
 func _process(delta):
 	if not is_instance_valid(target):
