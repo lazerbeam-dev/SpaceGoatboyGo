@@ -14,11 +14,11 @@ speed = 1200.0
 damage = 11.0
 
 [node name="01" type="Sprite2D" parent="."]
-position = Vector2(-3, 0)
+position = Vector2(12.5219, -0.145212)
 scale = Vector2(1.00107, 0.868383)
 texture = ExtResource("2_fboot")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(3, 0)
+position = Vector2(18.5219, -0.145212)
 shape = SubResource("CircleShape2D_q3m7n")
 debug_color = Color(0, 0.6, 0.701961, 1)

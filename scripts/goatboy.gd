@@ -39,10 +39,10 @@ func creature_animate():
 	if goat_mode_held and is_flying_with_rocket_boots:
 		target_anim = "goatmode_flying"
 	elif goat_mode_held:
-		if abs(move_input) > 0.01 :
+		if abs(move_input.x) > 0.01 :
 			target_anim = "goatmode"
 		else: target_anim = "goatmode_static"
-	elif abs(move_input) > 0.1 && is_on_floor():
+	elif abs(move_input.x) > 0.1 && is_on_floor():
 		target_anim = "walk"
 	else:
 		pass

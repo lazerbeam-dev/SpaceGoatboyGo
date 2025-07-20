@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bohuusl66hf6t"]
+[gd_scene load_steps=11 format=3 uid="uid://bohuusl66hf6t"]
 
 [ext_resource type="Script" uid="uid://bhapayb2kodf5" path="res://scripts/slime_bounce.gd" id="1_hh3tr"]
 [ext_resource type="Material" uid="uid://4d2su4w8x8ou" path="res://assets/shaders/emotional_material_creature.tres" id="2_tthg0"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://cwggdsevlq1jt" path="res://assets/sprites/slimes/white1.png" id="4_tthg0"]
 [ext_resource type="Script" uid="uid://d4l5idlj7u6h7" path="res://scripts/slime_ai.gd" id="4_wgdsu"]
 [ext_resource type="Script" uid="uid://sfkl8i82eqbk" path="res://scripts/slime_gloop.gd" id="5_r75lb"]
+[ext_resource type="PackedScene" uid="uid://dldxvknx08dtn" path="res://scenes/mics/cull_tag.tscn" id="8_htqpv"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_264po"]
 radius = 36.6879
@@ -46,6 +47,9 @@ cooldown_duration = 1.0
 pull_strength = 75.0
 snap_threshold = 0.1
 max_engulf_radius = 150.0
+health_path = NodePath("../DestructibleSlime")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="GloopArea"]
 shape = SubResource("CircleShape2D_r75lb")
+
+[node name="CullTag" parent="." instance=ExtResource("8_htqpv")]

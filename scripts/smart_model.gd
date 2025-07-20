@@ -5,22 +5,37 @@ class_name SmartModel
 @export var default_noise_texture: Texture2D = preload("res://assets/sprites/misc/MMFlowNoise.png")
 @export var dissolve_speed := 2
 
+@export var excluded_sprites_paths: Array[NodePath] = [] # List of nodes to ignore when applying dissolve
+
 var sprite_map: Dictionary = {}
 var is_dissolved := false
 var dissolve_coroutine_running := false
+var excluded_sprites: Array[Node2D] = []
 
 func _ready():
 	dissolve_speed = 2
+	excluded_sprites.clear()
+	for path in excluded_sprites_paths:
+		var node = get_node_or_null(path)
+		if node and node is Node2D:
+			excluded_sprites.append(node)
 	cache_all_sprites(self)
 
 func cache_all_sprites(root: Node) -> void:
 	for child in root.get_children():
 		cache_all_sprites(child)
+
 	if root is Sprite2D:
-		sprite_map[root] = {
-			"material": root.material,
-			"z_index": root.z_index,
-		}
+		if excluded_sprites.has(root):
+			pass
+		elif root.owner != self.owner:
+			pass
+		else:
+			sprite_map[root] = {
+				"material": root.material,
+				"z_index": root.z_index,
+			}
+
 
 func apply_dissolve(blend_color: Color, blend_amount: float, dissolve_amount: float = 0.0, edge_color: Color = Color(1,1,1)):
 	if not dissolve_material:
@@ -67,9 +82,8 @@ func _start_dissolve(payload: Dictionary) -> void:
 			blend_color = mat_data.material.get_shader_parameter("blend_color")
 			blend_amount = mat_data.material.get_shader_parameter("blend_amount")
 			break
-
-	#print("Dissolve payload received:", payload)
-
+	if self.owner.name == "GoatboyCollar":
+		print("dissolving COLLAR")
 	var edge_color := Color(1, 1, 1)
 	if payload.has("colour"):
 		var named_color = payload["colour"]
@@ -89,7 +103,6 @@ func _start_dissolve(payload: Dictionary) -> void:
 	var dissolve_amount := 0.01
 	apply_dissolve(blend_color, blend_amount, dissolve_amount, edge_color)
 	await _dissolve_over_time(blend_color, blend_amount)
-	print("Done dissolving")
 	dissolve_coroutine_running = false
 
 func _dissolve_over_time(_blend_color: Color, _blend_amount: float) -> void:
@@ -108,7 +121,6 @@ func _dissolve_over_time(_blend_color: Color, _blend_amount: float) -> void:
 func remove_sprite_for_node(sprite: Node2D):
 	if sprite_map.has(sprite):
 		sprite_map.erase(sprite)
-		
+
 func shift_z_index(offset: int):
 	z_index += offset
-	print(owner, "changing z index to", z_index)

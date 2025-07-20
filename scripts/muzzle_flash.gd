@@ -36,7 +36,7 @@ func _ready():
 		fire_flash()
 
 func fire_flash():
-	print(get_parent().name, "fired flash")
+	#print(get_parent().name, "fired flash")
 	is_flashing = true
 	visible = true
 	flash_timer = 0.0

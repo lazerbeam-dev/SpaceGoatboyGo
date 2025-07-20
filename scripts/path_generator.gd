@@ -12,7 +12,7 @@ class_name Pathwright
 			print("Auto-generate triggered from editor")
 			generate_path()
 
-@export var seed := 0
+@export var planet_seed := 0
 @export var frequency_1 := 4.0
 @export var frequency_2 := 2.0
 @export var amplitude_1 := 100.0
@@ -48,7 +48,7 @@ func generate_path():
 	clear_path()
 	segment_info.clear()
 
-	rng.seed = seed
+	rng.seed = planet_seed
 	print("Seed set:", seed)
 
 	var raw_points: Array[Vector2] = []

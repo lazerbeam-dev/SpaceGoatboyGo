@@ -9,8 +9,8 @@ class_name InOutCollisionArea
 var _inner_area: Area2D
 var _outer_area: Area2D
 var _visual_reference_sprite: Node2D
-var _z_shift_states := {}  # Tracks last applied z-offset per model
 
+var _original_z_index_by_model := {}  # model -> base z index
 var body_states := {}  # "inside", "outside", or "between"
 
 signal goatboy_entered_inner(body)
@@ -30,82 +30,62 @@ func _ready():
 
 	for body in _inner_area.get_overlapping_bodies():
 		body_states[body] = "inside"
-		_apply_inner_z_order(body)
+		_set_z_index(body, depth_in)
 		emit_signal("goatboy_entered_inner", body)
 
 func _on_inner_entered(body):
 	var prev = body_states.get(body, "unknown")
 	body_states[body] = "inside"
-	_apply_inner_z_order(body)
+	_set_z_index(body, depth_in)
 	if prev != "inside":
 		emit_signal("goatboy_entered_inner", body)
 
 func _on_inner_exited(body):
-	var still_in_outer = _outer_area and _outer_area.get_overlapping_bodies().has(body)
-	var still_in_inner = _inner_area and _inner_area.get_overlapping_bodies().has(body)
-	var prev = body_states.get(body, "unknown")
+	var in_outer = _outer_area.get_overlapping_bodies().has(body)
+	var in_inner = _inner_area.get_overlapping_bodies().has(body)
 
-	if not still_in_inner and not still_in_outer:
+	if not in_inner and not in_outer:
 		body_states[body] = "outside"
-		_apply_outer_z_order(body)
+		_set_z_index(body, 0)
 		emit_signal("goatboy_exited_inner", body)
-	elif still_in_outer:
+	elif in_outer:
 		body_states[body] = "outside"
-		_apply_outer_z_order(body)
+		_set_z_index(body, 0)
 		emit_signal("goatboy_exited_inner", body)
+
+func _on_outer_entered(body):
+	if not body_states.has(body):
+		return
+
+	var in_inner = _inner_area.get_overlapping_bodies().has(body)
+	if in_inner:
+		body_states[body] = "inside"
+	else:
+		body_states[body] = "outside"
+		_set_z_index(body, 0)
+		emit_signal("goatboy_entered_outer", body)
 
 func _on_outer_exited(body):
 	if not body_states.has(body):
 		return
 
-	var still_in_inner = _inner_area and _inner_area.get_overlapping_bodies().has(body)
-	var still_in_outer = _outer_area and _outer_area.get_overlapping_bodies().has(body)
-	var prev = body_states.get(body, "unknown")
-
-	if not still_in_outer and not still_in_inner:
-		body_states[body] = "outside"
-		_apply_outer_z_order(body)
-		emit_signal("goatboy_exited_outer", body)
-	elif still_in_inner:
-		body_states[body] = "inside"
-		emit_signal("goatboy_exited_outer", body)
-
-
-func _on_outer_entered(body):
-	# Only act if this body has previously been seen in inner
-	if not body_states.has(body):
-		return
-
 	var in_inner = _inner_area.get_overlapping_bodies().has(body)
-	var prev = body_states.get(body, "unknown")
+	var in_outer = _outer_area.get_overlapping_bodies().has(body)
 
-	if in_inner:
+	if not in_inner and not in_outer:
+		body_states[body] = "outside"
+		_set_z_index(body, 0)
+		emit_signal("goatboy_exited_outer", body)
+	elif in_inner:
 		body_states[body] = "inside"
+		emit_signal("goatboy_exited_outer", body)
+
+func _set_z_index(body: Node, shift: int):
+	if body.owner == self.owner:
 		return
 
-	body_states[body] = "outside"
-	_apply_outer_z_order(body)
-	if prev != "outside":
-		emit_signal("goatboy_entered_outer", body)
-
-func _apply_inner_z_order(body: Node):
-	if _visual_reference_sprite:
-		if body.owner == self.owner or body == self:
-			return
-		var model = body.get_node_or_null("Model")
-		if model and model is SmartModel:
-			var offset = -depth_in
-			if _z_shift_states.get(model, null) != offset:
-				model.shift_z_index(offset)
-				_z_shift_states[model] = offset
-
-func _apply_outer_z_order(body: Node):
-	if _visual_reference_sprite:
-		if body.owner == self.owner:
-			return
-		var model = body.get_node_or_null("Model")
-		if model and model is SmartModel:
-			var offset = depth_in
-			if _z_shift_states.get(model, null) != offset:
-				model.shift_z_index(offset)
-				_z_shift_states[model] = offset
+	var model = body.get_node_or_null("Model")
+	if model and model is SmartModel:
+		if not _original_z_index_by_model.has(model):
+			_original_z_index_by_model[model] = model.z_index
+		model.z_index = _original_z_index_by_model[model] + shift

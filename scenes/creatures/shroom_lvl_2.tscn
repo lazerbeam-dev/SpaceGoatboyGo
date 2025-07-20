@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dtgoieb78hhf3"]
+[gd_scene load_steps=13 format=3 uid="uid://dtgoieb78hhf3"]
 
 [ext_resource type="Script" uid="uid://clieya4aq3od7" path="res://scripts/creature_movement.gd" id="1_2k48a"]
 [ext_resource type="Script" uid="uid://cmn6umx8ffps5" path="res://scripts/health.gd" id="2_al2sp"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://brd2qqnlr6hv2" path="res://scripts/arm.gd" id="6_w54bn"]
 [ext_resource type="Texture2D" uid="uid://1gpayjq7h71m" path="res://assets/sprites/shrooms/shroom_lvl2_arm.png" id="7_w5lkg"]
 [ext_resource type="PackedScene" uid="uid://cakicfd3ye6nf" path="res://scenes/weapons/shroom_weapons/shroom_pistol.tscn" id="9_uho4i"]
+[ext_resource type="PackedScene" uid="uid://dldxvknx08dtn" path="res://scenes/mics/cull_tag.tscn" id="11_2b877"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_264po"]
 radius = 9.0
@@ -22,9 +23,8 @@ floor_max_angle = 1.64585
 safe_margin = 2.0
 script = ExtResource("1_2k48a")
 jump_velocity = -700.0
-size = 50
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="Health" type="CollisionShape2D" parent="."]
 position = Vector2(0, -1)
 shape = SubResource("CapsuleShape2D_264po")
 script = ExtResource("2_al2sp")
@@ -41,14 +41,14 @@ script = ExtResource("6_dq66b")
 
 [node name="Arm" type="Node2D" parent="Model/Arms"]
 script = ExtResource("6_w54bn")
-gun_z_index = 1
 metadata/_custom_type_script = "uid://brd2qqnlr6hv2"
 
 [node name="HandPos" type="Node2D" parent="Model/Arms/Arm"]
 position = Vector2(104.882, 16.0344)
 
 [node name="shroomGunPurple" parent="Model/Arms/Arm/HandPos" instance=ExtResource("9_uho4i")]
-position = Vector2(-8.03228, 0.00588989)
+position = Vector2(-8.03231, -16.0344)
+scale = Vector2(4.48977, 4.48977)
 
 [node name="Sprite2D" type="Sprite2D" parent="Model/Arms/Arm"]
 material = ExtResource("2_gha5o")
@@ -58,3 +58,5 @@ texture = ExtResource("7_w5lkg")
 
 [node name="AI" type="Node2D" parent="."]
 script = ExtResource("3_gha5o")
+
+[node name="CullTag" parent="." instance=ExtResource("11_2b877")]

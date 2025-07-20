@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://dbmy0f2tt1x4r"]
+[gd_scene load_steps=26 format=3 uid="uid://dbmy0f2tt1x4r"]
 
 [ext_resource type="Script" uid="uid://m007xamvnvw4" path="res://scripts/teleporter_main.gd" id="1_duj8f"]
 [ext_resource type="PackedScene" uid="uid://cnwp5683pkh5h" path="res://assets/goatboy/Goatboy.tscn" id="2_h26hi"]
@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://ca6n8h6morgjh" path="res://assets/sprites/gov/transporter_antenna_B.png" id="14_odcqf"]
 [ext_resource type="Texture2D" uid="uid://cwrpjit2wcttm" path="res://assets/sprites/gov/transporter_base_B.png" id="15_xe34j"]
 [ext_resource type="Texture2D" uid="uid://dn8drfl2qli1s" path="res://assets/sprites/gov/transporter_back_wall_B.png" id="16_h7jxk"]
+[ext_resource type="Texture2D" uid="uid://hcp7oe86sp1b" path="res://assets/sprites/gov/2024-3-20-slime-eyes-new_0001s_0005_angry-eye-1.png" id="17_h26hi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qnb83"]
 size = Vector2(8, 85.5)
@@ -115,7 +116,7 @@ texture = ExtResource("10_4j1je")
 [node name="InOut" type="Node2D" parent="Construction/Door"]
 position = Vector2(-4.9687, -1)
 script = ExtResource("11_it0g0")
-depth_in = 5
+depth_in = -5
 inner_area_path = NodePath("In")
 outer_area_path = NodePath("Out")
 visual_reference_sprite_path = NodePath("../TransporterDoorClosed")
@@ -194,3 +195,8 @@ material = ExtResource("3_h7b6g")
 position = Vector2(-23, 115)
 scale = Vector2(0.059, 0.059)
 texture = ExtResource("4_dmd2w")
+
+[node name="2024-3-20-slime-eyes-new0001s0005Angry-eye-1" type="Sprite2D" parent="."]
+position = Vector2(-10, 1)
+scale = Vector2(0.0688403, 0.0688403)
+texture = ExtResource("17_h26hi")

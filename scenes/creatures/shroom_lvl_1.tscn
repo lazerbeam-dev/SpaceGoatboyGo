@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dc1dau4up7k24"]
+[gd_scene load_steps=10 format=3 uid="uid://dc1dau4up7k24"]
 
 [ext_resource type="Material" uid="uid://ukfdvyp37m5n" path="res://assets/shaders/dissolve.tres" id="1_ak5br"]
 [ext_resource type="Script" uid="uid://clieya4aq3od7" path="res://scripts/creature_movement.gd" id="1_tp8wo"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://cmn6umx8ffps5" path="res://scripts/health.gd" id="3_21ae2"]
 [ext_resource type="Script" uid="uid://ct6k65qr1co7h" path="res://scripts/creature_ai.gd" id="3_ak5br"]
 [ext_resource type="Script" uid="uid://gm4ldccgiuao" path="res://scripts/smart_model.gd" id="6_6h4o0"]
+[ext_resource type="PackedScene" uid="uid://dldxvknx08dtn" path="res://scenes/mics/cull_tag.tscn" id="8_q84gg"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_264po"]
 
@@ -33,3 +34,5 @@ script = ExtResource("6_6h4o0")
 
 [node name="AI" type="Node2D" parent="."]
 script = ExtResource("3_ak5br")
+
+[node name="CullTag" parent="." instance=ExtResource("8_q84gg")]

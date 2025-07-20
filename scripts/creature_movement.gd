@@ -1,22 +1,19 @@
-extends CharacterBody2D
+extends SGEntity
 class_name Creature
 
 @export var planet_path: NodePath
-@export var gravity_strength: float = 980.0
 @export var speed: float = 260.0
 @export var jump_velocity: float = -300.0
 @export var coyote_time: float = 0.15
 @export var death_delay: float = 1.0
 @export var facing_right := true
 @export var is_static := false # If true, disables all movement, flipping, jumping, and animations
-@export var size := 40 # 1 = rat; 10 = dog; 200 = elephant
+
 func can_jump() -> bool:
 	return coyote_timer <= coyote_time and not is_stunned
 
 var jump_strength_ratio: float = 1.0
-var planet: Node2D
 
-var move_input: float = 0.0
 var jump_requested: bool = false
 var coyote_timer := 0.0
 var is_dead := false
@@ -27,8 +24,7 @@ var externally_controlled := false
 
 var is_stunned := false
 var stun_timer := 0.0
-var stored_move_input := 0.0
-
+var stored_move_input := Vector2.ZERO
 @onready var model: Node = $Model
 @onready var arms: CreatureWeaponController = model.get_node_or_null("Torso/Arms") if model else null
 @onready var legs_animator: AnimationPlayer = get_node_or_null("LegsAnimator")
@@ -41,8 +37,7 @@ func _ready():
 			if current.name == "Game":
 				planet = current.get_node_or_null("Planet")
 				if planet:
-					print("Creature: Planet auto-resolved via Game: ", planet.name)
-				break
+					break
 			current = current.get_parent()
 	if not planet:
 		push_error("Creature: Planet not found via path or Game/Planet search.")
@@ -50,6 +45,7 @@ func _ready():
 	var gravity_dir = (planet.global_position - global_position).normalized()
 	var up_dir = -gravity_dir
 	up_direction = up_dir
+	motile = true
 
 func _physics_process(delta):
 	if not planet or is_dead:
@@ -70,7 +66,7 @@ func _physics_process(delta):
 		if death_timer >= death_delay:
 			is_dead = true
 			is_dying = false
-			move_input = 0.0
+			move_input = Vector2.ZERO
 			jump_requested = false
 			queue_free() 
 
@@ -93,18 +89,18 @@ func _physics_process(delta):
 
 	var right_dir = Vector2(-up_dir.y, up_dir.x)
 	var tangent_speed = velocity.dot(right_dir)
-	var effective_move_input = 0.0 if is_stunned else move_input
+	var effective_move_input = 0.0 if is_stunned else move_input.x
 	var desired_speed = effective_move_input * speed
 	var accel = 2000.0 if is_on_floor() else 800.0
 	tangent_speed = move_toward(tangent_speed, desired_speed, accel * delta)
 	velocity = right_dir * tangent_speed + up_dir * velocity.dot(up_dir)
 
 	if not is_stunned:
-		if move_input > 0:
+		if move_input.x > 0:
 			facing_right = true
 			if arms:
 				arms.facing_right = true
-		elif move_input < 0:
+		elif move_input.x < 0:
 			facing_right = false
 			if arms:
 				arms.facing_right = false
@@ -139,9 +135,9 @@ func set_move_input(dir: float):
 		return
 	var new_input = clampf(dir, -1.0, 1.0)
 	if is_stunned:
-		stored_move_input = new_input
+		stored_move_input = Vector2(new_input, 0)
 	else:
-		move_input = new_input
+		move_input = Vector2(new_input, 0)
 
 func trigger_jump(charge_ratio: float = 1.0):
 	if is_dead or is_stunned or is_static:
@@ -161,7 +157,7 @@ func apply_stun(duration: float):
 	is_stunned = true
 	stun_timer = duration
 	stored_move_input = move_input
-	move_input = 0.0
+	move_input = Vector2.ZERO
 	jump_requested = false
 	print("Creature: ", name, " stunned for ", duration, " seconds")
 

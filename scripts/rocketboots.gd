@@ -46,7 +46,7 @@ func _physics_process(delta):
 		character.set_flying_with_rocket_boots(in_true_flying_mode)
 
 	if is_rocketing and rocket_fuel > 0.0:
-		var gravity_dir = (planet.global_position - character.global_position).normalized()
+		var _gravity_dir = (planet.global_position - character.global_position).normalized()
 		var up_dir = character.up_direction
 		var upward_speed = character.velocity.dot(up_dir)
 		var scale = 1.0 - clamp(upward_speed / rocket_force, 0.0, 1.0)

@@ -67,7 +67,8 @@ func _spawn_goatboy() -> void:
 		"i_am_control_tower": true,
 		"from": self.name,
 		"from_node": self,
-		"time": Time.get_unix_time_from_system()
+		"time": Time.get_unix_time_from_system(),
+		"mission": create_dummy_mission()
 	})
 
 	if GameControl.player == null:
@@ -76,13 +77,33 @@ func _spawn_goatboy() -> void:
 func _on_goatboy_control_acquired(payload: Dictionary) -> void:
 	var source := payload.get("source") as Node2D
 	last_spawned_goatboy_collar = source
-	print("TeleporterMain: Goatboy control acquired:", payload)
+	#print("TeleporterMain: Goatboy control acquired:", payload)
 
 func _on_antenna_goatboy_died(payload: Dictionary) -> void:
 	var source := payload.get("source") as Node2D
 	if source != last_spawned_goatboy and source != last_spawned_goatboy_collar:
-		print("TeleporterMain: Ignored goatboy_died from stale source")
+		#print("TeleporterMain: Ignored goatboy_died from stale source")
 		return
 
-	print("TeleporterMain: Got goatboy death report:", payload)
+	#print("TeleporterMain: Got goatboy death report:", payload)
 	goatboys_alive = max(0, goatboys_alive - 1)
+
+func create_dummy_mission():
+	# === MISSION CREATION ===
+	var mission := Mission.new()
+	mission.description = "Eliminate 5 mushrooms in the designated zone."
+
+	# Kill Goal
+	var kill_goal := KillCountGoal.new()
+	kill_goal.required_kills = 5
+	kill_goal.target_tag = "mushroom"
+
+	# Bounds
+	var bounds := CircularMissionBounds.new()
+	bounds.center = spawn_node.global_position
+	bounds.radius = 2000.0
+
+	mission.goals = [kill_goal]
+	mission.fail_conditions = []  # Could add timeout or friendly fire later
+	mission.bounds = bounds
+	return mission

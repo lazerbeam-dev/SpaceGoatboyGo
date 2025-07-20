@@ -1,18 +1,15 @@
-extends CharacterBody2D
-class_name FlyingPatroller
+extends SGEntity
+class_name FlyingSeeker
 
 @export var planet_path: NodePath
-@export var gravity_strength := 0.0  # Still needed for correct up_direction
-@export var orbit_speed := 100.0     # Base horizontal patrol speed
-@export var sine_amplitude := 30.0   # Height of the sine wave
-@export var sine_frequency := 2.0    # Speed of sine wave undulation
-@export var patrol_period := 3.0     # Time to switch direction (seconds)
+@export var acceleration: float = 600.0  # How quickly it changes velocity
+@export var max_speed: float = 300.0     # Max movement speed
+@export var drag: float = 0.1            # Slows down if no input
 
-var planet: Node2D
 var gravity_dir := Vector2.DOWN
-var direction := 1                   # 1 = clockwise, -1 = counterclockwise
-var time := 0.0
-var facing_right := true
+var facing_right := true # This should be set externally
+
+@onready var model := get_node_or_null("Model")
 
 func _ready():
 	planet = get_node_or_null(planet_path)
@@ -24,46 +21,31 @@ func _ready():
 				break
 			current = current.get_parent()
 	if not planet:
-		push_error("FlyingPatroller: No planet found.")
+		push_error("FlyingSeeker: No planet found.")
+	motile = true
 
 func _physics_process(delta):
 	if not planet:
 		return
-	
-	time += delta
-	
-	# Orbiting around the planet
+
 	var to_center = (planet.global_position - global_position).normalized()
 	gravity_dir = to_center
 	up_direction = -to_center
-	
-	# Tangent = 90° to gravity
-	var tangent = Vector2(-to_center.y, to_center.x) * direction
-	
-	# Add sine wave on radial axis (like flapping up and down)
-	var sine_offset = sin(time * TAU * sine_frequency) * sine_amplitude
-	var radial_velocity = to_center * sine_offset
-	
-	# Total velocity: orbit tangent + sine bobbing
-	velocity = tangent * orbit_speed + radial_velocity
-	
-	# Face in orbital direction using up_direction like land creatures
-	rotation = up_direction.angle() + PI / 2
-	
-	# Determine which way we should be facing based on tangent direction
-	var should_face_right = tangent.x > 0
-	
-	# Only flip if we need to change facing direction
-	if should_face_right != facing_right:
-		facing_right = should_face_right
-		if has_node("Model"):
-			var model = get_node("Model")
-			model.scale.x = abs(model.scale.x) * (1 if facing_right else -1)
-	
-	move_and_slide()
-	
-	# Periodic direction flip
-	if patrol_period > 0.0 and int(time / patrol_period) % 2 == 1:
-		direction = -1
+
+	# Accelerate toward input
+	if move_input.length() > 0.01:
+		var desired_velocity = move_input.normalized() * max_speed
+		velocity = velocity.move_toward(desired_velocity, acceleration * delta)
 	else:
-		direction = 1
+		velocity = velocity.move_toward(Vector2.ZERO, drag * delta)
+
+	move_and_slide()
+
+	# Face in movement direction
+	if velocity.length() > 1.0:
+		rotation = up_direction.angle() + PI / 2
+		var should_face_right = velocity.x > 0
+		if should_face_right != facing_right:
+			facing_right = should_face_right
+			if model:
+				model.scale.x = abs(model.scale.x) * (1 if facing_right else -1)

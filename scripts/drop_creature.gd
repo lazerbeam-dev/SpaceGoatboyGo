@@ -1,11 +1,9 @@
-extends CharacterBody2D
+extends SGEntity
 class_name DroppedCreature
 
 @export var planet_path: NodePath
-@export var gravity_strength := 980.0
 @export var stop_speed_threshold := 50.0  # Speed below which the item stops completely
 
-var planet: Node2D
 var gravity_dir := Vector2.DOWN
 
 func _ready():

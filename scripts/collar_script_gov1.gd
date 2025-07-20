@@ -57,19 +57,21 @@ func send_laser(payload: Dictionary, direction: Vector2, sender):
 	else:
 		laser.set("payload", payload)
 	laser.sender = sender
-	print("ACTUAL LASERSEND")
 	get_tree().current_scene.call_deferred("add_child", laser)
 
 
 func _on_last_frame_cleanup():
-	print("COLLAR: Cleanup")
+	if controller_node:
+		controller_node.on_last_frame()
 	if drop_node:
 		Util.drop_node_as_wrapped_item(drop_node)
 	if model_node and model_node.has_method("remove_sprite_for_node"):
+		print("remove sprite for node")
 		model_node.remove_sprite_for_node(controller_node)
 
 func _on_owner_died():
 	awaiting_death_ack = true
-func receive_payload(payload: Dictionary, source) -> void:
+	_on_last_frame_cleanup()
+func receive_payload(payload: Dictionary, _source) -> void:
 	if controller_node and controller_node.has_method("handle_control_payload"):
 		controller_node.handle_control_payload(payload)

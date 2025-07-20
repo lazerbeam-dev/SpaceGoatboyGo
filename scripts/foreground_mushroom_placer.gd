@@ -4,7 +4,7 @@ class_name ForegroundMushroomPlacer
 
 @export var path_node: NodePath
 @export var mushroom_scenes: Array[PackedScene] = []
-@export var seed: int = 42
+@export var _myseed: int = 42
 @export var density: float = 1.0  # Mushrooms per 100 pixels
 @export var clear_existing := false
 @export var generate_now := false:
@@ -34,7 +34,7 @@ func generate():
 		for child in get_children():
 			child.queue_free()
 
-	rng.seed = seed
+	rng.seed = _myseed
 
 	var points: PackedVector2Array = curve.get_baked_points()
 	var total_length = curve.get_baked_length()
@@ -52,7 +52,7 @@ func generate():
 		var t2 : float= clamp(t + delta, 0.0, total_length)
 		var pos2 := curve.sample_baked(t2)
 		var tangent := (pos2 - pos).normalized()
-		var normal := tangent.orthogonal().normalized()
+		#var normal := tangent.orthogonal().normalized()
 
 		var mushroom = mushroom_scenes[rng.randi_range(0, mushroom_scenes.size() - 1)].instantiate()
 		add_child(mushroom)

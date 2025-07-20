@@ -19,7 +19,7 @@ func _process(_delta):
 			if model.is_dissolved:
 				model.revert_materials()
 			else:
-				var rand_color = Color(randf(), randf(), randf()).lightened(0.5)
+				var _rand_color = Color(randf(), randf(), randf()).lightened(0.5)
 				model.begin_dissolve()
 	if not Input.is_key_pressed(KEY_L):
 		toggled = false

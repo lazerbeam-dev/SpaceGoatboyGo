@@ -12,7 +12,6 @@ func _ready():
 		for sibling in get_parent().get_children():
 			if sibling != self and sibling is DestructibleShape:
 				main_health_node = sibling
-				print("SubHealthShape: Auto-assigned sibling DestructibleShape:", main_health_node.name)
 				break
 		if not main_health_node:
 			push_warning("SubHealthShape: No DestructibleShape sibling found.")
@@ -25,8 +24,4 @@ func receive_impact(payload: Dictionary, source: Node = null) -> void:
 	if not main_health_node:
 		push_warning("SubHealthShape: No main health node to forward to.")
 		return
-
-	if debug_passthrough:
-		print("SubHealthShape forwarding impact to main health:", payload)
-
 	main_health_node.call("receive_impact", payload, source)

@@ -22,7 +22,7 @@ scale = Vector2(0.032, 0.032)
 texture = ExtResource("4_gwkgk")
 
 [node name="Barrel" type="Marker2D" parent="."]
-position = Vector2(25, -3)
+position = Vector2(26, -2)
 
 [node name="MuzzleFlash" parent="." instance=ExtResource("4_pqxi0")]
 position = Vector2(20, -2)

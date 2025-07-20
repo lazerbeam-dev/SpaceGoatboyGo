@@ -12,11 +12,11 @@ projectile_scene = ExtResource("2_pbokx")
 dropped_radius = 1.0
 metadata/_custom_type_script = "uid://rxrcx5kjo0sh"
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Model" type="Sprite2D" parent="."]
 z_index = -1
 material = ExtResource("3_8m0vt")
-position = Vector2(49, -25)
-scale = Vector2(0.373704, 0.373704)
+position = Vector2(11, -3)
+scale = Vector2(0.0825987, 0.0825987)
 texture = ExtResource("4_pbokx")
 
 [node name="Barrel" type="Marker2D" parent="."]

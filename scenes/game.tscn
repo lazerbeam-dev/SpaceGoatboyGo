@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://cuv4vme4rwno0"]
+[gd_scene load_steps=75 format=3 uid="uid://cuv4vme4rwno0"]
 
 [ext_resource type="Script" uid="uid://5f7iwrxydbco" path="res://scripts/game_manager.gd" id="1_l4ihi"]
 [ext_resource type="FontFile" uid="uid://c53kogtyjwsss" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="2_nlliu"]
@@ -22,33 +22,44 @@
 [ext_resource type="Texture2D" uid="uid://cvvr1brwr0l6s" path="res://assets/sprites/terrain/outerLeft.png" id="23_oaba0"]
 [ext_resource type="Texture2D" uid="uid://xiylds0rrv6x" path="res://assets/sprites/terrain/InnerLeft.png" id="24_0sl42"]
 [ext_resource type="Script" uid="uid://be20oyaekv606" path="res://scripts/cliff_transition_analyser.gd" id="26_458eo"]
+[ext_resource type="Script" uid="uid://bijm6csrcxpj3" path="res://scripts/cull_manager.gd" id="27_458eo"]
+[ext_resource type="Script" uid="uid://dtx685l21qjyq" path="res://scripts/government_eye.gd" id="34_o8ni1"]
+[ext_resource type="PackedScene" uid="uid://clpjonexye7bb" path="res://scenes/government/goatbux_coin.tscn" id="35_3hbvx"]
+[ext_resource type="PackedScene" uid="uid://bjjw6pjxjkewc" path="res://scenes/government/predator.tscn" id="35_8qswn"]
 [ext_resource type="Texture2D" uid="uid://cskabipetuafs" path="res://assets/sprites/metal/turret bottom.png" id="35_twgab"]
 [ext_resource type="Texture2D" uid="uid://djrhqeina5j2p" path="res://assets/sprites/metal/turret top.png" id="36_02fa5"]
 [ext_resource type="Texture2D" uid="uid://cs8hsav37702r" path="res://assets/sprites/metal/turret_top_front.png" id="37_7025r"]
 [ext_resource type="Texture2D" uid="uid://bjkpk0e7l8gif" path="res://assets/sprites/metal/turret_top_back.png" id="38_m4url"]
-[ext_resource type="PackedScene" uid="uid://26g4m73urvpu" path="res://scenes/mics/ufo.tscn" id="38_nepv3"]
-[ext_resource type="PackedScene" uid="uid://bn7j666cp3tcq" path="res://scenes/foregroundObjects/metal_cube_big.tscn" id="38_oaba0"]
 [ext_resource type="Texture2D" uid="uid://tbn84nt5enkc" path="res://assets/sprites/metal/turret_barrel.png" id="39_8ool0"]
-[ext_resource type="Shader" uid="uid://dfqqx4aehytoo" path="res://assets/shaders/laser.gdshader" id="39_m4url"]
-[ext_resource type="Texture2D" uid="uid://dmabjvonccyaf" path="res://assets/sprites/misc/100pxDiameterCircleWhite.png" id="40_8ool0"]
 [ext_resource type="Script" uid="uid://mvr14tlk81oe" path="res://scripts/planetcoreteleporter.gd" id="40_ms3bu"]
 [ext_resource type="Texture2D" uid="uid://ccyn1gwlymn1r" path="res://assets/sprites/crystals4.png" id="41_8ool0"]
-[ext_resource type="Texture2D" uid="uid://hcp7oe86sp1b" path="res://assets/sprites/gov/2024-3-20-slime-eyes-new_0001s_0005_angry-eye-1.png" id="42_pr1ej"]
+[ext_resource type="PackedScene" uid="uid://8exes4njfvj2" path="res://scenes/items/item_drop.tscn" id="43_3hbvx"]
 [ext_resource type="PackedScene" uid="uid://dkrm3idrr7kbx" path="res://scenes/creatures/shroom_lvl_3.tscn" id="44_0sl42"]
+[ext_resource type="Texture2D" uid="uid://7fbdas3gjgvq" path="res://assets/sprites/gov/Minimalist_info_Icon.png" id="45_458eo"]
 [ext_resource type="Script" uid="uid://dwskdh2lw7bh0" path="res://scripts/hud_main.gd" id="45_oaba0"]
+[ext_resource type="Script" uid="uid://sigegpl3vjhv" path="res://scripts/hud_debug_output.gd" id="46_h3rex"]
+[ext_resource type="Texture2D" uid="uid://yhxdytp7ewu5" path="res://assets/sprites/cursors/hoof_cursor.png" id="47_fedci"]
 [ext_resource type="PackedScene" uid="uid://dc1dau4up7k24" path="res://scenes/creatures/shroom_lvl_1.tscn" id="47_h3rex"]
-[ext_resource type="PackedScene" uid="uid://bohuusl66hf6t" path="res://scenes/creatures/slime.tscn" id="49_8qswn"]
+[ext_resource type="Script" uid="uid://dog85a7lqr0e" path="res://scripts/input_manager.gd" id="48_fedci"]
+[ext_resource type="Script" uid="uid://b22p1cow5w1g6" path="res://flyer.gd" id="49_3hbvx"]
 [ext_resource type="Shader" uid="uid://viaorshxul33" path="res://assets/shaders/emotional_material.gdshader" id="49_i4re6"]
 [ext_resource type="Material" uid="uid://4d2su4w8x8ou" path="res://assets/shaders/emotional_material_creature.tres" id="49_o8ni1"]
 [ext_resource type="Shader" uid="uid://cjayp7kimdcjv" path="res://assets/shaders/stars.gdshader" id="49_pf7vy"]
 [ext_resource type="Texture2D" uid="uid://bw8pyiwd3uqur" path="res://assets/sprites/metal/metal_backwall_tile.png" id="49_rm0al"]
 [ext_resource type="Texture2D" uid="uid://cjwa1mikiu8st" path="res://assets/sprites/misc/1x1WhiteSquare.png" id="50_o8ni1"]
+[ext_resource type="Script" uid="uid://gm4ldccgiuao" path="res://scripts/smart_model.gd" id="50_q8j3a"]
 [ext_resource type="Script" uid="uid://ccq4d2r32i8t6" path="res://scripts/the_sky.gd" id="51_i4re6"]
+[ext_resource type="Script" uid="uid://cd4y5k0clh32e" path="res://scripts/tentacle.gd" id="51_ms3bu"]
+[ext_resource type="Script" uid="uid://cmn6umx8ffps5" path="res://scripts/health.gd" id="52_7ixpq"]
 [ext_resource type="PackedScene" uid="uid://dtgoieb78hhf3" path="res://scenes/creatures/shroom_lvl_2.tscn" id="52_pf7vy"]
+[ext_resource type="Script" uid="uid://m06kwn46qj7p" path="res://scripts/hoover_ai.gd" id="53_bk1p3"]
+[ext_resource type="Texture2D" uid="uid://cjq5spidexsyv" path="res://assets/sprites/gov/explosion_spark_1.png" id="55_ms3bu"]
+[ext_resource type="Shader" uid="uid://c0qhpx86a2une" path="res://assets/shaders/screen_blossom.gdshader" id="55_q8j3a"]
+[ext_resource type="Texture2D" uid="uid://dds3mjeyv6jek" path="res://assets/sprites/gov/SmokeNMirrors.png" id="56_ms3bu"]
 
-[sub_resource type="Curve2D" id="Curve2D_oaba0"]
+[sub_resource type="Curve2D" id="Curve2D_3hbvx"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 999.011, 9.11677, 0, 0, 0, 0, 1215.43, 76.4684, 0, 0, 0, 0, 1211.84, 153.222, 0, 0, 0, 0, 1198.27, 228.273, 0, 0, 0, 0, 1171.73, 300.257, 0, 0, 0, 0, 1138.07, 369.781, 0, 0, 0, 0, 1026.23, 406.311, 0, 0, 0, 0, 997.454, 469.454, 0, 0, 0, 0, 971.484, 534.623, 0, 0, 0, 0, 946.799, 601.639, 0, 0, 0, 0, 921.54, 669.538, 0, 0, 0, 0, 947, 783.426, 0, 0, 0, 0, 890.284, 835.574, 0, 0, 0, 0, 828.75, 881.624, 0, 0, 0, 0, 762.395, 921.578, 0, 0, 0, 0, 646.996, 890.514, 0, 0, 0, 0, 588.066, 926.643, 0, 0, 0, 0, 530.624, 966.048, 0, 0, 0, 0, 473.882, 1008.59, 0, 0, 0, 0, 414.604, 1048.63, 0, 0, 0, 0, 352.44, 1084.7, 0, 0, 0, 0, 303.43, 1181.78, 0, 0, 0, 0, 226.315, 1183.02, 0, 0, 0, 0, 149.785, 1180.32, 0, 0, 0, 0, 73.8408, 1173.67, 0, 0, 0, 0, -1.23965e-13, 770.855, 0, 0, 0, 0, -49.267, 776.617, 0, 0, 0, 0, -99.7693, 784.408, 0, 0, 0, 0, -151.435, 790.601, 0, 0, 0, 0, -203.755, 793.575, 0, 0, 0, 0, -278.326, 856.599, 0, 0, 0, 0, -326.385, 825.757, 0, 0, 0, 0, -371.94, 791.846, 0, 0, 0, 0, -415.455, 756.601, 0, 0, 0, 0, -459.868, 724.642, 0, 0, 0, 0, -506.224, 696.757, 0, 0, 0, 0, -507.972, 614.032, 0, 0, 0, 0, -555.801, 590.958, 0, 0, 0, 0, -599.54, 562.541, 0, 0, 0, 0, -635.056, 525.548, 0, 0, 0, 0, -663.35, 481.952, 0, 0, 0, 0, -745.487, 473.1, 0, 0, 0, 0, -761.199, 419.032, 0, 0, 0, 0, -780.402, 367.321, 0, 0, 0, 0, -803.096, 317.968, 0, 0, 0, 0, -756.772, 245.89, 0, 0, 0, 0, -784.339, 200.767, 0, 0, 0, 0, -805.519, 153.347, 0, 0, 0, 0, -814.843, 103.11, 0, 0, 0, 0, -814.553, 51.2473, 0, 0, 0, 0, -1199.4, -3.85762e-13, 0, 0, 0, 0, -1181.03, -73.7454, 0, 0, 0, 0, -1166.37, -147.214, 0, 0, 0, 0, -1156.06, -220.824, 0, 0, 0, 0, -1149.26, -295.08, 0, 0, 0, 0, -1068.95, -347.322, 0, 0, 0, 0, -1052.37, -417.03, 0, 0, 0, 0, -1026.69, -483.026, 0, 0, 0, 0, -988.937, -543.118, 0, 0, 0, 0, -943.149, -598.541, 0, 0, 0, 0, -955.16, -693.965, 0, 0, 0, 0, -904.244, -747.859, 0, 0, 0, 0, -856.338, -804.57, 0, 0, 0, 0, -811.52, -865.131, 0, 0, 0, 0, -767.754, -928.055, 0, 0, 0, 0, -669.398, -921.348, 0, 0, 0, 0, -610.368, -961.802, 0, 0, 0, 0, -546.926, -994.045, 0, 0, 0, 0, -478.623, -1015.6, 0, 0, 0, 0, -408.827, -1031.06, 0, 0, 0, 0, -339.45, -1044.72, 0, 0, 0, 0, -293.42, -1142.8, 0, 0, 0, 0, -222.74, -1170.91, 0, 0, 0, 0, -150.54, -1196.98, 0, 0, 0, 0, -76.1199, -1217.07, 0, 0, 0, 0, -2.26059e-13, -1230.65, 0, 0, 0, 0, 51.7685, -822.837, 0, 0, 0, 0, 100.537, -801.272, 0, 0, 0, 0, 147.991, -779.026, 0, 0, 0, 0, 194.437, -758.347, 0, 0, 0, 0, 240.796, -741.094, 0, 0, 0, 0, 319.461, -806.866, 0, 0, 0, 0, 376.357, -798.248, 0, 0, 0, 0, 431.24, -783.573, 0, 0, 0, 0, 484.112, -762.839, 0, 0, 0, 0, 480.983, -662.016, 0, 0, 0, 0, 510.769, -618.456, 0, 0, 0, 0, 538.205, -574.106, 0, 0, 0, 0, 565.337, -531.325, 0, 0, 0, 0, 594.295, -491.643, 0, 0, 0, 0, 696.343, -505.923, 0, 0, 0, 0, 739.36, -468.442, 0, 0, 0, 0, 778.819, -427.594, 0, 0, 0, 0, 809.707, -380.925, 0, 0, 0, 0, 832.923, -329.778, 0, 0, 0, 0, 765.072, -248.587, 0, 0, 0, 0, 762.844, -196.51, 0, 0, 0, 0, 763.622, -145.963, 0, 0, 0, 0, 769.661, -97.069, 0, 0, 0, 0, 999.011, 9.11677)
+"points": PackedVector2Array(0, 0, 0, 0, 998.22, 9.06371, 0, 0, 0, 0, 1213.72, 76.361, 0, 0, 0, 0, 1210.81, 153.125, 0, 0, 0, 0, 1197.97, 228.253, 0, 0, 0, 0, 1171.73, 300.251, 0, 0, 0, 0, 1137.71, 369.666, 0, 0, 0, 0, 1026.32, 406.348, 0, 0, 0, 0, 997.267, 469.352, 0, 0, 0, 0, 971.18, 534.455, 0, 0, 0, 0, 946.476, 601.438, 0, 0, 0, 0, 921.268, 669.341, 0, 0, 0, 0, 947.405, 783.762, 0, 0, 0, 0, 890.938, 836.204, 0, 0, 0, 0, 829.332, 882.22, 0, 0, 0, 0, 762.588, 921.811, 0, 0, 0, 0, 647.477, 891.176, 0, 0, 0, 0, 588.326, 927.057, 0, 0, 0, 0, 530.88, 966.573, 0, 0, 0, 0, 474.178, 1009.16, 0, 0, 0, 0, 414.709, 1048.81, 0, 0, 0, 0, 352.323, 1084.34, 0, 0, 0, 0, 303.285, 1181.22, 0, 0, 0, 0, 226.239, 1182.75, 0, 0, 0, 0, 149.737, 1179.9, 0, 0, 0, 0, 73.7774, 1172.66, 0, 0, 0, 0, -1.23709e-13, 769.267, 0, 0, 0, 0, -49.2959, 776.112, 0, 0, 0, 0, -99.7005, 783.92, 0, 0, 0, 0, -151.495, 790.924, 0, 0, 0, 0, -204.066, 794.786, 0, 0, 0, 0, -278.339, 856.641, 0, 0, 0, 0, -326.491, 826.003, 0, 0, 0, 0, -372.051, 792.094, 0, 0, 0, 0, -415.675, 756.985, 0, 0, 0, 0, -459.928, 724.758, 0, 0, 0, 0, -505.935, 696.359, 0, 0, 0, 0, -507.609, 613.594, 0, 0, 0, 0, -555.595, 590.727, 0, 0, 0, 0, -599.305, 562.332, 0, 0, 0, 0, -634.777, 525.32, 0, 0, 0, 0, -663.094, 481.766, 0, 0, 0, 0, -745.552, 473.142, 0, 0, 0, 0, -761.024, 418.938, 0, 0, 0, 0, -780.326, 367.261, 0, 0, 0, 0, -803.459, 318.112, 0, 0, 0, 0, -758.175, 246.346, 0, 0, 0, 0, -785.143, 201.01, 0, 0, 0, 0, -805.615, 153.407, 0, 0, 0, 0, -814.992, 103.095, 0, 0, 0, 0, -815.922, 51.3335, 0, 0, 0, 0, -1199.42, -3.85767e-13, 0, 0, 0, 0, -1181.07, -73.7557, 0, 0, 0, 0, -1166.07, -147.161, 0, 0, 0, 0, -1156.31, -220.893, 0, 0, 0, 0, -1150.63, -295.431, 0, 0, 0, 0, -1069.56, -347.521, 0, 0, 0, 0, -1053, -417.28, 0, 0, 0, 0, -1027.22, -483.267, 0, 0, 0, 0, -989.224, -543.259, 0, 0, 0, 0, -943.104, -598.512, 0, 0, 0, 0, -954.798, -693.702, 0, 0, 0, 0, -904.57, -748.152, 0, 0, 0, 0, -856.883, -805.056, 0, 0, 0, 0, -811.508, -865.075, 0, 0, 0, 0, -767.115, -927.283, 0, 0, 0, 0, -668.896, -920.657, 0, 0, 0, 0, -609.922, -961.08, 0, 0, 0, 0, -546.53, -993.306, 0, 0, 0, 0, -478.425, -1015.3, 0, 0, 0, 0, -408.917, -1031.38, 0, 0, 0, 0, -339.673, -1045.41, 0, 0, 0, 0, -293.545, -1143.28, 0, 0, 0, 0, -222.803, -1171.11, 0, 0, 0, 0, -150.558, -1196.96, 0, 0, 0, 0, -76.0884, -1216.72, 0, 0, 0, 0, -2.26021e-13, -1230.44, 0, 0, 0, 0, 51.7889, -823.161, 0, 0, 0, 0, 100.488, -801.013, 0, 0, 0, 0, 147.953, -778.724, 0, 0, 0, 0, 194.502, -758.504, 0, 0, 0, 0, 241.017, -741.774, 0, 0, 0, 0, 319.835, -807.811, 0, 0, 0, 0, 376.347, -798.311, 0, 0, 0, 0, 431.341, -783.691, 0, 0, 0, 0, 484.819, -763.953, 0, 0, 0, 0, 481.41, -662.605, 0, 0, 0, 0, 510.751, -618.478, 0, 0, 0, 0, 538.341, -574.211, 0, 0, 0, 0, 565.358, -531.342, 0, 0, 0, 0, 593.891, -491.31, 0, 0, 0, 0, 695.522, -505.326, 0, 0, 0, 0, 738.975, -468.162, 0, 0, 0, 0, 778.521, -427.425, 0, 0, 0, 0, 809.725, -380.937, 0, 0, 0, 0, 833.174, -329.877, 0, 0, 0, 0, 764.17, -248.294, 0, 0, 0, 0, 762.985, -196.516, 0, 0, 0, 0, 764.067, -146.067, 0, 0, 0, 0, 770.091, -97.1157, 0, 0, 0, 0, 998.22, 9.06371)
 }
 point_count = 100
 
@@ -61,16 +72,8 @@ gradient = SubResource("Gradient_264po")
 [sub_resource type="CircleShape2D" id="CircleShape2D_q8j3a"]
 radius = 138.924
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_3hbvx"]
-shader = ExtResource("49_pf7vy")
-shader_parameter/star_density = 0.5
-shader_parameter/brightness = 1.2
-shader_parameter/twinkle_speed = 0.5
-shader_parameter/time_offset = 0.0
-shader_parameter/star_sharpness = 0.15
-shader_parameter/jitter_amount = 3.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_05nbr"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pf7vy"]
+size = Vector2(861, 495)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pf7vy"]
 shader = ExtResource("49_i4re6")
@@ -82,11 +85,82 @@ shader = ExtResource("49_i4re6")
 shader_parameter/blend_color = Color(0.287003, 0.348828, 0.171906, 1)
 shader_parameter/blend_amount = 0.5
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_0sl42"]
-shader = ExtResource("39_m4url")
-shader_parameter/radius = 0.1
-shader_parameter/edge_softness = 0.02
-shader_parameter/rainbow_scale = 3.0
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3hbvx"]
+shader = ExtResource("49_pf7vy")
+shader_parameter/star_density = 0.5
+shader_parameter/brightness = 1.2
+shader_parameter/twinkle_speed = 0.5
+shader_parameter/time_offset = 0.0
+shader_parameter/star_sharpness = 0.15
+shader_parameter/jitter_amount = 3.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ms3bu"]
+shader = ExtResource("55_q8j3a")
+shader_parameter/saturation = 1.716
+shader_parameter/contrast = 1.648
+shader_parameter/color_tint = Vector3(1, 1, 1)
+
+[sub_resource type="FontFile" id="FontFile_h3rex"]
+subpixel_positioning = 0
+msdf_pixel_range = 14
+msdf_size = 128
+cache/0/20/0/ascent = 0.0
+cache/0/20/0/descent = 0.0
+cache/0/20/0/underline_position = 0.0
+cache/0/20/0/underline_thickness = 0.0
+cache/0/20/0/scale = 1.0
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+
+[sub_resource type="Theme" id="Theme_h3rex"]
+default_font = SubResource("FontFile_h3rex")
+default_font_size = 20
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6l2ux"]
+radius = 5.65685
+
+[sub_resource type="Curve" id="Curve_7ixpq"]
+_data = [Vector2(0.108553, 0.673152), 0.0, 0.0, 0, 0, Vector2(0.851974, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_bk1p3"]
+curve = SubResource("Curve_7ixpq")
+
+[sub_resource type="Curve" id="Curve_q8j3a"]
+_data = [Vector2(0.0296053, 0.252918), 0.0, 0.0, 0, 0, Vector2(0.509868, 0.81323), 0.0, 0.0, 0, 0, Vector2(0.680921, 0.11284), 0.0, 0.0, 0, 0, Vector2(0.950658, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_ms3bu"]
+curve = SubResource("Curve_q8j3a")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_n8ral"]
+lifetime_randomness = 0.35
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(10, 10, 1)
+spread = 110.455
+initial_velocity_min = 109.29
+initial_velocity_max = 109.29
+gravity = Vector3(0, 98, 0)
+scale_min = 0.7
+scale_curve = SubResource("CurveTexture_ms3bu")
+alpha_curve = SubResource("CurveTexture_bk1p3")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7ixpq"]
+lifetime_randomness = 0.37
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(2, 2, 1)
+emission_shape = 3
+emission_box_extents = Vector3(10, 10, 1)
+spread = 110.455
+initial_velocity_min = 109.29
+initial_velocity_max = 109.29
+gravity = Vector3(0, 98, 0)
+scale_min = 0.2
+scale_curve = SubResource("CurveTexture_ms3bu")
 
 [node name="Game" type="Node2D"]
 
@@ -112,6 +186,8 @@ autowrap_mode = 2
 position = Vector2(-112, -1347)
 
 [node name="ForegroundMushroom1" parent="Planet" instance=ExtResource("7_rysoc")]
+z_index = -5
+material = ExtResource("14_rm0al")
 position = Vector2(-55, -1247)
 
 [node name="ControlTurret" type="Node2D" parent="Planet"]
@@ -162,7 +238,6 @@ texture = ExtResource("39_8ool0")
 [node name="Pathwright" type="Node2D" parent="Planet"]
 script = ExtResource("11_kvpfn")
 auto_generate = true
-seed = 123
 frequency_1 = 11.0
 frequency_2 = 3.0
 amplitude_1 = 25.0
@@ -171,7 +246,7 @@ noise_strength = 1.0
 
 [node name="GeneratedPath" type="Path2D" parent="Planet/Pathwright"]
 texture_repeat = 2
-curve = SubResource("Curve2D_oaba0")
+curve = SubResource("Curve2D_3hbvx")
 
 [node name="PathRenderer" type="Node2D" parent="Planet/Pathwright"]
 z_index = -5
@@ -191,6 +266,8 @@ curve_path = NodePath("../GeneratedPath")
 color_gradient = SubResource("GradientTexture1D_1kice")
 
 [node name="ForegroundMushroomPlacer" type="Node2D" parent="Planet/Pathwright"]
+z_index = -6
+material = ExtResource("14_rm0al")
 script = ExtResource("15_ssvqc")
 path_node = NodePath("../GeneratedPath")
 mushroom_scenes = Array[PackedScene]([ExtResource("7_rysoc")])
@@ -204,7 +281,7 @@ fill_material = ExtResource("14_rm0al")
 uv_scale = Vector2(12, 12)
 
 [node name="CornerSprites" type="Node2D" parent="Planet/Pathwright"]
-z_index = -4
+z_index = -5
 y_sort_enabled = true
 script = ExtResource("21_8ool0")
 curve_path = NodePath("../GeneratedPath")
@@ -230,20 +307,56 @@ teleport_radius = 1200.0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Planet/Pathwright/planetcoreteleporter"]
 shape = SubResource("CircleShape2D_q8j3a")
 
-[node name="slime" parent="Planet" instance=ExtResource("49_8qswn")]
-position = Vector2(264, -1422)
+[node name="CullManager" type="Node2D" parent="Planet"]
+script = ExtResource("27_458eo")
+hydration_distance = 1000.0
 
-[node name="ShroomLvl2" parent="Planet" instance=ExtResource("52_pf7vy")]
+[node name="ShroomLvl2" parent="Planet/CullManager" instance=ExtResource("52_pf7vy")]
 position = Vector2(247, -794)
 
-[node name="ShroomLvl3" parent="Planet" instance=ExtResource("52_pf7vy")]
+[node name="ShroomLvl3" parent="Planet/CullManager" instance=ExtResource("52_pf7vy")]
 position = Vector2(150, -822)
 
-[node name="ShroomLvl4" parent="Planet" instance=ExtResource("52_pf7vy")]
+[node name="ShroomLvl4" parent="Planet/CullManager" instance=ExtResource("52_pf7vy")]
 position = Vector2(81, -841)
 
-[node name="ShroomLvl1" parent="." instance=ExtResource("47_h3rex")]
+[node name="ShroomLvl1" parent="Planet/CullManager" instance=ExtResource("47_h3rex")]
 position = Vector2(608, -540)
+planet_path = NodePath("../..")
+size = 40.0
+
+[node name="ShroomLvl5" parent="Planet/CullManager" instance=ExtResource("47_h3rex")]
+position = Vector2(-507, -1084)
+planet_path = NodePath("../..")
+size = 40.0
+
+[node name="ShroomLvl6" parent="Planet/CullManager" instance=ExtResource("47_h3rex")]
+position = Vector2(110, -1346)
+planet_path = NodePath("../..")
+size = 40.0
+
+[node name="ShroomLvl7" parent="Planet/CullManager" instance=ExtResource("52_pf7vy")]
+position = Vector2(-423, -1138)
+
+[node name="ShroomLvl8" parent="Planet/CullManager" instance=ExtResource("44_0sl42")]
+position = Vector2(829, -181)
+rotation = 1.53358
+size = 40.0
+
+[node name="ShroomLvl9" parent="Planet/CullManager" instance=ExtResource("44_0sl42")]
+position = Vector2(581, -635)
+rotation = 1.02055
+size = 40.0
+
+[node name="ShroomLvl10" parent="Planet/CullManager" instance=ExtResource("44_0sl42")]
+position = Vector2(-1229, -168)
+rotation = -1.44938
+size = 40.0
+
+[node name="ShroomLvl11" parent="Planet/CullManager" instance=ExtResource("44_0sl42")]
+position = Vector2(-111, 832)
+rotation = 3.07171
+size = 40.0
 
 [node name="TheSky" type="Node2D" parent="."]
 script = ExtResource("51_i4re6")
@@ -255,15 +368,6 @@ camera_path = NodePath("../CameraController")
 color_rect_path = NodePath("../CameraController/single color")
 creature_blend_amount = 0.346
 object_blend_amount = 0.451
-
-[node name="ShroomLvl2" parent="." instance=ExtResource("47_h3rex")]
-position = Vector2(-507, -1084)
-
-[node name="ShroomLvl4" parent="." instance=ExtResource("47_h3rex")]
-position = Vector2(110, -1346)
-
-[node name="ShroomLvl3" parent="." instance=ExtResource("52_pf7vy")]
-position = Vector2(-423, -1138)
 
 [node name="CameraController" type="Camera2D" parent="."]
 position = Vector2(-328.807, -1331.97)
@@ -279,28 +383,34 @@ target_path = NodePath("../Planet/teleporter")
 
 [node name="single color" type="ColorRect" parent="CameraController"]
 z_index = -19
-custom_minimum_size = Vector2(1080, 720)
-offset_left = -588.193
-offset_top = -347.03
-offset_right = 491.807
-offset_bottom = 372.97
+custom_minimum_size = Vector2(2090, 1080)
+offset_left = -1003.19
+offset_top = -542.03
+offset_right = 1086.81
+offset_bottom = 537.97
 mouse_filter = 2
 color = Color(0.259093, 0.335126, 0.442152, 1)
 
-[node name="starspivot" type="Node2D" parent="."]
-position = Vector2(48, 52)
+[node name="GovEye" type="Area2D" parent="CameraController"]
+collision_layer = 128
+collision_mask = 39
+script = ExtResource("34_o8ni1")
+coin_update_interval = 0.3
+coin_scene = ExtResource("35_3hbvx")
+target_pool = Dictionary[String, int]({
+"item_1": 1
+})
 
-[node name="TheStars" type="Sprite2D" parent="starspivot"]
-z_index = -20
-material = SubResource("ShaderMaterial_3hbvx")
-position = Vector2(52, 1169)
-scale = Vector2(12945, 15088)
-texture = ExtResource("50_o8ni1")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CameraController/GovEye"]
+position = Vector2(9.30701, -3.53003)
+shape = SubResource("RectangleShape2D_pf7vy")
 
-[node name="slime" parent="." instance=ExtResource("49_8qswn")]
-material = SubResource("ShaderMaterial_05nbr")
-position = Vector2(-299, -1290)
-floor_max_angle = 1.34565
+[node name="Goatbux" parent="CameraController" instance=ExtResource("35_3hbvx")]
+position = Vector2(510.807, -1.03003)
+
+[node name="Predator" parent="." instance=ExtResource("35_8qswn")]
+position = Vector2(-260, -1646)
+speed = 1500.0
 
 [node name="GiantSkyCuubeFrameOfReference" type="Node2D" parent="."]
 position = Vector2(1209, -691)
@@ -332,6 +442,16 @@ uv_scale = Vector2(18, 12)
 [node name="TheSun" type="Node2D" parent="GiantSkyCuubeFrameOfReference/pivot"]
 position = Vector2(36673, -417)
 
+[node name="starspivot" type="Node2D" parent="GiantSkyCuubeFrameOfReference/pivot"]
+position = Vector2(40, 53)
+
+[node name="TheStars" type="Sprite2D" parent="GiantSkyCuubeFrameOfReference/pivot"]
+z_index = -20
+material = SubResource("ShaderMaterial_3hbvx")
+position = Vector2(-21506, -12573)
+scale = Vector2(41970, 22043)
+texture = ExtResource("50_o8ni1")
+
 [node name="Line2D" type="Line2D" parent="GiantSkyCuubeFrameOfReference"]
 visible = false
 position = Vector2(161, -606)
@@ -342,42 +462,41 @@ visible = false
 position = Vector2(-87, 87)
 points = PackedVector2Array(-1426, -3854, -1618, 1329, -3981, 41, -3951, -3171, -1444, -3923)
 
-[node name="metal_cube_big" parent="GiantSkyCuubeFrameOfReference" instance=ExtResource("38_oaba0")]
-position = Vector2(-788, -409)
+[node name="Item" parent="." instance=ExtResource("43_3hbvx")]
+position = Vector2(-23, -1328)
+scale = Vector2(0.0688403, 0.0688403)
 
-[node name="Ufo" parent="." instance=ExtResource("38_nepv3")]
-position = Vector2(237, -1270)
-
-[node name="100PxDiameterCircleWhite" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_0sl42")
-position = Vector2(-35, -1335)
-texture = ExtResource("40_8ool0")
-
-[node name="Crystals4" type="Sprite2D" parent="."]
-position = Vector2(-15, -1277)
-scale = Vector2(0.175665, 0.175665)
+[node name="Crystals4" type="Sprite2D" parent="Item"]
+position = Vector2(-29.0527, 0.000549316)
+scale = Vector2(2.55178, 2.55178)
 texture = ExtResource("41_8ool0")
 
-[node name="2024-3-20-slime-eyes-new0001s0005Angry-eye-1" type="Sprite2D" parent="."]
-position = Vector2(-131, -1338)
+[node name="Item2" parent="." instance=ExtResource("43_3hbvx")]
+position = Vector2(41, -1185)
 scale = Vector2(0.0688403, 0.0688403)
-texture = ExtResource("42_pr1ej")
 
-[node name="ShroomLvl5" parent="." instance=ExtResource("44_0sl42")]
-position = Vector2(829, -181)
-rotation = 1.53358
+[node name="Crystals4" type="Sprite2D" parent="Item2"]
+position = Vector2(-29.0527, 0.000549316)
+scale = Vector2(2.55178, 2.55178)
+texture = ExtResource("41_8ool0")
 
-[node name="ShroomLvl8" parent="." instance=ExtResource("44_0sl42")]
-position = Vector2(410, -1225)
-rotation = -0.0175571
+[node name="Item3" parent="." instance=ExtResource("43_3hbvx")]
+position = Vector2(63, -1113)
+scale = Vector2(0.0688403, 0.0688403)
 
-[node name="ShroomLvl6" parent="." instance=ExtResource("44_0sl42")]
-position = Vector2(-1229, -168)
-rotation = -1.44938
+[node name="Crystals4" type="Sprite2D" parent="Item3"]
+position = Vector2(-29.0527, 0.000549316)
+scale = Vector2(2.55178, 2.55178)
+texture = ExtResource("41_8ool0")
 
-[node name="ShroomLvl7" parent="." instance=ExtResource("44_0sl42")]
-position = Vector2(-111, 832)
-rotation = -3.21148
+[node name="Item4" parent="." instance=ExtResource("43_3hbvx")]
+position = Vector2(143, -1088)
+scale = Vector2(0.0688403, 0.0688403)
+
+[node name="Crystals4" type="Sprite2D" parent="Item4"]
+position = Vector2(-29.0527, 0.000549316)
+scale = Vector2(2.55178, 2.55178)
+texture = ExtResource("41_8ool0")
 
 [node name="UICanvas" type="CanvasLayer" parent="."]
 
@@ -389,6 +508,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 script = ExtResource("45_oaba0")
 
 [node name="HPBar" type="TextureProgressBar" parent="UICanvas/HUD"]
@@ -406,5 +526,142 @@ texture_progress = ExtResource("50_o8ni1")
 
 [node name="MissionLabel" type="RichTextLabel" parent="UICanvas/HUD"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 42.0
+offset_top = 69.0
+offset_right = 391.0
+offset_bottom = 219.0
+mouse_filter = 1
+text = "NO MISSION ASSIGNED"
+
+[node name="ArmSlots" type="HBoxContainer" parent="UICanvas/HUD"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 0
+offset_left = 44.0
+offset_top = 104.0
+offset_right = 144.0
+offset_bottom = 154.0
+
+[node name="Arm1" type="TextureButton" parent="UICanvas/HUD/ArmSlots"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+texture_normal = ExtResource("47_fedci")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Arm2" type="TextureButton" parent="UICanvas/HUD/ArmSlots"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+texture_normal = ExtResource("47_fedci")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Blossom" type="ColorRect" parent="UICanvas/HUD"]
+material = SubResource("ShaderMaterial_ms3bu")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="I" type="TextureRect" parent="UICanvas/HUD"]
+layout_mode = 0
+offset_left = 1089.0
+offset_top = 22.0
+offset_right = 1129.0
+offset_bottom = 62.0
+scale = Vector2(1.03153, 1.03153)
+mouse_filter = 0
+texture = ExtResource("45_458eo")
+expand_mode = 1
+script = ExtResource("46_h3rex")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="UICanvas/HUD"]
+z_index = 8
+clip_contents = false
+custom_minimum_size = Vector2(500, 500)
+layout_mode = 0
+offset_left = 624.0
+offset_top = 88.0
+offset_right = 1124.0
+offset_bottom = 128.0
+horizontal_scroll_mode = 0
+
+[node name="LogOutput" type="RichTextLabel" parent="UICanvas/HUD/ScrollContainer"]
+z_index = 4
+layout_mode = 2
+theme = SubResource("Theme_h3rex")
+theme_override_colors/table_border = Color(0.912573, 0.926823, 0.964073, 1)
+theme_override_colors/default_color = Color(0.891358, 0.870414, 0.919302, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "hello
+!!!!!!!!!!"
+fit_content = true
+scroll_following = true
+autowrap_mode = 0
+
+[node name="InputManager" type="Node" parent="."]
+script = ExtResource("48_fedci")
+
+[node name="TentacleVacuumGB" type="CharacterBody2D" parent="."]
+position = Vector2(289, -1253)
+collision_layer = 256
+floor_max_angle = 1.72788
+script = ExtResource("49_3hbvx")
+metadata/_custom_type_script = "uid://crxgovvh8dulx"
+
+[node name="Source" type="Node2D" parent="TentacleVacuumGB"]
+position = Vector2(-3, -582)
+
+[node name="Model" type="Node2D" parent="TentacleVacuumGB"]
+script = ExtResource("50_q8j3a")
+metadata/_custom_type_script = "uid://gm4ldccgiuao"
+
+[node name="Tentacle" type="Line2D" parent="TentacleVacuumGB/Model" node_paths=PackedStringArray("origin", "destination")]
+position = Vector2(0, -4)
+points = PackedVector2Array(-3, -578, -4.84634, -554.71, -6.41041, -531.421, -7.60152, -508.134, -8.36143, -484.85, -8.6665, -461.568, -8.52718, -438.288, -7.98505, -415.01, -7.10761, -391.734, -5.98152, -368.459, -4.70468, -345.185, -3.3779, -321.911, -2.09678, -298.637, -0.944509, -275.363, 0.0140619, -252.087, 0.736454, -228.81, 1.2046, -205.532, 1.42476, -182.252, 1.4253, -158.972, 1.25279, -135.69, 0.966624, -112.408, 0.632653, -89.1258, 0.31657, -65.8435, 0.0774267, -42.5616, -0.0380694, -19.2805, 0, 4)
+script = ExtResource("51_ms3bu")
+origin = NodePath("../../../Predator")
+destination = NodePath("..")
+segment_count = 25
+base_amplitude = 20.0
+
+[node name="DestructibleShape" type="CollisionShape2D" parent="TentacleVacuumGB"]
+shape = SubResource("CircleShape2D_6l2ux")
+script = ExtResource("52_7ixpq")
+metadata/_custom_type_script = "uid://cmn6umx8ffps5"
+
+[node name="AI" type="Node2D" parent="TentacleVacuumGB"]
+position = Vector2(2, 1)
+script = ExtResource("53_bk1p3")
+ai_tick_rate = 0.1
+tentacle_path = NodePath("../Model/Tentacle")
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="."]
+position = Vector2(-246, -1227)
+emitting = false
+texture = ExtResource("56_ms3bu")
+lifetime = 2.03
+one_shot = true
+preprocess = 1.12
+speed_scale = 0.36
+trail_section_subdivisions = 16
+process_material = SubResource("ParticleProcessMaterial_n8ral")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(-246, -1227)
+emitting = false
+sub_emitter = NodePath("../GPUParticles2D2")
+texture = ExtResource("55_ms3bu")
+lifetime = 1.62
+one_shot = true
+preprocess = 0.75
+speed_scale = 0.36
+explosiveness = 0.85
+trail_lifetime = 1.4
+trail_section_subdivisions = 16
+process_material = SubResource("ParticleProcessMaterial_7ixpq")

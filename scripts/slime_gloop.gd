@@ -6,6 +6,7 @@ extends Area2D
 @export var snap_threshold := 2.0
 @export var wall_collision_mask := 1
 @export var max_engulf_radius := -1.0  # If negative, auto-set from self
+@export var health_path: NodePath  # Optional reference to health node
 
 var _last_absorbed_time := {}
 var _absorbed_bodies: Array[Node2D] = []
@@ -17,10 +18,14 @@ func _ready():
 	body_entered.connect(_on_body_entered)
 	_self_radius = get_body_radius(self)
 	set_process(true)
+	if health_path != NodePath():
+		var health_node = get_node_or_null(health_path)
+		if health_node and health_node.has_signal("died"):
+			health_node.connect("died", _on_owner_died)
 
 func _on_body_entered(body: Node):
 	var body_radius = get_body_radius(body)
-	print(body, body.owner, body_radius, "body owner, slime", max_engulf_radius)
+	#print(body, body.owner, body_radius, "body owner, slime", max_engulf_radius)
 
 	if body_radius > max_engulf_radius:
 		# Too big — bounce off!
@@ -50,7 +55,13 @@ func _on_body_entered(body: Node):
 	_last_absorbed_time[body] = now
 	call_deferred("_reparent_and_absorb", body)
 
-
+func _on_owner_died():
+	print("Absorber: owner died — ejecting all absorbed bodies.")
+	for body in _absorbed_bodies.duplicate():
+		if is_instance_valid(body):
+			_unabsorb(body)
+		else:
+			_cleanup_body(body)
 func _process(delta):
 	for body in _absorbed_bodies.duplicate():
 		if not is_instance_valid(body):
@@ -153,13 +164,13 @@ func find_safe_ejection_position(body: Node2D, preferred_pos: Vector2) -> Vector
 	return Vector2.INF  # No safe position found - be strict!
 
 func get_body_radius(body: Node2D) -> float:
-	var bodyForInspection :Node2D= null
+	var _bodyForInspection :Node2D= null
 	if body is Creature:
 		return body.size
 	
-	var owner := body.owner
-	if owner and owner is Creature:
-		return owner.sizea
+	var body_owner := body.owner
+	if body_owner and body_owner is Creature:
+		return owner.size
 	return 16.0  # Fallback radius if not a Creature or no owner
 
 

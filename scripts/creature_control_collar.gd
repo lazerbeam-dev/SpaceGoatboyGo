@@ -1,14 +1,18 @@
-extends Node2D
+extends Node
 class_name CreatureControlCollar
 
 @export var max_jump_charge_time := 0.7
 @export var enable_move := false
 @export var enable_jump := true
-@export var enable_goat_mode := true  # Optional toggle
+@export var enable_goat_mode := true
 
 var creature: Creature = null
-var goatboy: Goatboy = null  # Optional cast
+var goatboy: Goatboy = null
 var rocketboots: Node = null
+
+var move_axis := 0.0
+var rocket_held := false
+var goat_mode_held := false
 
 var jump_charging: bool = false
 var jump_charge_time: float = 0.0
@@ -41,17 +45,16 @@ func _process(delta: float) -> void:
 	if not creature:
 		return
 
-	if not enable_move:
-		return
-	var dir = Input.get_axis("move_left", "move_right")
-	creature.set_move_input(dir)
+	if enable_move:
+		creature.set_move_input(move_axis)
 
-	# Rocket input (W key, or "move_up" action)
 	if rocketboots and rocketboots.has_method("set_rocketing"):
-		var is_up_pressed = Input.is_action_pressed("move_up")
-		rocketboots.set_rocketing(is_up_pressed)
+		rocketboots.set_rocketing(rocket_held)
 
-	# Jump buffering
+	if goatboy and enable_goat_mode:
+		goatboy.trigger_goat_mode(goat_mode_held)
+
+	# Jump buffer logic
 	if buffered_jump_ratio >= 0.0:
 		buffered_jump_timer += delta
 		if buffered_jump_timer > JUMP_BUFFER_MAX:
@@ -63,32 +66,36 @@ func _process(delta: float) -> void:
 		buffered_jump_timer = 0.0
 
 	# Jump charging
+	if jump_charging:
+		jump_charge_time += delta
+		jump_charge_time = min(jump_charge_time, max_jump_charge_time)
+
+func handle_move(direction: int):
+	move_axis = clamp(direction, -1, 1)
+
+func handle_jump_pressed():
 	if enable_jump:
-		if Input.is_action_just_pressed("jump"):
-			jump_charging = true
-			jump_charge_time = 0.0
+		jump_charging = true
+		jump_charge_time = 0.0
 
-		elif Input.is_action_pressed("jump") and jump_charging:
-			jump_charge_time += delta
-			jump_charge_time = min(jump_charge_time, max_jump_charge_time)
+func handle_jump_released():
+	if not enable_jump or not jump_charging:
+		return
 
-		elif Input.is_action_just_released("jump") and jump_charging:
-			var ratio = clampf(jump_charge_time / max_jump_charge_time, 0.0, 1.0)
+	var ratio = clampf(jump_charge_time / max_jump_charge_time, 0.0, 1.0)
+	if creature.can_jump():
+		creature.trigger_jump(ratio)
+	else:
+		buffered_jump_ratio = ratio
+		buffered_jump_timer = 0.0
 
-			if creature.can_jump():
-				creature.trigger_jump(ratio)
-			else:
-				buffered_jump_ratio = ratio
-				buffered_jump_timer = 0.0
+	jump_charging = false
 
-			jump_charging = false
+func handle_rocket_input(pressed: bool):
+	rocket_held = pressed
 
-	# Goat mode input
-	if enable_goat_mode and goatboy:
-		if Input.is_action_pressed("goat_mode"):
-			goatboy.trigger_goat_mode(true)
-		else:
-			goatboy.trigger_goat_mode(false)
+func handle_goat_mode(pressed: bool):
+	goat_mode_held = pressed
 
 func find_parent_creature() -> Creature:
 	var node = get_parent()

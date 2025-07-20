@@ -28,7 +28,7 @@ func receive_impact(payload: Dictionary, source: Node = null):
 	mostRecentPayload = payload.duplicate(true)
 	set_meta("mostRecentPayload", mostRecentPayload)
 
-	print("DestructibleShape: Received payload:", mostRecentPayload)
+	#print("DestructibleShape: Received payload:", mostRecentPayload)
 
 	# Allow modifiers to mutate payload if needed
 	for modifier in modifiers:
@@ -39,7 +39,7 @@ func receive_impact(payload: Dictionary, source: Node = null):
 	if damage > 0:
 		take_damage(damage, source, mostRecentPayload)
 
-func take_damage(amount: float, source: Node, payload: Dictionary):
+func take_damage(amount: float, source: Node, _payload: Dictionary):
 	emit_signal("damaged", amount, source)
 	health -= amount
 	if health <= 0:

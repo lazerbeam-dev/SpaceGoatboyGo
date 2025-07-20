@@ -7,7 +7,7 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_oaba0"]
 shader = ExtResource("1_xoi2e")
 shader_parameter/angle_degrees = 125.0
-shader_parameter/edge_softness = 0.072
+shader_parameter/edge_softness = 0.1
 shader_parameter/blend_color = Color(0.341395, 0.278878, 0.932023, 1)
 shader_parameter/color_blend_falloff = 0.455
 shader_parameter/min_radius = 0.116

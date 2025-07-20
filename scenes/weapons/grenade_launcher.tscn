@@ -5,11 +5,10 @@
 [ext_resource type="Material" uid="uid://4d2su4w8x8ou" path="res://assets/shaders/emotional_material_creature.tres" id="3_rauu6"]
 [ext_resource type="Texture2D" uid="uid://cypmbaj0ytoao" path="res://assets/sprites/weapons/grenade launcher.png" id="4_rauu6"]
 
-[node name="Shotgun" type="Node2D"]
+[node name="Grenade_launcher" type="Node2D"]
 z_index = 1
 script = ExtResource("1_rauu6")
 projectile_scene = ExtResource("2_4bn50")
-muzzle_offset = Vector2(0, 0)
 dropped_radius = 1.0
 metadata/_custom_type_script = "uid://rxrcx5kjo0sh"
 

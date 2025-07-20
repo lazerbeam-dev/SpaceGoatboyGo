@@ -9,6 +9,10 @@ func attempt_fire(direction: Vector2, global_time: float) -> void:
 	if global_time - _last_fired_time < cooldown:
 		return
 
+	if not is_instance_valid(barrel):
+		push_warning("ShotgunWeapon: barrel is missing or invalid")
+		return
+
 	if direction.length() < 0.1:
 		push_warning("ShotgunWeapon: direction vector too small: %s" % direction)
 		return

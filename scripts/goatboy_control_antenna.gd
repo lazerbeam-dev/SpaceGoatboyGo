@@ -15,7 +15,7 @@ var teleporter: Node
 func _ready():
 	teleporter = get_node_or_null(teleporter_path)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if not is_instance_valid(target):
 		target = find_goatboy()
 
@@ -44,7 +44,7 @@ func send_ping(payload: Dictionary) -> void:
 	get_tree().current_scene.add_child(laser)
 
 func receive_payload(payload: Dictionary) -> void:
-	print("Antenna received payload: ", payload)
+	#print("Antenna received payload: ", payload)
 	match payload.get("type"):
 		"died":
 			emit_signal("goatboy_died", payload)
@@ -56,7 +56,7 @@ func receive_payload(payload: Dictionary) -> void:
 	if teleporter and teleporter.has_method("handle_info_projectile"):
 		teleporter.handle_info_projectile(payload)
 
-func receive_impact(impact_payload: Dictionary, source: Node) -> void:
+func receive_impact(impact_payload: Dictionary, _source: Node) -> void:
 	receive_payload(impact_payload)
 
 func find_goatboy() -> Node2D:

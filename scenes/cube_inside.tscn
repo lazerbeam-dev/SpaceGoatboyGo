@@ -1,13 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://d3h7fqfg6lund"]
+[gd_scene load_steps=10 format=3 uid="uid://d3h7fqfg6lund"]
 
 [ext_resource type="PackedScene" uid="uid://dbmy0f2tt1x4r" path="res://scenes/government/teleporter.tscn" id="1_4raq2"]
 [ext_resource type="Script" uid="uid://cu4ry1xm5vnoh" path="res://scripts/cameraSG.gd" id="2_7krfd"]
 [ext_resource type="PackedScene" uid="uid://bn7j666cp3tcq" path="res://scenes/foregroundObjects/metal_cube_big.tscn" id="3_ljbvo"]
+[ext_resource type="Script" uid="uid://brpxcwjngxelk" path="res://scripts/tilerino.gd" id="4_0ryv4"]
+[ext_resource type="Texture2D" uid="uid://bw8pyiwd3uqur" path="res://assets/sprites/metal/metal_backwall_tile.png" id="5_yehse"]
+[ext_resource type="Texture2D" uid="uid://dgyyofcqcplh0" path="res://assets/sprites/metal/metal_8x1_8jun2024.png" id="6_ttjae"]
+[ext_resource type="Texture2D" uid="uid://bu6c5lok165wg" path="res://assets/sprites/metal/metal_8x1_symmetrical.png" id="7_3rcpc"]
+[ext_resource type="Texture2D" uid="uid://rhxse7j048v0" path="res://assets/sprites/metal/metal_tile_long.png" id="8_ioj80"]
+[ext_resource type="Script" uid="uid://dog85a7lqr0e" path="res://scripts/input_manager.gd" id="9_yehse"]
 
 [node name="Game" type="Node2D"]
 
 [node name="teleporter" parent="." instance=ExtResource("1_4raq2")]
-position = Vector2(3, -80)
+position = Vector2(3, -159)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 script = ExtResource("2_7krfd")
@@ -16,10 +22,46 @@ script = ExtResource("2_7krfd")
 position = Vector2(0, 88192)
 
 [node name="metal_cube_big" parent="." instance=ExtResource("3_ljbvo")]
-position = Vector2(-142, 226)
+position = Vector2(-4.76837e-07, 124)
 
-[node name="metal_cube_big2" parent="." instance=ExtResource("3_ljbvo")]
-position = Vector2(312, 100)
+[node name="BackTiles" type="Node2D" parent="."]
+z_index = -20
+position = Vector2(-9942, -4841)
+script = ExtResource("4_0ryv4")
+texture = ExtResource("5_yehse")
+tile_size = Vector2(1080, 473)
+tile_count = Vector2i(20, 20)
+metadata/_custom_type_script = "uid://brpxcwjngxelk"
 
-[node name="metal_cube_big3" parent="." instance=ExtResource("3_ljbvo")]
-position = Vector2(-319, -105)
+[node name="MetalBackwallTile" type="Sprite2D" parent="."]
+z_index = -20
+position = Vector2(873, -304)
+texture = ExtResource("5_yehse")
+region_enabled = true
+region_rect = Rect2(0, 0, 1080, 473)
+
+[node name="Metal8x18Jun2024" type="Sprite2D" parent="."]
+position = Vector2(90, 866)
+texture = ExtResource("6_ttjae")
+
+[node name="Metal8x1Symmetrical" type="Sprite2D" parent="."]
+position = Vector2(157, -1059)
+texture = ExtResource("7_3rcpc")
+
+[node name="MetalTileLong" type="Sprite2D" parent="."]
+position = Vector2(-35, 2260)
+texture = ExtResource("8_ioj80")
+
+[node name="SpriteTiler" type="Node2D" parent="."]
+z_index = 4
+position = Vector2(-11750, 3267)
+rotation = 0.00203473
+scale = Vector2(3.72802, 3.72802)
+script = ExtResource("4_0ryv4")
+texture = ExtResource("8_ioj80")
+tile_size = Vector2(1080, 78)
+tile_count = Vector2i(7, 1)
+metadata/_custom_type_script = "uid://brpxcwjngxelk"
+
+[node name="InputManager" type="Node" parent="."]
+script = ExtResource("9_yehse")

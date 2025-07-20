@@ -4,6 +4,7 @@ class_name CollarMain
 @export var camera: Camera2D
 @export var ping_interval := 3.0  # seconds between outbound pings
 
+var weapon_controller: CreatureWeaponController = null
 var goatboy: Node = null
 var collar: Node = null
 var control_tower: Node = null
@@ -11,8 +12,15 @@ var inited := false
 var latest_health: float = -1.0
 var health_check_interval := 0.5  # seconds
 var health_polling := false
-var goatboyHealth :DestructibleShape= null
+var goatboyHealth: DestructibleShape = null
+var mission_polling := false
+var mission_check_interval := 1.0  # seconds
+var sucker: Node = null
+
 @onready var ui := get_node_or_null("CollarUIManager")
+@onready var collar_mission: CollarMission = get_node_or_null("CollarMission")
+@onready var weapon_pilot: CollarWeaponPilot = get_node_or_null("CollarArmsControl")
+
 func _ready():
 	initialize()
 
@@ -26,8 +34,12 @@ func initialize():
 	if not collar:
 		push_warning("CollarMain: Could not find CollarSystem under Creature")
 
+	sucker = goatboy.get_node_or_null("Proboscis/Sucker")
+	if not sucker:
+		push_warning("CollarMain: Could not find Sucker under Creature")
+
 func handle_control_payload(payload: Dictionary) -> void:
-	print("Collar received payload:", payload)
+	#print("Collar received payload:", payload)
 	if not camera:
 		camera = Utils.get_current_camera()
 
@@ -57,19 +69,50 @@ func handle_control_payload(payload: Dictionary) -> void:
 
 			inited = true
 			health_polling = true
+			mission_polling = true
+			if arms and arms is CreatureWeaponController:
+				weapon_controller = arms
+			else:
+				push_warning("CollarMain: No weapon controller found at path.")
+
+			if weapon_pilot:
+				if weapon_controller:
+					weapon_pilot.weapon_controller = weapon_controller
+				if camera:
+					weapon_pilot.camera = camera
+				if goatboy:
+					weapon_pilot.facing_right_reference = goatboy
+			else:
+				push_warning("CollarMain: No weapon pilot child node found.")
+
 			goatboyHealth = goatboy.get_node_or_null("Health")
+
+			if payload.has("mission") and collar_mission:
+				var mission: Mission = payload["mission"]
+				collar_mission.mission = mission
+				collar_mission.start_mission()
+				print("CollarMain: Mission received and started:", mission.description)
+
+			Utils.current_collar = self
 			_send_control_acquired_ping(payload)
 			_start_ping_loop()
 			_start_health_monitor()
+			_start_mission_monitor()
+
+			if is_instance_valid(sucker) and sucker.has_method("enable"):
+				sucker.call("enable")
 
 		"control_acquired":
-			print("CollarMain: Control acquired by", payload.get("from", "?"))
+			pass
+			#print("CollarMain: Control acquired by", payload.get("from", "?"))
 
 		"hit":
-			print("CollarMain: Goatboy took hit:", payload.get("amount", 0))
+			pass
+			#print("CollarMain: Goatboy took hit:", payload.get("amount", 0))
 
 		_:
-			print("CollarMain: Unhandled payload type:", payload_type)
+			pass
+			#print("CollarMain: Unhandled payload type:", payload_type)
 
 func _send_control_acquired_ping(original_payload: Dictionary) -> void:
 	if not collar:
@@ -92,7 +135,7 @@ func _send_control_acquired_ping(original_payload: Dictionary) -> void:
 func _start_ping_loop() -> void:
 	await get_tree().create_timer(ping_interval).timeout
 	while inited and is_instance_valid(control_tower) and collar:
-		var dir :Vector2= (control_tower.global_position - self.global_position).normalized()
+		var dir: Vector2 = (control_tower.global_position - self.global_position).normalized()
 		var type := "status" if (goatboy and is_instance_valid(goatboy)) else "died"
 
 		var payload := {
@@ -102,15 +145,26 @@ func _start_ping_loop() -> void:
 			"time": Time.get_unix_time_from_system(),
 			"health": latest_health
 		}
-		collar.send_laser(payload, dir, goatboy)
 
+		if collar_mission and collar_mission.is_active:
+			payload["mission"] = collar_mission.get_status_data()
+
+		collar.send_laser(payload, dir, goatboy)
 		await get_tree().create_timer(ping_interval).timeout
 
+func _start_mission_monitor() -> void:
+	while mission_polling and is_instance_valid(collar_mission):
+		if ui and collar_mission:
+			collar_mission.update(mission_check_interval, self.global_position)
+			ui.update_mission_status(collar_mission.get_status_data())
+		await get_tree().create_timer(mission_check_interval).timeout
+func on_last_frame() -> void:
+	if sucker:
+		sucker.disable()
 func _start_health_monitor() -> void:
 	while health_polling and is_instance_valid(goatboy) and is_instance_valid(goatboyHealth):
 		latest_health = goatboyHealth.get_health_ratio()
 
-		
 		if ui:
 			ui.update_goatboy_status({
 				"health": latest_health,
@@ -120,8 +174,11 @@ func _start_health_monitor() -> void:
 
 		if latest_health <= 0.0:
 			print("CollarMain: Goatboy dead, releasing control.")
-			inited = false
 			health_polling = false
+
+			if is_instance_valid(sucker) and sucker.has_method("disable"):
+				sucker.call("disable")
+
 			break
 
 		await get_tree().create_timer(health_check_interval).timeout

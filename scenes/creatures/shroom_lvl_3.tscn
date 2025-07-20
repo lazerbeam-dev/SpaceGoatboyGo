@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://dkrm3idrr7kbx"]
+[gd_scene load_steps=27 format=3 uid="uid://dkrm3idrr7kbx"]
 
 [ext_resource type="Script" uid="uid://clieya4aq3od7" path="res://scripts/creature_movement.gd" id="1_1m1mb"]
 [ext_resource type="Script" uid="uid://cmn6umx8ffps5" path="res://scripts/health.gd" id="2_pmmxh"]
@@ -19,6 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://5h8dldkvxt0i" path="res://scenes/creatures/sprites/shroom_lvl3_body_mask.png" id="14_ocjfq"]
 [ext_resource type="Script" uid="uid://bpcldqcgsi8fm" path="res://scripts/modular_spawner.gd" id="18_b55nt"]
 [ext_resource type="PackedScene" uid="uid://dc1dau4up7k24" path="res://scenes/creatures/shroom_lvl_1.tscn" id="19_qc5hx"]
+[ext_resource type="PackedScene" uid="uid://dldxvknx08dtn" path="res://scenes/mics/cull_tag.tscn" id="20_yxssb"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pmmxh"]
 radius = 17.3564
@@ -91,7 +92,6 @@ script = ExtResource("6_3olfj")
 [node name="Arm" type="Node2D" parent="Model/Arms"]
 position = Vector2(75.3732, -31.9744)
 script = ExtResource("7_ocjfq")
-gun_z_index = 1
 metadata/_custom_type_script = "uid://brd2qqnlr6hv2"
 
 [node name="HandPos" type="Node2D" parent="Model/Arms/Arm"]
@@ -109,7 +109,6 @@ texture = ExtResource("9_b55nt")
 [node name="Arm2" type="Node2D" parent="Model/Arms"]
 position = Vector2(236.415, 230.244)
 script = ExtResource("7_ocjfq")
-gun_z_index = 1
 metadata/_custom_type_script = "uid://brd2qqnlr6hv2"
 
 [node name="HandPos" type="Node2D" parent="Model/Arms/Arm2"]
@@ -127,7 +126,6 @@ texture = ExtResource("9_b55nt")
 [node name="Arm3" type="Node2D" parent="Model/Arms"]
 position = Vector2(-247.794, 202.828)
 script = ExtResource("7_ocjfq")
-gun_z_index = 1
 metadata/_custom_type_script = "uid://brd2qqnlr6hv2"
 
 [node name="HandPos" type="Node2D" parent="Model/Arms/Arm3"]
@@ -224,3 +222,5 @@ velocity = Vector2(0, 1200)
 z_index_on_spawn = -1
 spawn_interval = 5.0
 metadata/_custom_type_script = "uid://bpcldqcgsi8fm"
+
+[node name="CullTag" parent="." instance=ExtResource("20_yxssb")]

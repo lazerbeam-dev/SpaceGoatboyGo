@@ -1,10 +1,11 @@
 extends Node
 class_name Util
 
-static var dropped_item_scene := preload("res://scenes/creatures/item_drop.tscn")
+static var dropped_item_scene := preload("res://scenes/items/item_drop.tscn")
 static var _frame_token := {}
 var hud: HUDMain = null
-static func drop_node_as_wrapped_item(node: Node2D, allow_drop := true, dropped_radius := 3.0) -> void:
+var current_collar:CollarMain= null
+static func drop_node_as_wrapped_item(node: Node2D, allow_drop := true, _dropped_radius := 3.0) -> void:
 	if not allow_drop:
 		print("drop_node_as_wrapped_item: not allowed")
 		return
@@ -62,7 +63,7 @@ static func get_node_parent_of_type(start: Node, base_class: String) -> Node:
 
 	var current: Node = start.get_parent()
 	while current:
-		print("Checking parent:", current.name, "| base class:", current.get_class())
+		#print("Checking parent:", current.name, "| base class:", current.get_class())
 		if current.get_class() == base_class:
 			return current
 		current = current.get_parent()
@@ -98,3 +99,6 @@ static func generate_guid() -> String:
 		rng.randi() & 0xFFFF,
 		rng.randi()
 	]
+func get_active_collar():
+	return current_collar
+	
