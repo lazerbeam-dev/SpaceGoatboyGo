@@ -1,0 +1,13 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cwuj3aan1rwu0"]
+
+[ext_resource type="Shader" uid="uid://b76qhe1ifamur" path="res://assets/shaders/trippyh.gdshader" id="1_wlsid"]
+
+[resource]
+shader = ExtResource("1_wlsid")
+shader_parameter/angle_degrees = 45.0
+shader_parameter/edge_softness = 0.18
+shader_parameter/blend_color = Color(0.244763, 0.492539, 0.272264, 1)
+shader_parameter/color_blend_falloff = 1.0
+shader_parameter/min_radius = 0.0
+shader_parameter/max_radius = 0.0
+shader_parameter/radial_softness = 0.02

@@ -1,0 +1,79 @@
+[gd_scene load_steps=11 format=3 uid="uid://bp4n8lyg28iqw"]
+
+[ext_resource type="Script" uid="uid://63buokfrs8e3" path="res://scripts/sg_base_entity.gd" id="1_y66n6"]
+[ext_resource type="Script" uid="uid://dbpbyxhongsgg" path="res://scripts/sucker.gd" id="2_aihko"]
+[ext_resource type="Script" uid="uid://cmn6umx8ffps5" path="res://scripts/health.gd" id="4_nbm1p"]
+[ext_resource type="Script" uid="uid://m06kwn46qj7p" path="res://scripts/hoover_ai.gd" id="5_fu28k"]
+[ext_resource type="Texture2D" uid="uid://dmabjvonccyaf" path="res://assets/sprites/misc/100pxDiameterCircleWhite.png" id="6_1bc06"]
+[ext_resource type="Shader" uid="uid://dg36xerjk8ofr" path="res://assets/shaders/invisibility_cloak.gdshader" id="8_0m5vc"]
+[ext_resource type="Texture2D" uid="uid://ccyn1gwlymn1r" path="res://assets/sprites/crystals4.png" id="9_t4qqu"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bk3gt"]
+radius = 12.0
+height = 62.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0eqq4"]
+radius = 9.0
+height = 52.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4py6d"]
+shader = ExtResource("8_0m5vc")
+shader_parameter/invisibility_blend = 1.0
+shader_parameter/refraction_strength = 0.003
+shader_parameter/refraction_speed = 0.1
+shader_parameter/edge_fade_strength = 2.0
+
+[node name="Proboscis" type="CharacterBody2D"]
+z_index = -1
+collision_layer = 256
+floor_max_angle = 1.72788
+script = ExtResource("1_y66n6")
+metadata/_custom_type_script = "uid://63buokfrs8e3"
+
+[node name="Sucker" type="Node2D" parent="."]
+position = Vector2(1, 0)
+script = ExtResource("2_aihko")
+suck_strength = 300.0
+
+[node name="Processor" type="Node2D" parent="Sucker"]
+position = Vector2(-1, 3)
+
+[node name="SuckArea" type="Area2D" parent="Sucker"]
+position = Vector2(0, -3)
+collision_layer = 63
+collision_mask = 63
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sucker/SuckArea"]
+position = Vector2(-2, 21)
+shape = SubResource("CapsuleShape2D_bk3gt")
+
+[node name="PredatorAttachmentPoint" type="Node2D" parent="Sucker"]
+position = Vector2(-8, -1022)
+
+[node name="HooverTip" type="Node2D" parent="Sucker"]
+position = Vector2(2, 83)
+
+[node name="Health" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(-1, -4)
+shape = SubResource("CapsuleShape2D_0eqq4")
+script = ExtResource("4_nbm1p")
+metadata/_custom_type_script = "uid://cmn6umx8ffps5"
+
+[node name="AI" type="Node2D" parent="."]
+position = Vector2(1, 67)
+script = ExtResource("5_fu28k")
+
+[node name="InvisibilityClipperParent" type="Sprite2D" parent="."]
+clip_children = 1
+visibility_layer = 129
+z_index = 6
+position = Vector2(0, 56)
+texture = ExtResource("6_1bc06")
+
+[node name="Model" type="Sprite2D" parent="."]
+z_index = -6
+material = SubResource("ShaderMaterial_4py6d")
+position = Vector2(-1, 7)
+scale = Vector2(0.166562, 0.341962)
+texture = ExtResource("9_t4qqu")

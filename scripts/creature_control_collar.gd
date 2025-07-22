@@ -79,7 +79,7 @@ func handle_jump_pressed():
 		jump_charge_time = 0.0
 
 func handle_jump_released():
-	if not enable_jump or not jump_charging:
+	if not enable_jump or not jump_charging or not is_instance_valid(creature):
 		return
 
 	var ratio = clampf(jump_charge_time / max_jump_charge_time, 0.0, 1.0)

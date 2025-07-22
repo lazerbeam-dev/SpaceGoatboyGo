@@ -3,7 +3,7 @@ class_name CollarMain
 
 @export var camera: Camera2D
 @export var ping_interval := 3.0  # seconds between outbound pings
-
+@export var money_amount := 0
 var weapon_controller: CreatureWeaponController = null
 var goatboy: Node = null
 var collar: Node = null
@@ -16,6 +16,7 @@ var goatboyHealth: DestructibleShape = null
 var mission_polling := false
 var mission_check_interval := 1.0  # seconds
 var sucker: Node = null
+var dead_goatboy = true
 
 @onready var ui := get_node_or_null("CollarUIManager")
 @onready var collar_mission: CollarMission = get_node_or_null("CollarMission")
@@ -86,7 +87,7 @@ func handle_control_payload(payload: Dictionary) -> void:
 				push_warning("CollarMain: No weapon pilot child node found.")
 
 			goatboyHealth = goatboy.get_node_or_null("Health")
-
+			
 			if payload.has("mission") and collar_mission:
 				var mission: Mission = payload["mission"]
 				collar_mission.mission = mission
@@ -161,6 +162,8 @@ func _start_mission_monitor() -> void:
 func on_last_frame() -> void:
 	if sucker:
 		sucker.disable()
+	set_money(0)
+	dead_goatboy = true
 func _start_health_monitor() -> void:
 	while health_polling and is_instance_valid(goatboy) and is_instance_valid(goatboyHealth):
 		latest_health = goatboyHealth.get_health_ratio()
@@ -174,11 +177,22 @@ func _start_health_monitor() -> void:
 
 		if latest_health <= 0.0:
 			print("CollarMain: Goatboy dead, releasing control.")
+			dead_goatboy = true
 			health_polling = false
 
 			if is_instance_valid(sucker) and sucker.has_method("disable"):
 				sucker.call("disable")
 
 			break
-
+		else:
+			dead_goatboy = false
 		await get_tree().create_timer(health_check_interval).timeout
+func bump_money(amount: int) -> void:
+	if dead_goatboy:
+		return
+	money_amount += amount
+	Utils.hud.display_money(str(money_amount))
+	
+func set_money(amount: int) -> void:
+	money_amount = amount
+	Utils.hud.display_money(str(money_amount))

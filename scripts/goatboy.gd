@@ -3,14 +3,17 @@ class_name Goatboy
 
 var goat_mode_held := false
 var last_animation := ""
-var base_speed := speed
+var base_speed := 0
 
 var is_flying_with_rocket_boots: bool = false 
 var grounded_time := 0.0
 var fallback_walk_playing := false
 var idle_anim_time := 0.0
 
-
+@export var goatboy_speed:= 1200
+func _ready():
+	super._ready()
+	base_speed = speed  # now captures whatever the actual export or game-assigned value is
 func _physics_process(delta):
 	super._physics_process(delta)
 	creature_animate()
@@ -84,7 +87,7 @@ func kick_up_from_goat_mode():
 	global_position += up_dir * 16
 
 func activate_goat_mode_area():
-	speed = 720
+	speed =goatboy_speed
 
 func deactivate_goat_mode_area():
 	speed = base_speed

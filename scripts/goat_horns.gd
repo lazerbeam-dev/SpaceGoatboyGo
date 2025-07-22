@@ -91,7 +91,7 @@ func find_creature_in_hierarchy(starting_node: Node) -> Creature:
 
 func apply_push_force(target_creature: Creature, goat_charge_speed: float) -> bool:
 	var goat_velocity_dir := charging_goat.velocity.normalized()
-	var goat_forward_dir := -charging_goat.up_direction.normalized()
+	var goat_forward_dir := Vector2.RIGHT.rotated(charging_goat.rotation)
 	
 	# Blend: mostly velocity, slightly forward
 	var final_push_dir := (goat_velocity_dir * 0.8 + goat_forward_dir * 0.2).normalized()
@@ -102,8 +102,9 @@ func apply_push_force(target_creature: Creature, goat_charge_speed: float) -> bo
 		print("GoatHorns: Using fallback forward direction")
 	
 	var push_force := goat_charge_speed * push_force_multiplier
-	var push_velocity := final_push_dir * push_force
-	
+	var push_velocity := final_push_dir * push_force * (1/ target_creature.size)
+	if target_creature.size > 300:
+		return false
 	print("GoatHorns: Pushing ", target_creature.name, " with ", push_velocity)
 	target_creature.velocity += push_velocity
 	

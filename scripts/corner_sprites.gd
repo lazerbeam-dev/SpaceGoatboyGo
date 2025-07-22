@@ -101,13 +101,13 @@ func analyze():
 
 			last_corner_pos = p1
 
-func place_corner_sprite(position: Vector2, direction: Vector2, texture: Texture2D, flip_h: bool):
+func place_corner_sprite(new_position: Vector2, direction: Vector2, texture: Texture2D, flip_h: bool):
 	if not texture:
 		return
 
 	var sprite := Sprite2D.new()
 	sprite.texture = texture
-	sprite.position = position
+	sprite.position = new_position
 	sprite.rotation = direction.angle()
 	sprite.scale = Vector2.ONE * (line_width / texture.get_width())
 	sprite.flip_h = flip_h
@@ -118,11 +118,11 @@ func place_corner_sprite(position: Vector2, direction: Vector2, texture: Texture
 
 	add_child(sprite)
 
-func place_corner_label(position: Vector2, text: String):
+func place_corner_label(new_position: Vector2, text: String):
 	var label := Label.new()
 	label.text = text
 	label.scale = Vector2.ONE * 0.5
-	label.position = position + Vector2(0, -line_width * 0.6)
+	label.position = new_position + Vector2(0, -line_width * 0.6)
 	label.add_theme_color_override("font_color", Color.YELLOW)
 	label.z_index = 999
 	add_child(label)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://ibhhv5ayo1am"]
+[gd_scene load_steps=21 format=3 uid="uid://deuemiqk3oti1"]
 
 [ext_resource type="Texture2D" uid="uid://4rqeb16bg1od" path="res://assets/sprites/gov/goatbux.png" id="1_hrxtj"]
 [ext_resource type="Script" uid="uid://b31j4ukoc3qh6" path="res://scripts/coin.gd" id="1_ix6bn"]

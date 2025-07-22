@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://dif2nicjohbun"]
+
+[ext_resource type="Shader" uid="uid://cyci221gqe4he" path="res://assets/shaders/butterfly_dotsshader.gdshader" id="1_ba5xe"]
+[ext_resource type="Texture2D" uid="uid://ccyn1gwlymn1r" path="res://assets/sprites/crystals4.png" id="2_ba5xe"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i4re6"]
+shader = ExtResource("1_ba5xe")
+shader_parameter/dot_count = 120
+shader_parameter/time_scale = 0.3
+shader_parameter/swirl_amplitude = 0.4
+shader_parameter/swirl_speed = 0.5
+shader_parameter/color_cycle_speed = 0.01
+shader_parameter/pulse_speed = 2.0
+shader_parameter/interference_strength = 0.69
+shader_parameter/base_radius = 0.01
+shader_parameter/radius_variation = 0.9
+shader_parameter/edge_softness = 0.4
+shader_parameter/use_source_mask = true
+shader_parameter/use_border_fade = false
+
+[node name="bigtrippyballsky" type="Sprite2D"]
+z_index = -10
+material = SubResource("ShaderMaterial_i4re6")
+scale = Vector2(16.048, 16.048)
+texture = ExtResource("2_ba5xe")

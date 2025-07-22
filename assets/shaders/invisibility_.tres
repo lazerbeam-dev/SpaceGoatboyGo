@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://b0bnad5uwaotk"]
+
+[ext_resource type="Shader" uid="uid://dg36xerjk8ofr" path="res://assets/shaders/invisibility_cloak.gdshader" id="1_if5bw"]
+
+[resource]
+shader = ExtResource("1_if5bw")
+shader_parameter/invisibility_blend = 1.0
+shader_parameter/refraction_strength = 0.01
+shader_parameter/refraction_speed = 1.0
+shader_parameter/edge_fade_strength = 2.0

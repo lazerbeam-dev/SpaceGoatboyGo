@@ -4,11 +4,12 @@ class_name Creature
 @export var planet_path: NodePath
 @export var speed: float = 260.0
 @export var jump_velocity: float = -300.0
+@export var acceleration: float = 1000.0
+@export var air_acceleration_ratio: float = 0.5
 @export var coyote_time: float = 0.15
 @export var death_delay: float = 1.0
 @export var facing_right := true
-@export var is_static := false # If true, disables all movement, flipping, jumping, and animations
-
+@export var max_velocity := Vector2(10000, 10000)
 func can_jump() -> bool:
 	return coyote_timer <= coyote_time and not is_stunned
 
@@ -30,6 +31,7 @@ var stored_move_input := Vector2.ZERO
 @onready var legs_animator: AnimationPlayer = get_node_or_null("LegsAnimator")
 
 func _ready():
+	super._ready()
 	planet = get_node_or_null(planet_path)
 	if not planet:
 		var current = self
@@ -91,7 +93,7 @@ func _physics_process(delta):
 	var tangent_speed = velocity.dot(right_dir)
 	var effective_move_input = 0.0 if is_stunned else move_input.x
 	var desired_speed = effective_move_input * speed
-	var accel = 2000.0 if is_on_floor() else 800.0
+	var accel = acceleration if is_on_floor() else acceleration * air_acceleration_ratio
 	tangent_speed = move_toward(tangent_speed, desired_speed, accel * delta)
 	velocity = right_dir * tangent_speed + up_dir * velocity.dot(up_dir)
 
@@ -109,8 +111,8 @@ func _physics_process(delta):
 	if model:
 		model.scale.x = abs(model.scale.x) * (1 if facing_right else -1)
 
-	velocity.x = clamp(velocity.x, -800.0, 800.0)
-	velocity.y = clamp(velocity.y, -1200.0, 1200.0)
+	velocity.x = clamp(velocity.x, -max_velocity.x, max_velocity.x)
+	velocity.y = clamp(velocity.y, -max_velocity.y, max_velocity.y)
 	creature_animate()
 	move_and_slide()
 

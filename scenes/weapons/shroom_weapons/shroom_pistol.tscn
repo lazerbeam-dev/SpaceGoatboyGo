@@ -20,4 +20,4 @@ scale = Vector2(0.0825987, 0.0825987)
 texture = ExtResource("4_pbokx")
 
 [node name="Barrel" type="Marker2D" parent="."]
-position = Vector2(121, -32)
+position = Vector2(26, -4)

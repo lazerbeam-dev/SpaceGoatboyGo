@@ -7,6 +7,7 @@ class_name DroppedCreature
 var gravity_dir := Vector2.DOWN
 
 func _ready():
+	super._ready()
 	planet = get_node_or_null(planet_path)
 	if not planet:
 		var current = self

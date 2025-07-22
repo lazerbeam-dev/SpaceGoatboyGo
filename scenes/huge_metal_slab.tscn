@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://c0vasedenyru0"]
+
+[ext_resource type="Texture2D" uid="uid://dgyyofcqcplh0" path="res://assets/sprites/metal/metal_8x1_8jun2024.png" id="1_7u4w8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7u4w8"]
+size = Vector2(5911, 321)
+
+[node name="HugeMetalSlab" type="StaticBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(30.5, -16.5)
+shape = SubResource("RectangleShape2D_7u4w8")
+
+[node name="HugeMetalSlabModel" type="Sprite2D" parent="."]
+z_index = -10
+texture = ExtResource("1_7u4w8")

@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://cf0x5rgsgfjgf"]
+
+[ext_resource type="Shader" uid="uid://cyci221gqe4he" path="res://assets/shaders/butterfly_dotsshader.gdshader" id="1_nho8o"]
+[ext_resource type="SpriteFrames" uid="uid://cqit4v0bqaijc" path="res://assets/sprites/animated/butterfly_front_frames.tres" id="2_w7x13"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_66xif"]
+shader = ExtResource("1_nho8o")
+shader_parameter/dot_count = 120
+shader_parameter/time_scale = 0.11
+shader_parameter/swirl_amplitude = 0.2
+shader_parameter/swirl_speed = 1.0
+shader_parameter/color_cycle_speed = 1.0
+shader_parameter/pulse_speed = 0.4
+shader_parameter/interference_strength = 0.4
+shader_parameter/base_radius = 0.12
+shader_parameter/radius_variation = 1.0
+shader_parameter/edge_softness = 0.11
+shader_parameter/use_source_mask = true
+shader_parameter/use_border_fade = false
+
+[node name="CosmicButterfly" type="AnimatedSprite2D"]
+material = SubResource("ShaderMaterial_66xif")
+scale = Vector2(0.124334, 0.124334)
+sprite_frames = ExtResource("2_w7x13")
+frame_progress = 0.726893

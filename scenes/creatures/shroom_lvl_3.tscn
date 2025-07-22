@@ -51,8 +51,8 @@ script = ExtResource("1_1m1mb")
 speed = 0.0
 jump_velocity = 0.0
 coyote_time = 0.0
+size = 400.0
 is_static = true
-size = 1000
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
 z_index = 1
@@ -99,6 +99,7 @@ position = Vector2(104.882, 16.0344)
 
 [node name="shroomGunPurple" parent="Model/Arms/Arm/HandPos" instance=ExtResource("8_7b5bm")]
 position = Vector2(-8.03228, 0.00588989)
+scale = Vector2(3.94191, 3.94191)
 
 [node name="Sprite2D" type="Sprite2D" parent="Model/Arms/Arm"]
 material = ExtResource("3_njl8r")
@@ -116,6 +117,7 @@ position = Vector2(104.882, 16.0344)
 
 [node name="shroomGunPurple" parent="Model/Arms/Arm2/HandPos" instance=ExtResource("8_7b5bm")]
 position = Vector2(-8.03228, 0.00588989)
+scale = Vector2(2.58739, 2.58739)
 
 [node name="Sprite2D" type="Sprite2D" parent="Model/Arms/Arm2"]
 material = ExtResource("3_njl8r")
@@ -133,6 +135,7 @@ position = Vector2(104.882, 16.0344)
 
 [node name="shroomGunPurple" parent="Model/Arms/Arm3/HandPos" instance=ExtResource("8_7b5bm")]
 position = Vector2(-8.03228, 0.00588989)
+scale = Vector2(4.34226, 4.34226)
 
 [node name="Sprite2D" type="Sprite2D" parent="Model/Arms/Arm3"]
 material = ExtResource("3_njl8r")

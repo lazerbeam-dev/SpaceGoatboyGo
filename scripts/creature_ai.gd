@@ -11,6 +11,10 @@ class_name CreatureAI
 @export var jump_vertical_min := 30.0  # Min vertical difference required to even consider jumping
 @export_range(0.0, 1.0) var jump_aggression := 1.0  # 0 = cautious jumper, 1 = jump-happy
 
+var down_direction: Vector2 = Vector2.DOWN
+var right_direction: Vector2 = Vector2.RIGHT
+
+var pilot_vehicle: Node2D = null
 var target: Node2D = null
 var parent: Node = null
 var time_accum := 0.0
@@ -25,11 +29,22 @@ var rng := RandomNumberGenerator.new()
 func _ready():
 	parent = get_parent()
 	arms = parent.get_node_or_null("Model/Arms")
+
+	var maybe_vehicle = parent.get_parent()
+	while maybe_vehicle and maybe_vehicle != get_tree().root:
+		if maybe_vehicle.has_method("set_move_input"):
+			pilot_vehicle = maybe_vehicle
+			maybe_vehicle.start_piloting(self)
+			if parent is SGEntity:
+				parent.is_static = true
+			print("PILOT VEHICLE FOUND")
+			break
+		maybe_vehicle = maybe_vehicle.get_parent()
+
 	if not parent:
 		push_error("CreatureAI must be child of a Creature")
 		return
 
-	# Seed RNG uniquely per creature
 	rng.seed = int(hash(parent.name)) % 100000000
 
 	if inout_area_path != NodePath():
@@ -43,6 +58,9 @@ func _ready():
 func _process(delta):
 	if not parent:
 		return
+
+	down_direction = -parent.up_direction
+	right_direction = Vector2(-down_direction.y, down_direction.x)
 
 	time_accum += delta
 	if time_accum >= tick_interval:
@@ -64,12 +82,22 @@ func _run_ai_tick():
 func perceive() -> Dictionary:
 	var player = GameControl.player
 	var dist := INF
+	var vertical_delta := 0.0
+	var global_y_diff := 0.0
+
 	if player:
 		target = player
 		dist = parent.global_position.distance_to(player.global_position)
+
+		var to_target = player.global_position - parent.global_position
+		vertical_delta = to_target.dot(down_direction)
+		global_y_diff = player.global_position.y - parent.global_position.y
+
 	return {
 		"target": target,
-		"distance": dist
+		"distance": dist,
+		"vertical_to_target": vertical_delta,
+		"global_y_difference": global_y_diff
 	}
 
 func decide(perception: Dictionary) -> Dictionary:
@@ -91,47 +119,31 @@ func decide(perception: Dictionary) -> Dictionary:
 		var angle_self = (parent.global_position - center).angle()
 		var angle_target = (perception.target.global_position - center).angle()
 		var delta_angle = wrapf(angle_target - angle_self, -PI, PI)
-		actions["move_input"] = signf(delta_angle)
-
-		# Jump inclination logic
+		
+		# we need to calculate vertical distance to target relative to creature or vehicle
+		var my_relative_body = pilot_vehicle if pilot_vehicle else parent
+		
+		## Jump inclination logic
 		var to_target = perception.target.global_position - parent.global_position
-		var local_up = parent.up_direction
+		var local_up = my_relative_body.up_direction
 		var local_right = Vector2(-local_up.y, local_up.x)
 		var vertical = to_target.dot(local_up)
-		var horizontal = abs(to_target.dot(local_right))
-		var angle = abs(to_target.angle_to(-local_up))  # angle above character
-		var angle_deg = rad_to_deg(angle)
-
-		if vertical > jump_vertical_min and horizontal < jump_distance_limit and angle_deg <= max_jump_angle_deg:
-			# Normalize angle between min and max
-			var normalized = clampf((angle_deg - min_jump_angle_deg) / (max_jump_angle_deg - min_jump_angle_deg), 0.0, 1.0)
-			var quality = 1.0 - normalized  # 1.0 = best jump
-
-			var threshold = rng.randf()
-			var chance_to_jump = quality * 0.8 + jump_aggression * 0.2
-
-			if threshold < chance_to_jump:
-				actions["jump_strength"] = clampf(angle_deg / max_jump_angle_deg, 0.4, 1.0)
-
+		actions["move_input"] = Vector2(signf(delta_angle), signf(vertical))
+		
 	return actions
 
 func act(actions: Dictionary):
-	if actions.has("move_input"):
-		parent.move_input = Vector2(actions["move_input"], 0)
-
-	if actions.has("jump_strength"):
-		parent.trigger_jump(actions["jump_strength"])
-
-	if target and arms and not suppress_shooting:
-		var dist = parent.global_position.distance_to(target.global_position)
-		if dist < shoot_distance and los_target:
-			arms.use_manual_aim = true
-			arms.manual_aim_target = target.global_position
-		else:
-			arms.use_manual_aim = false
+	if pilot_vehicle:
+		if actions.has("move_input") and pilot_vehicle.has_method("set_move_input"):
+			print("SET MOVE OK")
+			pilot_vehicle.set_move_input(actions["move_input"])
+		if actions.has("jump_strength") and pilot_vehicle.has_method("trigger_jump"):
+			pilot_vehicle.trigger_jump(actions["jump_strength"])
 	else:
-		if arms:
-			arms.use_manual_aim = false
+		if actions.has("move_input"):
+			parent.move_input = actions["move_input"]
+		if actions.has("jump_strength"):
+			parent.trigger_jump(actions["jump_strength"])
 
 # ----- Callbacks from InOut -----
 

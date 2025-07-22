@@ -3,6 +3,7 @@ class_name Util
 
 static var dropped_item_scene := preload("res://scenes/items/item_drop.tscn")
 static var _frame_token := {}
+static var gov_eye: GovernmentEye
 var hud: HUDMain = null
 var current_collar:CollarMain= null
 static func drop_node_as_wrapped_item(node: Node2D, allow_drop := true, _dropped_radius := 3.0) -> void:

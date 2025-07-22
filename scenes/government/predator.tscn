@@ -1,0 +1,51 @@
+[gd_scene load_steps=11 format=3 uid="uid://bjjw6pjxjkewc"]
+
+[ext_resource type="Script" uid="uid://bv38njujw6ny2" path="res://scripts/creature_flying.gd" id="1_1gh83"]
+[ext_resource type="Script" uid="uid://cmn6umx8ffps5" path="res://scripts/health.gd" id="1_1stal"]
+[ext_resource type="Texture2D" uid="uid://du8nanjyw6atj" path="res://assets/sprites/temp/cart.svg" id="2_1gh83"]
+[ext_resource type="Material" uid="uid://b0bnad5uwaotk" path="res://assets/shaders/invisibility_.tres" id="3_2wpv7"]
+[ext_resource type="Script" uid="uid://gm4ldccgiuao" path="res://scripts/smart_model.gd" id="4_g3nws"]
+[ext_resource type="Texture2D" uid="uid://c3u7iomjeurjm" path="res://assets/sprites/gov/Floating Eye 3 v0.png" id="4_h0iid"]
+[ext_resource type="Texture2D" uid="uid://ck2tj7x07n02d" path="res://assets/sprites/gov/Floating Eye 3 v1.png" id="5_406nm"]
+[ext_resource type="Texture2D" uid="uid://8ea5mr2sbewx" path="res://assets/sprites/gov/Floating Eye 3 v2.png" id="6_g3nws"]
+[ext_resource type="Script" uid="uid://b4q8f4b7teptw" path="res://scripts/predator_ai.gd" id="7_406nm"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7ixpq"]
+radius = 111.0
+height = 280.0
+
+[node name="Predator" type="CharacterBody2D"]
+collision_layer = 128
+motion_mode = 1
+script = ExtResource("1_1gh83")
+
+[node name="DestructibleShape" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_7ixpq")
+script = ExtResource("1_1stal")
+metadata/_custom_type_script = "uid://cmn6umx8ffps5"
+
+[node name="Model" type="Sprite2D" parent="."]
+material = ExtResource("3_2wpv7")
+position = Vector2(-15, -10)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("2_1gh83")
+script = ExtResource("4_g3nws")
+
+[node name="FloatingEye3V0" type="Sprite2D" parent="."]
+material = ExtResource("3_2wpv7")
+position = Vector2(259, -195)
+texture = ExtResource("4_h0iid")
+
+[node name="FloatingEye3V1" type="Sprite2D" parent="."]
+material = ExtResource("3_2wpv7")
+position = Vector2(243, -41)
+texture = ExtResource("5_406nm")
+
+[node name="FloatingEye3V2" type="Sprite2D" parent="."]
+material = ExtResource("3_2wpv7")
+position = Vector2(94, -217)
+texture = ExtResource("6_g3nws")
+
+[node name="AI" type="Node" parent="."]
+script = ExtResource("7_406nm")

@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://clpjonexye7bb"]
+
+[ext_resource type="Texture2D" uid="uid://4rqeb16bg1od" path="res://assets/sprites/gov/goatbux.png" id="1_pn6ri"]
+[ext_resource type="Script" uid="uid://b31j4ukoc3qh6" path="res://scripts/coin.gd" id="2_m1p7w"]
+[ext_resource type="PackedScene" uid="uid://bukpyuywsqed0" path="res://scenes/government/gold_spark.tscn" id="3_rlsk8"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_60kcl"]
+radius = 8.24621
+
+[node name="Area2D" type="Area2D"]
+collision_mask = 2
+script = ExtResource("2_m1p7w")
+burst_lifetime = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_60kcl")
+
+[node name="Goatbux" type="Sprite2D" parent="."]
+z_index = 11
+scale = Vector2(0.306509, 0.306509)
+texture = ExtResource("1_pn6ri")
+
+[node name="GoldSPark" parent="." instance=ExtResource("3_rlsk8")]
+emitting = false

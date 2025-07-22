@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://8exes4njfvj2"]
+
+[ext_resource type="Script" uid="uid://6coue5qsyesr" path="res://scripts/drop_creature.gd" id="1_fi858"]
+[ext_resource type="Script" uid="uid://cmn6umx8ffps5" path="res://scripts/health.gd" id="2_tkl58"]
+[ext_resource type="Material" uid="uid://4d2su4w8x8ou" path="res://assets/shaders/emotional_material_creature.tres" id="3_g25hk"]
+[ext_resource type="Texture2D" uid="uid://65sjkxwpxj4m" path="res://assets/sprites/shrooms/shroom_lvl2_compressi.png" id="4_ifph1"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_264po"]
+radius = 3.0
+height = 12.0
+
+[node name="Item" type="CharacterBody2D"]
+collision_layer = 32
+floor_stop_on_slope = false
+floor_max_angle = 1.64585
+safe_margin = 2.0
+script = ExtResource("1_fi858")
+entity_code = "item_1"
+base_scene = "item_drop.tscn"
+size = 9.0
+
+[node name="Health" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+shape = SubResource("CapsuleShape2D_264po")
+script = ExtResource("2_tkl58")
+
+[node name="Model" type="Sprite2D" parent="."]
+visible = false
+material = ExtResource("3_g25hk")
+position = Vector2(4.76837e-07, -0.999999)
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("4_ifph1")

@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=3 uid="uid://bmy12fxxaxoal"]
+
+[ext_resource type="Script" uid="uid://b22p1cow5w1g6" path="res://flyer.gd" id="1_7iw0f"]
+[ext_resource type="Script" uid="uid://gm4ldccgiuao" path="res://scripts/smart_model.gd" id="2_3eami"]
+[ext_resource type="Script" uid="uid://cd4y5k0clh32e" path="res://scripts/tentacle.gd" id="4_1yuw5"]
+[ext_resource type="Script" uid="uid://cmn6umx8ffps5" path="res://scripts/health.gd" id="4_3eami"]
+[ext_resource type="Script" uid="uid://m06kwn46qj7p" path="res://scripts/hoover_ai.gd" id="5_3eami"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6l2ux"]
+radius = 5.65685
+
+[node name="TentacleVacuum" type="CharacterBody2D"]
+collision_layer = 256
+floor_max_angle = 1.72788
+script = ExtResource("1_7iw0f")
+metadata/_custom_type_script = "uid://crxgovvh8dulx"
+
+[node name="Source" type="Node2D" parent="."]
+position = Vector2(-3, -582)
+
+[node name="Model" type="Node2D" parent="."]
+script = ExtResource("2_3eami")
+metadata/_custom_type_script = "uid://gm4ldccgiuao"
+
+[node name="Tentacle" type="Line2D" parent="Model" node_paths=PackedStringArray("origin", "destination")]
+position = Vector2(0, -4)
+points = PackedVector2Array(-3, -578, -4.84634, -554.71, -6.41041, -531.421, -7.60152, -508.134, -8.36143, -484.85, -8.6665, -461.568, -8.52718, -438.288, -7.98505, -415.01, -7.10761, -391.734, -5.98152, -368.459, -4.70468, -345.185, -3.3779, -321.911, -2.09678, -298.637, -0.944509, -275.363, 0.0140619, -252.087, 0.736454, -228.81, 1.2046, -205.532, 1.42476, -182.252, 1.4253, -158.972, 1.25279, -135.69, 0.966624, -112.408, 0.632653, -89.1258, 0.31657, -65.8435, 0.0774267, -42.5616, -0.0380694, -19.2805, 0, 4)
+script = ExtResource("4_1yuw5")
+origin = NodePath("../../Source")
+destination = NodePath("..")
+segment_count = 25
+base_amplitude = 20.0
+
+[node name="DestructibleShape" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_6l2ux")
+script = ExtResource("4_3eami")
+metadata/_custom_type_script = "uid://cmn6umx8ffps5"
+
+[node name="AI" type="Node2D" parent="."]
+position = Vector2(2, 1)
+script = ExtResource("5_3eami")
+ai_tick_rate = 0.1
+tentacle_path = NodePath("../Model/Tentacle")

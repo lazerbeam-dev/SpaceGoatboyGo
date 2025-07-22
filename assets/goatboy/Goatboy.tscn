@@ -1082,8 +1082,10 @@ collision_layer = 2
 collision_mask = 5
 floor_max_angle = 2.19562
 script = ExtResource("1_jdcyq")
+goatboy_speed = 666
 speed = 420.0
-jump_velocity = -1100.0
+jump_velocity = -800.0
+acceleration = 2000.0
 
 [node name="Model" type="Sprite2D" parent="."]
 script = ExtResource("7_4krfy")
@@ -1113,7 +1115,8 @@ rotation = -0.0111536
 collision_layer = 4
 collision_mask = 4
 script = ExtResource("7_s66eu")
-push_force_multiplier = 25.0
+push_force_multiplier = 10.0
+stun_duration = 2.3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Model/Torso/GoatboyHead/GoatHorns"]
 shape = SubResource("CircleShape2D_jdcyq")
@@ -1225,7 +1228,7 @@ script = ExtResource("22_jdcyq")
 
 [node name="Rocketboots" type="Node2D" parent="."]
 script = ExtResource("12_jdcyq")
-rocket_force = 3333.0
+rocket_force = 2800.0
 rocket_fuel_max = 2700.0
 rocket_recharge_rate = 2700.0
 horizontal_flying_force_multiplier = 1.0
@@ -1245,4 +1248,4 @@ scale = Vector2(0.999999, 0.999999)
 script = ExtResource("22_jdcyq")
 
 [node name="Proboscis" parent="." instance=ExtResource("22_s66eu")]
-position = Vector2(3, -4)
+position = Vector2(1, -15)

@@ -149,7 +149,7 @@ func draw_cliff_group(cliff: Array) -> void:
 	if cliff.is_empty():
 		return
 
-	var mid_index: int = int(cliff.size() / 2)
+	var mid_index: int = int(cliff.size() / 2.0)
 	var mid_point: Vector2 = (cliff[mid_index]["p1"] + cliff[mid_index]["p2"]) / 2.0
 	cliff_midpoints.append(mid_point)
 

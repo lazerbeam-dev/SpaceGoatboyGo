@@ -177,7 +177,7 @@ scale = Vector2(0.059, 0.059)
 texture = ExtResource("15_xe34j")
 
 [node name="TransporterBackWallB" type="Sprite2D" parent="Mode"]
-z_index = -10
+z_index = -15
 position = Vector2(-13, 123)
 scale = Vector2(0.059, 0.059)
 texture = ExtResource("16_h7jxk")

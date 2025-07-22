@@ -1,0 +1,34 @@
+[gd_scene load_steps=3 format=3 uid="uid://dpnxhpht4tt61"]
+
+[sub_resource type="FontFile" id="FontFile_h3rex"]
+subpixel_positioning = 0
+msdf_pixel_range = 14
+msdf_size = 128
+cache/0/20/0/ascent = 0.0
+cache/0/20/0/descent = 0.0
+cache/0/20/0/underline_position = 0.0
+cache/0/20/0/underline_thickness = 0.0
+cache/0/20/0/scale = 1.0
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+
+[sub_resource type="Theme" id="Theme_h3rex"]
+default_font = SubResource("FontFile_h3rex")
+default_font_size = 20
+
+[node name="LogOutput" type="RichTextLabel"]
+z_index = 4
+mouse_filter = 2
+theme = SubResource("Theme_h3rex")
+theme_override_colors/table_border = Color(0.912573, 0.926823, 0.964073, 1)
+theme_override_colors/default_color = Color(0.891358, 0.870414, 0.919302, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "hello
+!!!!!!!!!!"
+fit_content = true
+scroll_following = true
+autowrap_mode = 0

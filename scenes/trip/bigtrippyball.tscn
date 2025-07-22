@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://bmvaivk6pnn4a"]
+
+[ext_resource type="Shader" uid="uid://b76qhe1ifamur" path="res://assets/shaders/trippyh.gdshader" id="1_4r06r"]
+[ext_resource type="Texture2D" uid="uid://dmabjvonccyaf" path="res://assets/sprites/misc/100pxDiameterCircleWhite.png" id="2_b4n7o"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0sl42"]
+shader = ExtResource("1_4r06r")
+shader_parameter/speed = 0.1
+shader_parameter/swirl_intensity = 0.9
+shader_parameter/swirl_frequency = 7.0
+shader_parameter/radial_scale = 0.4
+shader_parameter/symmetry_strength = 0.33
+shader_parameter/vertical_symmetry = false
+shader_parameter/color_cycle_speed = 7.0
+shader_parameter/color_detail = 5.0
+shader_parameter/color_saturation = 1.0
+shader_parameter/noise_strength = 0.05
+shader_parameter/noise_scale = 10.0
+shader_parameter/source_texture = ExtResource("2_b4n7o")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ms3bu"]
+radius = 47.0425
+
+[node name="bigtrippyball" type="Sprite2D"]
+material = SubResource("ShaderMaterial_0sl42")
+texture = ExtResource("2_b4n7o")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_ms3bu")

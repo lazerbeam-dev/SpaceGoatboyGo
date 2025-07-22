@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dldxvknx08dtn"]
+
+[ext_resource type="Script" uid="uid://dressfqwilyjg" path="res://scripts/cullable.gd" id="1_hd0yy"]
+
+[node name="CullTag" type="Node2D"]
+script = ExtResource("1_hd0yy")
+hydration_distance = 1000.0
