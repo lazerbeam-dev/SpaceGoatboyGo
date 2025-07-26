@@ -1,7 +1,7 @@
 extends DestructibleShape
 class_name DestructibleSlime
 
-var split_scene = preload("res://scenes/creatures/slime.tscn")
+var split_scene = null #preload("res://scenes/creatures/slime.tscn")
 
 @export var gloop_path: NodePath = "GloopArea2D/CollisionShape2D"
 @export var collider_base_radius := 10.0
@@ -65,7 +65,7 @@ func _spawn_split_slime(quantized: int) -> void:
 		push_warning("No split_scene defined.")
 		return
 
-	var new_slime := split_scene.instantiate()
+	var new_slime :DestructibleSlime= split_scene.instantiate()
 	var ds := new_slime as DestructibleSlime
 	if ds:
 		ds.initialize_health(quantized)

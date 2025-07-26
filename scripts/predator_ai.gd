@@ -78,9 +78,9 @@ func _update_positioning():
 
 	if to_target.length() > approach_tolerance:
 		var dir = to_target.normalized()
-		floater.set_move_input(dir * max_pursuit_speed)
+		floater.set_move_axis(dir * max_pursuit_speed)
 	else:
-		floater.set_move_input(Vector2.ZERO)
+		floater.set_move_axis(Vector2.ZERO)
 
 # === Vacuum Arm Control ===
 

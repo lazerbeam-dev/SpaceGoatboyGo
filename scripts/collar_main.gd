@@ -193,6 +193,15 @@ func bump_money(amount: int) -> void:
 	money_amount += amount
 	Utils.hud.display_money(str(money_amount))
 	
+func set_override_mission(mission: Mission) -> void:
+	if not is_instance_valid(collar_mission):
+		push_warning("CollarMain: No CollarMission node found.")
+		return
+
+	collar_mission.mission = mission
+	collar_mission.start_mission()
+	print("CollarMain: Override mission received and started:", mission.description)
+
 func set_money(amount: int) -> void:
 	money_amount = amount
 	Utils.hud.display_money(str(money_amount))

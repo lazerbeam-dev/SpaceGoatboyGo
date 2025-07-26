@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3 uid="uid://bdn4uk8pf16q6"]
+
+[ext_resource type="Script" uid="uid://6coue5qsyesr" path="res://scripts/drop_creature.gd" id="1_5yknh"]
+[ext_resource type="Script" uid="uid://cmn6umx8ffps5" path="res://scripts/health.gd" id="2_wd7e6"]
+[ext_resource type="Material" uid="uid://4d2su4w8x8ou" path="res://assets/shaders/emotional_material_creature.tres" id="3_ujywk"]
+[ext_resource type="Texture2D" uid="uid://65sjkxwpxj4m" path="res://assets/sprites/shrooms/shroom_lvl2_compressi.png" id="4_4huyv"]
+[ext_resource type="Texture2D" uid="uid://ccyn1gwlymn1r" path="res://assets/sprites/crystals4.png" id="5_h37ps"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_264po"]
+radius = 3.0
+height = 12.0
+
+[node name="CrystalItem" type="CharacterBody2D"]
+scale = Vector2(0.0688403, 0.0688403)
+collision_layer = 32
+floor_stop_on_slope = false
+floor_max_angle = 1.64585
+safe_margin = 2.0
+script = ExtResource("1_5yknh")
+entity_code = "item_1"
+base_scene = "item_drop.tscn"
+size = 9.0
+
+[node name="Health" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+shape = SubResource("CapsuleShape2D_264po")
+script = ExtResource("2_wd7e6")
+
+[node name="Model" type="Sprite2D" parent="."]
+visible = false
+material = ExtResource("3_ujywk")
+position = Vector2(4.76837e-07, -0.999999)
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("4_4huyv")
+
+[node name="Crystals4" type="Sprite2D" parent="."]
+position = Vector2(-29.0527, 0.000549316)
+scale = Vector2(2.55178, 2.55178)
+texture = ExtResource("5_h37ps")

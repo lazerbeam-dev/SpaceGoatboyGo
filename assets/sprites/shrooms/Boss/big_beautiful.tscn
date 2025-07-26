@@ -1,0 +1,44 @@
+[gd_scene load_steps=10 format=3 uid="uid://bg2l11tqhbvu7"]
+
+[ext_resource type="Material" uid="uid://ukfdvyp37m5n" path="res://assets/shaders/dissolve.tres" id="1_l61tk"]
+[ext_resource type="Script" uid="uid://clieya4aq3od7" path="res://scripts/creature_movement.gd" id="2_wvc17"]
+[ext_resource type="Script" uid="uid://cmn6umx8ffps5" path="res://scripts/health.gd" id="3_nwmsr"]
+[ext_resource type="Material" uid="uid://4d2su4w8x8ou" path="res://assets/shaders/emotional_material_creature.tres" id="4_57uru"]
+[ext_resource type="Texture2D" uid="uid://du0hy7xmkq7r0" path="res://assets/sprites/shrooms/Boss/BigBeautifulBaldGuyBase.png" id="5_vmu2g"]
+[ext_resource type="Script" uid="uid://gm4ldccgiuao" path="res://scripts/smart_model.gd" id="6_26mlf"]
+[ext_resource type="Script" uid="uid://ec0hxxki6rwx" path="res://scripts/ai_sky_boss.gd" id="7_l61tk"]
+[ext_resource type="PackedScene" uid="uid://dldxvknx08dtn" path="res://scenes/mics/cull_tag.tscn" id="8_7jrpx"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s0g06"]
+radius = 48.0
+height = 96.0
+
+[node name="BigBeautiful" type="CharacterBody2D"]
+material = ExtResource("1_l61tk")
+collision_layer = 4
+floor_max_angle = 1.64585
+safe_margin = 2.0
+script = ExtResource("2_wvc17")
+jump_velocity = -1200.0
+entity_code = "shroom"
+size = 500.0
+
+[node name="Health" type="CollisionShape2D" parent="."]
+position = Vector2(0, -16)
+shape = SubResource("CapsuleShape2D_s0g06")
+script = ExtResource("3_nwmsr")
+max_health = 3228.0
+model_path = NodePath("../Model")
+
+[node name="Model" type="Sprite2D" parent="."]
+z_index = -1
+material = ExtResource("4_57uru")
+position = Vector2(2, -13)
+scale = Vector2(0.373143, 0.375501)
+texture = ExtResource("5_vmu2g")
+script = ExtResource("6_26mlf")
+
+[node name="AI" type="Node2D" parent="."]
+script = ExtResource("7_l61tk")
+
+[node name="CullTag" parent="." instance=ExtResource("8_7jrpx")]

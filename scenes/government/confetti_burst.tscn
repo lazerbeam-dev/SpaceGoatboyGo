@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://q3yvr5u00xx8"]
+
+[ext_resource type="Script" uid="uid://7vf1yj8jcech" path="res://scripts/gov_particles.gd" id="1_0qxsm"]
+
+[node name="GovParticles" type="Node2D"]
+process_mode = 4
+script = ExtResource("1_0qxsm")
+particle_scene = null
+lifetime = null

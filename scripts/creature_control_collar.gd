@@ -45,30 +45,44 @@ func _process(delta: float) -> void:
 	if not creature:
 		return
 
+	var input_vector := Vector2.ZERO
+	input_vector.x = move_axis
+
+	if is_piloting():
+		# Remap rocket/goat to vertical input while piloting
+		if rocket_held:
+			input_vector.y = -1.0
+		elif goat_mode_held:
+			input_vector.y = 1.0
+	else:
+		# Normal rocket / goat behavior
+		if rocketboots and rocketboots.has_method("set_rocketing"):
+			rocketboots.set_rocketing(rocket_held)
+
+		if goatboy and enable_goat_mode:
+			goatboy.trigger_goat_mode(goat_mode_held)
+
+	# Apply input
 	if enable_move:
-		creature.set_move_input(move_axis)
+		creature.set_move_axis(input_vector)
 
-	if rocketboots and rocketboots.has_method("set_rocketing"):
-		rocketboots.set_rocketing(rocket_held)
+	# Jump buffering only if not piloting
+	if not is_piloting():
+		if buffered_jump_ratio >= 0.0:
+			buffered_jump_timer += delta
+			if buffered_jump_timer > JUMP_BUFFER_MAX:
+				buffered_jump_ratio = -1.0
 
-	if goatboy and enable_goat_mode:
-		goatboy.trigger_goat_mode(goat_mode_held)
-
-	# Jump buffer logic
-	if buffered_jump_ratio >= 0.0:
-		buffered_jump_timer += delta
-		if buffered_jump_timer > JUMP_BUFFER_MAX:
+		if buffered_jump_ratio >= 0.0 and creature.can_jump():
+			creature.trigger_jump(buffered_jump_ratio)
 			buffered_jump_ratio = -1.0
+			buffered_jump_timer = 0.0
 
-	if buffered_jump_ratio >= 0.0 and creature.can_jump():
-		creature.trigger_jump(buffered_jump_ratio)
-		buffered_jump_ratio = -1.0
-		buffered_jump_timer = 0.0
+		# Jump charging
+		if jump_charging:
+			jump_charge_time += delta
+			jump_charge_time = min(jump_charge_time, max_jump_charge_time)
 
-	# Jump charging
-	if jump_charging:
-		jump_charge_time += delta
-		jump_charge_time = min(jump_charge_time, max_jump_charge_time)
 
 func handle_move(direction: int):
 	move_axis = clamp(direction, -1, 1)
@@ -83,13 +97,23 @@ func handle_jump_released():
 		return
 
 	var ratio = clampf(jump_charge_time / max_jump_charge_time, 0.0, 1.0)
-	if creature.can_jump():
-		creature.trigger_jump(ratio)
+
+	if is_piloting():
+		# Exit the vehicle and jump upward
+		var vehicle = creature.piloted_vehicle
+		if is_instance_valid(vehicle):
+			creature.stop_pilot_vehicle()
+			if creature.can_jump():
+				creature.trigger_jump(ratio)
 	else:
-		buffered_jump_ratio = ratio
-		buffered_jump_timer = 0.0
+		if creature.can_jump():
+			creature.trigger_jump(ratio)
+		else:
+			buffered_jump_ratio = ratio
+			buffered_jump_timer = 0.0
 
 	jump_charging = false
+
 
 func handle_rocket_input(pressed: bool):
 	rocket_held = pressed
@@ -104,3 +128,5 @@ func find_parent_creature() -> Creature:
 			return node
 		node = node.get_parent()
 	return null
+func is_piloting() -> bool:
+	return creature and creature.piloted_vehicle and is_instance_valid(creature.piloted_vehicle)

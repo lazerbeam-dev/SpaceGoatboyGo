@@ -40,9 +40,11 @@ func _schedule_next_tick():
 	tick_interval = max(0.05, ai_tick_rate * (1.0 + jitter))
 
 func _run_ai_tick():
+	### NOTE TO FUTURE SELF THIS NEEDS FIXING, DONT RELY ON PARENT TO SET MOVE INPUT TO THE RIGHT THING CAUSE WE REPARENT
+	
 	var target :Node2D= target_node if is_instance_valid(target_node) else Utils.get_active_collar()
 	if not is_instance_valid(target):
-		parent.move_input = Vector2.ZERO
+		#parent.move_input = Vector2.ZERO
 		return
 
 	var to_target = target.global_position - parent.global_position
@@ -50,10 +52,11 @@ func _run_ai_tick():
 
 	if distance <= approach_distance:
 		_attach_to_target(target)
-		parent.move_input = Vector2.ZERO
+		#parent.move_input = Vector2.ZERO
 		has_attached = true
 	else:
-		parent.move_input = to_target.normalized()
+		pass
+		#parent.move_input = to_target.normalized()
 
 func _attach_to_target(target: Node2D) -> void:
 	if tentacle and is_instance_valid(target):

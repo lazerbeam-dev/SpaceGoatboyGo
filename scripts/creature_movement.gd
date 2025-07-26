@@ -52,15 +52,15 @@ func _ready():
 func _physics_process(delta):
 	if not planet or is_dead:
 		return
-
+	super._physics_process(delta)
+	face_movement()
 	if is_static:
 		return
-
 	if is_stunned:
 		stun_timer -= delta
 		if stun_timer <= 0.0:
 			is_stunned = false
-			move_input = stored_move_input
+			#move_input = stored_move_input
 			print("Creature: ", name, " recovered from stun")
 
 	if is_dying:
@@ -68,7 +68,7 @@ func _physics_process(delta):
 		if death_timer >= death_delay:
 			is_dead = true
 			is_dying = false
-			move_input = Vector2.ZERO
+			#move_input = Vector2.ZERO
 			jump_requested = false
 			queue_free() 
 
@@ -97,6 +97,15 @@ func _physics_process(delta):
 	tangent_speed = move_toward(tangent_speed, desired_speed, accel * delta)
 	velocity = right_dir * tangent_speed + up_dir * velocity.dot(up_dir)
 
+	face_movement()
+
+	velocity.x = clamp(velocity.x, -max_velocity.x, max_velocity.x)
+	velocity.y = clamp(velocity.y, -max_velocity.y, max_velocity.y)
+	rotation = up_dir.angle() + PI / 2
+	
+	creature_animate()
+	move_and_slide()
+func face_movement():
 	if not is_stunned:
 		if move_input.x > 0:
 			facing_right = true
@@ -107,15 +116,8 @@ func _physics_process(delta):
 			if arms:
 				arms.facing_right = false
 
-	rotation = up_dir.angle() + PI / 2
 	if model:
 		model.scale.x = abs(model.scale.x) * (1 if facing_right else -1)
-
-	velocity.x = clamp(velocity.x, -max_velocity.x, max_velocity.x)
-	velocity.y = clamp(velocity.y, -max_velocity.y, max_velocity.y)
-	creature_animate()
-	move_and_slide()
-
 func creature_animate():
 	if not legs_animator or is_static:
 		return
@@ -133,7 +135,7 @@ func creature_animate():
 			legs_animator.playback_active = false
 
 func set_move_input(dir: float):
-	if is_dead or is_static:
+	if is_dead:
 		return
 	var new_input = clampf(dir, -1.0, 1.0)
 	if is_stunned:
@@ -159,7 +161,7 @@ func apply_stun(duration: float):
 	is_stunned = true
 	stun_timer = duration
 	stored_move_input = move_input
-	move_input = Vector2.ZERO
+	#move_input = Vector2.ZERO
 	jump_requested = false
 	print("Creature: ", name, " stunned for ", duration, " seconds")
 

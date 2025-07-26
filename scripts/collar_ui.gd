@@ -23,15 +23,6 @@ func update_mission_status(mission_data: Dictionary) -> void:
 		var desc :String= goal.get("description", "")
 		var progress :float= goal.get("progress", 0.0)
 
-		if progress > 0.0 and progress < 1.0:
-			lines.append("%s (%.0f%%)" % [desc, progress * 100.0])
-		elif progress >= 1.0:
-			lines.append("%s (Complete)" % desc)
-		else:
-			lines.append(desc)
-
-	Utils.hud.show_mission("\n".join(lines))
-
 func update_weapon_icons_for_arms(textures: Array[Texture]) -> void:
 	if Utils.hud:
 		Utils.hud.update_weapon_icons(textures)

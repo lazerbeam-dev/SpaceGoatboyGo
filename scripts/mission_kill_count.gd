@@ -11,6 +11,9 @@ func register_kill(victim_tag: String):
 
 func is_complete() -> bool:
 	return current_kills >= required_kills
+	
+func get_target_kills() -> int:
+	return required_kills
 
 func get_progress() -> float:
 	return clamp(float(current_kills) / float(required_kills), 0.0, 1.0)

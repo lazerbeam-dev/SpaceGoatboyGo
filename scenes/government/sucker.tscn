@@ -31,7 +31,7 @@ destination = NodePath("..")
 segment_count = 25
 base_amplitude = 20.0
 
-[node name="DestructibleShape" type="CollisionShape2D" parent="."]
+[node name="Health" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_6l2ux")
 script = ExtResource("4_3eami")
 metadata/_custom_type_script = "uid://cmn6umx8ffps5"

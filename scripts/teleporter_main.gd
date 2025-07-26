@@ -91,12 +91,12 @@ func _on_antenna_goatboy_died(payload: Dictionary) -> void:
 func create_dummy_mission():
 	# === MISSION CREATION ===
 	var mission := Mission.new()
-	mission.description = "Eliminate 5 mushrooms in the designated zone."
+	mission.description = "Eliminate mushrooms in the designated zone."
 
 	# Kill Goal
 	var kill_goal := KillCountGoal.new()
-	kill_goal.required_kills = 5
-	kill_goal.target_tag = "mushroom"
+	kill_goal.required_kills = 1
+	kill_goal.target_tag = "shroom"
 
 	# Bounds
 	var bounds := CircularMissionBounds.new()

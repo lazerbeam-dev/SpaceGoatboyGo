@@ -13,7 +13,7 @@ config_version=5
 config/name="SpaceGoatboyGo"
 run/main_scene="uid://cuv4vme4rwno0"
 config/features=PackedStringArray("4.4", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="uid://dcl3bxp3no2er"
 
 [audio]
 
@@ -99,5 +99,6 @@ move_up={
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
+textures/vram_compression/import_etc2_astc=true
 2d/snap/snap_2d_transforms_to_pixel=true
 2d/snap/snap_2d_vertices_to_pixel=true

@@ -39,9 +39,9 @@ func _ready():
 func get_path_node() -> Node:
 	var node := get_node_or_null(path_node_path)
 	if not node or not (node is Path2D or node is Line2D):
-		push_error("Pathwright: path_node must be a Path2D or Line2D")
 		return null
 	return node
+
 
 func generate_path():
 	print("==> Generating circular wavy path")

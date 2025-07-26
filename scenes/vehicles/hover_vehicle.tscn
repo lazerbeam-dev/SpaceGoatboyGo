@@ -1,17 +1,27 @@
-[gd_scene load_steps=7 format=3 uid="uid://c3504otrf4p64"]
+[gd_scene load_steps=12 format=3 uid="uid://c3504otrf4p64"]
 
 [ext_resource type="Script" uid="uid://byqs4lx4amov2" path="res://scripts/hover_vehicle.gd" id="1_d2nfw"]
 [ext_resource type="Texture2D" uid="uid://b4vsj1aix8ap" path="res://assets/sprites/vehicles/hover_board_sprite.png" id="2_ln1x5"]
 [ext_resource type="Script" uid="uid://gm4ldccgiuao" path="res://scripts/smart_model.gd" id="3_jbcjp"]
 [ext_resource type="Script" uid="uid://cmn6umx8ffps5" path="res://scripts/health.gd" id="4_7ymqj"]
-[ext_resource type="PackedScene" uid="uid://dc1dau4up7k24" path="res://scenes/creatures/shroom_lvl_1.tscn" id="5_fayww"]
+[ext_resource type="Script" uid="uid://yame5ovy7pgb" path="res://scripts/sub_health.gd" id="4_d2nfw"]
+[ext_resource type="Script" uid="uid://bd26uf2av3m3o" path="res://scripts/crit_display.gd" id="5_ln1x5"]
+[ext_resource type="Texture2D" uid="uid://dmabjvonccyaf" path="res://assets/sprites/misc/100pxDiameterCircleWhite.png" id="7_jbcjp"]
+[ext_resource type="Script" uid="uid://dheov8fivk2n" path="res://scripts/pilot_seat_area.gd" id="8_7ymqj"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ln1x5"]
+radius = 14.0357
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_66xif"]
 radius = 4.0
 height = 58.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_jbcjp"]
+radius = 14.0357
+
 [node name="HoverVehicle" type="CharacterBody2D"]
 script = ExtResource("1_d2nfw")
+speed = 369.0
 metadata/_custom_type_script = "uid://byqs4lx4amov2"
 
 [node name="Model" type="Sprite2D" parent="."]
@@ -21,15 +31,48 @@ scale = Vector2(0.231338, 0.231338)
 texture = ExtResource("2_ln1x5")
 script = ExtResource("3_jbcjp")
 
+[node name="StaticBody2D" type="StaticBody2D" parent="Model"]
+collision_layer = 8
+collision_mask = 8
+
+[node name="SubHealthShape" type="CollisionShape2D" parent="Model/StaticBody2D" node_paths=PackedStringArray("crit_overlay")]
+position = Vector2(-95.0989, -8.64536)
+scale = Vector2(4.32268, 4.32268)
+shape = SubResource("CircleShape2D_ln1x5")
+script = ExtResource("4_d2nfw")
+main_health_path = NodePath("../../../Health")
+damage_ratio = 5.0
+crit_overlay = NodePath("../Crit")
+metadata/_custom_type_script = "uid://yame5ovy7pgb"
+
+[node name="Crit" type="Node2D" parent="Model/StaticBody2D"]
+position = Vector2(-4.32268, 0)
+scale = Vector2(0.931335, 0.931335)
+script = ExtResource("5_ln1x5")
+flash_sprite_path = NodePath("Sprite2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="Model/StaticBody2D/Crit"]
+visible = false
+position = Vector2(-95.0989, -8.64536)
+scale = Vector2(1.21889, 1.21889)
+texture = ExtResource("7_jbcjp")
+
 [node name="Health" type="CollisionShape2D" parent="."]
 position = Vector2(0, 4)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_66xif")
 script = ExtResource("4_7ymqj")
 max_health = 200.0
+model_path = NodePath("../Model")
 metadata/_custom_type_script = "uid://cmn6umx8ffps5"
 
-[node name="ShroomLvl6" parent="." instance=ExtResource("5_fayww")]
-position = Vector2(-21, -16)
-planet_path = NodePath("../..")
-size = 40.0
+[node name="ControlMeArea" type="Area2D" parent="."]
+collision_layer = 7
+collision_mask = 7
+monitoring = false
+monitorable = false
+script = ExtResource("8_7ymqj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ControlMeArea"]
+position = Vector2(0, -11)
+shape = SubResource("CircleShape2D_jbcjp")

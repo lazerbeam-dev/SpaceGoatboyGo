@@ -39,7 +39,7 @@ func _physics_process(delta: float) -> void:
 		return
 	if is_static:
 		return
-
+	super._physics_process(delta)
 	# ... (stun and dying logic) ...
 
 	# Rotational gravity alignment
@@ -69,18 +69,25 @@ func _physics_process(delta: float) -> void:
 	velocity = velocity.lerp(target_velocity, clamp(acceleration * delta, 0.0, 1.0))
 	velocity *= pow(drag, delta)
 
-	if model:
-		# Model scaling should reflect the direction of current velocity, not just global X
-		# Determine if moving 'forward' or 'backward' along its tangential path
-		var dot_product_with_right = velocity.dot(right_dir)
-		model.scale.x = abs(model.scale.x) * (1 if dot_product_with_right >= 0 else -1)
-	if arms:
-		# Arms facing_right should also align with the creature's tangential 'forward'
-		var dot_product_with_right = velocity.dot(right_dir)
-		arms.facing_right = dot_product_with_right >= 0
+	if effective_input.length_squared() > 0.0:
+		var dot_product_with_right = desired_local_direction.dot(right_dir)
+		var new_facing_right = dot_product_with_right >= 0
+		facing_right = new_facing_right  # update persistent state
+
+		if model:
+			model.scale.x = abs(model.scale.x) * (1 if facing_right else -1)
+		if arms:
+			arms.facing_right = facing_right
+	else:
+		# Keep using previous facing_right
+		if model:
+			model.scale.x = abs(model.scale.x) * (1 if facing_right else -1)
+		if arms:
+			arms.facing_right = facing_right
+
 
 	move_and_slide()
-func set_move_input(dir: Vector2) -> void:
+func set_move_axis(dir: Vector2) -> void:
 	if is_dead or is_static:
 		return
 	if is_stunned:
@@ -97,7 +104,7 @@ func apply_stun(duration: float) -> void:
 	is_stunned = true
 	stun_timer = duration
 	stored_move_input = move_input
-	move_input = Vector2.ZERO
+	#move_input = Vector2.ZERO
 	print("Floater: ", name, " stunned for ", duration, " seconds")
 
 func is_currently_stunned() -> bool:

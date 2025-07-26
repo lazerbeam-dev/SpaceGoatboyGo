@@ -1,11 +1,13 @@
 extends Node
 class_name Util
-
 static var dropped_item_scene := preload("res://scenes/items/item_drop.tscn")
 static var _frame_token := {}
 static var gov_eye: GovernmentEye
 var hud: HUDMain = null
+var sg_audio: SGCameraBasedAudio = null
 var current_collar:CollarMain= null
+var mission_control :MissionControl= null
+var gov_particles: GovernmentParticles = null
 static func drop_node_as_wrapped_item(node: Node2D, allow_drop := true, _dropped_radius := 3.0) -> void:
 	if not allow_drop:
 		print("drop_node_as_wrapped_item: not allowed")
@@ -42,6 +44,8 @@ static func drop_node_as_wrapped_item(node: Node2D, allow_drop := true, _dropped
 
 	scene_root.add_child.call_deferred(wrapper)
 
+func get_mission_control():
+	return MissionControl
 static func try_once_per_frame(key: String) -> bool:
 	var current_frame = Engine.get_frames_drawn()
 	if _frame_token.get(key, -1) == current_frame:
@@ -102,4 +106,10 @@ static func generate_guid() -> String:
 	]
 func get_active_collar():
 	return current_collar
-	
+
+func shake_screen(intensity := 1.0, duration := 0.5):
+	var camera := get_current_camera()
+	if camera and camera.has_method("start_screen_shake"):
+		camera.call("start_screen_shake", intensity, duration)
+	else:
+		push_warning("Utils: No camera or screen shake method found.")

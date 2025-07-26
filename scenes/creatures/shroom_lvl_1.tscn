@@ -17,8 +17,8 @@ collision_layer = 4
 floor_max_angle = 1.64585
 safe_margin = 2.0
 script = ExtResource("1_tp8wo")
-planet_path = NodePath("../Planet")
 jump_velocity = -1200.0
+entity_code = "shroom"
 
 [node name="Health" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_264po")

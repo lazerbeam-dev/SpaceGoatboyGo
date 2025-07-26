@@ -1,10 +1,11 @@
-extends CollisionShape2D
+extends DestructibleShape
 class_name SubHealthShape
 
 @export var main_health_path: NodePath  # Optional: Path to the main DestructibleShape
-var main_health_node: Node = null
-
+@export var damage_ratio := 1.0  # Multiplier applied to damage before forwarding
 @export var debug_passthrough := false  # Optional debug toggle
+@export var crit_overlay: CritDrawOverlay = null
+var main_health_node: DestructibleShape = null
 
 func _ready():
 	if main_health_path.is_empty():
@@ -24,4 +25,11 @@ func receive_impact(payload: Dictionary, source: Node = null) -> void:
 	if not main_health_node:
 		push_warning("SubHealthShape: No main health node to forward to.")
 		return
-	main_health_node.call("receive_impact", payload, source)
+	var adjusted_payload = payload.duplicate()
+	if adjusted_payload.has("damage"):
+		adjusted_payload["damage"] *= damage_ratio
+		if debug_passthrough:
+			print("SubHealthShape: Adjusted damage from %s to %s" % [payload["damage"], adjusted_payload["damage"]])
+	if crit_overlay && damage_ratio > 1.0:
+		crit_overlay.show_flash()
+	main_health_node.call("receive_impact", adjusted_payload, source)

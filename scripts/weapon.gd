@@ -51,6 +51,8 @@ func attempt_fire(direction: Vector2, global_time: float) -> void:
 
 func fire(_direction: Vector2) -> void:
 	var barrel_dir = barrel.global_transform.x.normalized()
+	if Utils.sg_audio:
+		Utils.sg_audio.play_named("laser_fire", self.position, 1, false)
 	spawn_projectile(barrel_dir)
 
 func on_equip():

@@ -13,13 +13,19 @@ func set_velocity(v: Vector2, p_sender: Node = null) -> void:
 	sender = p_sender
 
 func _on_body_entered(body):
+		# Ignore sender and their piloted vehicle
 	if body == sender:
-		return  # Ignore collisions with sender
+		return
 
+	# If sender is a Creature and this is their vehicle, ignore
+	if sender and sender.has_method("get_piloted_vehicle"):
+		#print("PILIOBODY BODY", body, "ONON:  ", body.owner, "SNOEOEO: ", sender.get_piloted_vehicle())
+		if sender.get_piloted_vehicle() and (body == sender.get_piloted_vehicle() or body.owner == sender.get_piloted_vehicle()):
+			return
 	var target: Node = null
 	
 	# Check if body is DestructibleShape or valid StaticBody2D with method
-	if body is DestructibleShape or (body is StaticBody2D and body.has_method("receive_impact")):
+	if body.has_method("receive_impact"):
 		target = body
 	else:
 		# Check for DestructibleShape in children

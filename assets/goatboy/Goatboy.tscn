@@ -1077,7 +1077,7 @@ _data = {
 radius = 8.0
 height = 26.0
 
-[node name="GoatboyController" type="CharacterBody2D"]
+[node name="GoatboyController" type="CharacterBody2D" node_paths=PackedStringArray("feet_position")]
 collision_layer = 2
 collision_mask = 5
 floor_max_angle = 2.19562
@@ -1086,6 +1086,8 @@ goatboy_speed = 666
 speed = 420.0
 jump_velocity = -800.0
 acceleration = 2000.0
+motile = true
+feet_position = NodePath("Health/FeetPosForPhysics")
 
 [node name="Model" type="Sprite2D" parent="."]
 script = ExtResource("7_4krfy")
@@ -1115,7 +1117,7 @@ rotation = -0.0111536
 collision_layer = 4
 collision_mask = 4
 script = ExtResource("7_s66eu")
-push_force_multiplier = 10.0
+push_force_multiplier = 33.0
 stun_duration = 2.3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Model/Torso/GoatboyHead/GoatHorns"]
@@ -1221,6 +1223,9 @@ model_path = NodePath("../Model")
 position = Vector2(4, -2)
 scale = Vector2(0.999999, 0.999999)
 script = ExtResource("22_jdcyq")
+
+[node name="FeetPosForPhysics" type="Node2D" parent="Health"]
+position = Vector2(0, 23)
 
 [node name="Scripts" type="Node2D" parent="."]
 

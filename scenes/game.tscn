@@ -1,7 +1,9 @@
-[gd_scene load_steps=75 format=3 uid="uid://cuv4vme4rwno0"]
+[gd_scene load_steps=82 format=3 uid="uid://cuv4vme4rwno0"]
 
 [ext_resource type="Script" uid="uid://5f7iwrxydbco" path="res://scripts/game_manager.gd" id="1_l4ihi"]
+[ext_resource type="PackedScene" uid="uid://dt4t4ncujyckd" path="res://assets/sprites/shrooms/Boss/big_beautiful_jet.tscn" id="2_bnuda"]
 [ext_resource type="FontFile" uid="uid://c53kogtyjwsss" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="2_nlliu"]
+[ext_resource type="PackedScene" uid="uid://bdu3ifyjy6j15" path="res://scenes/vehicles/hover_vehicle_with_shroom.tscn" id="3_0rmfi"]
 [ext_resource type="PackedScene" uid="uid://dbmy0f2tt1x4r" path="res://scenes/government/teleporter.tscn" id="3_pr1ej"]
 [ext_resource type="Script" uid="uid://18uu0arynjm7" path="res://scripts/spin.gd" id="3_rm0al"]
 [ext_resource type="Script" uid="uid://cu4ry1xm5vnoh" path="res://scripts/cameraSG.gd" id="6_bhx41"]
@@ -28,13 +30,16 @@
 [ext_resource type="PackedScene" uid="uid://bjjw6pjxjkewc" path="res://scenes/government/predator.tscn" id="35_8qswn"]
 [ext_resource type="Texture2D" uid="uid://cskabipetuafs" path="res://assets/sprites/metal/turret bottom.png" id="35_twgab"]
 [ext_resource type="Texture2D" uid="uid://djrhqeina5j2p" path="res://assets/sprites/metal/turret top.png" id="36_02fa5"]
+[ext_resource type="Script" uid="uid://b214tbr3csog5" path="res://scripts/mission_control.gd" id="36_yd4ix"]
+[ext_resource type="PackedScene" uid="uid://cbv0i4yxy6we0" path="res://scenes/government/gov_particles.tscn" id="37_66xif"]
 [ext_resource type="Texture2D" uid="uid://cs8hsav37702r" path="res://assets/sprites/metal/turret_top_front.png" id="37_7025r"]
 [ext_resource type="Texture2D" uid="uid://bjkpk0e7l8gif" path="res://assets/sprites/metal/turret_top_back.png" id="38_m4url"]
 [ext_resource type="Texture2D" uid="uid://tbn84nt5enkc" path="res://assets/sprites/metal/turret_barrel.png" id="39_8ool0"]
+[ext_resource type="Script" uid="uid://bquks8jpl123a" path="res://scripts/sg_camera_based_audio.gd" id="39_xbak0"]
 [ext_resource type="Script" uid="uid://mvr14tlk81oe" path="res://scripts/planetcoreteleporter.gd" id="40_ms3bu"]
-[ext_resource type="Texture2D" uid="uid://ccyn1gwlymn1r" path="res://assets/sprites/crystals4.png" id="41_8ool0"]
-[ext_resource type="PackedScene" uid="uid://8exes4njfvj2" path="res://scenes/items/item_drop.tscn" id="43_3hbvx"]
 [ext_resource type="PackedScene" uid="uid://dkrm3idrr7kbx" path="res://scenes/creatures/shroom_lvl_3.tscn" id="44_0sl42"]
+[ext_resource type="Material" uid="uid://hwnnpriywq4s" path="res://assets/shaders/rainbow_material.tres" id="44_bnuda"]
+[ext_resource type="Texture2D" uid="uid://chg556f7anrrk" path="res://assets/sprites/foreground/foreground_mushroom_1.png" id="45_0rmfi"]
 [ext_resource type="Texture2D" uid="uid://7fbdas3gjgvq" path="res://assets/sprites/gov/Minimalist_info_Icon.png" id="45_458eo"]
 [ext_resource type="Script" uid="uid://dwskdh2lw7bh0" path="res://scripts/hud_main.gd" id="45_oaba0"]
 [ext_resource type="FontFile" uid="uid://dbjl1e6kdxpl6" path="res://assets/fonts/PixelOperator8.ttf" id="46_bk1p3"]
@@ -60,7 +65,7 @@
 [ext_resource type="Shader" uid="uid://c0qhpx86a2une" path="res://assets/shaders/screen_blossom.gdshader" id="55_q8j3a"]
 [ext_resource type="PackedScene" uid="uid://c3504otrf4p64" path="res://scenes/vehicles/hover_vehicle.tscn" id="59_n8ral"]
 
-[sub_resource type="Curve2D" id="Curve2D_n8ral"]
+[sub_resource type="Curve2D" id="Curve2D_xbak0"]
 _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 998.22, 9.06371, 0, 0, 0, 0, 1213.72, 76.361, 0, 0, 0, 0, 1210.81, 153.125, 0, 0, 0, 0, 1197.97, 228.253, 0, 0, 0, 0, 1171.73, 300.251, 0, 0, 0, 0, 1137.71, 369.666, 0, 0, 0, 0, 1026.32, 406.348, 0, 0, 0, 0, 997.267, 469.352, 0, 0, 0, 0, 971.18, 534.455, 0, 0, 0, 0, 946.476, 601.438, 0, 0, 0, 0, 921.268, 669.341, 0, 0, 0, 0, 947.405, 783.762, 0, 0, 0, 0, 890.938, 836.204, 0, 0, 0, 0, 829.332, 882.22, 0, 0, 0, 0, 762.588, 921.811, 0, 0, 0, 0, 647.477, 891.176, 0, 0, 0, 0, 588.326, 927.057, 0, 0, 0, 0, 530.88, 966.573, 0, 0, 0, 0, 474.178, 1009.16, 0, 0, 0, 0, 414.709, 1048.81, 0, 0, 0, 0, 352.323, 1084.34, 0, 0, 0, 0, 303.285, 1181.22, 0, 0, 0, 0, 226.239, 1182.75, 0, 0, 0, 0, 149.737, 1179.9, 0, 0, 0, 0, 73.7774, 1172.66, 0, 0, 0, 0, -1.23709e-13, 769.267, 0, 0, 0, 0, -49.2959, 776.112, 0, 0, 0, 0, -99.7005, 783.92, 0, 0, 0, 0, -151.495, 790.924, 0, 0, 0, 0, -204.066, 794.786, 0, 0, 0, 0, -278.339, 856.641, 0, 0, 0, 0, -326.491, 826.003, 0, 0, 0, 0, -372.051, 792.094, 0, 0, 0, 0, -415.675, 756.985, 0, 0, 0, 0, -459.928, 724.758, 0, 0, 0, 0, -505.935, 696.359, 0, 0, 0, 0, -507.609, 613.594, 0, 0, 0, 0, -555.595, 590.727, 0, 0, 0, 0, -599.305, 562.332, 0, 0, 0, 0, -634.777, 525.32, 0, 0, 0, 0, -663.094, 481.766, 0, 0, 0, 0, -745.552, 473.142, 0, 0, 0, 0, -761.024, 418.938, 0, 0, 0, 0, -780.326, 367.261, 0, 0, 0, 0, -803.459, 318.112, 0, 0, 0, 0, -758.175, 246.346, 0, 0, 0, 0, -785.143, 201.01, 0, 0, 0, 0, -805.615, 153.407, 0, 0, 0, 0, -814.992, 103.095, 0, 0, 0, 0, -815.922, 51.3335, 0, 0, 0, 0, -1199.42, -3.85767e-13, 0, 0, 0, 0, -1181.07, -73.7557, 0, 0, 0, 0, -1166.07, -147.161, 0, 0, 0, 0, -1156.31, -220.893, 0, 0, 0, 0, -1150.63, -295.431, 0, 0, 0, 0, -1069.56, -347.521, 0, 0, 0, 0, -1053, -417.28, 0, 0, 0, 0, -1027.22, -483.267, 0, 0, 0, 0, -989.224, -543.259, 0, 0, 0, 0, -943.104, -598.512, 0, 0, 0, 0, -954.798, -693.702, 0, 0, 0, 0, -904.57, -748.152, 0, 0, 0, 0, -856.883, -805.056, 0, 0, 0, 0, -811.508, -865.075, 0, 0, 0, 0, -767.115, -927.283, 0, 0, 0, 0, -668.896, -920.657, 0, 0, 0, 0, -609.922, -961.08, 0, 0, 0, 0, -546.53, -993.306, 0, 0, 0, 0, -478.425, -1015.3, 0, 0, 0, 0, -408.917, -1031.38, 0, 0, 0, 0, -339.673, -1045.41, 0, 0, 0, 0, -293.545, -1143.28, 0, 0, 0, 0, -222.803, -1171.11, 0, 0, 0, 0, -150.558, -1196.96, 0, 0, 0, 0, -76.0884, -1216.72, 0, 0, 0, 0, -2.26021e-13, -1230.44, 0, 0, 0, 0, 51.7889, -823.161, 0, 0, 0, 0, 100.488, -801.013, 0, 0, 0, 0, 147.953, -778.724, 0, 0, 0, 0, 194.502, -758.504, 0, 0, 0, 0, 241.017, -741.774, 0, 0, 0, 0, 319.835, -807.811, 0, 0, 0, 0, 376.347, -798.311, 0, 0, 0, 0, 431.341, -783.691, 0, 0, 0, 0, 484.819, -763.953, 0, 0, 0, 0, 481.41, -662.605, 0, 0, 0, 0, 510.751, -618.478, 0, 0, 0, 0, 538.341, -574.211, 0, 0, 0, 0, 565.358, -531.342, 0, 0, 0, 0, 593.891, -491.31, 0, 0, 0, 0, 695.522, -505.326, 0, 0, 0, 0, 738.975, -468.162, 0, 0, 0, 0, 778.521, -427.425, 0, 0, 0, 0, 809.725, -380.937, 0, 0, 0, 0, 833.174, -329.877, 0, 0, 0, 0, 764.17, -248.294, 0, 0, 0, 0, 762.985, -196.516, 0, 0, 0, 0, 764.067, -146.067, 0, 0, 0, 0, 770.091, -97.1157, 0, 0, 0, 0, 998.22, 9.06371)
 }
@@ -96,6 +101,50 @@ shader_parameter/twinkle_speed = 0.5
 shader_parameter/time_offset = 0.0
 shader_parameter/star_sharpness = 0.15
 shader_parameter/jitter_amount = 3.0
+
+[sub_resource type="Shader" id="Shader_0rmfi"]
+code = "shader_type canvas_item;
+
+uniform float radius = 0.45;
+uniform float edge_softness = 0.02;
+uniform float rainbow_scale = 3.0;
+uniform float cone_angle_deg = 30.0;
+
+vec3 hsv2rgb(vec3 c) {
+    vec4 K = vec4(1.0, 2.0/3.0, 1.0/3.0, 3.0);
+    vec3 p = abs(fract(c.xxx + K.xyz) * 6.0 - K.www);
+    return c.z * mix(K.xxx, clamp(p - K.xxx, 0.0, 1.0), c.y);
+}
+
+void fragment() {
+    vec2 uv = UV - vec2(0.5); // center UVs
+    float dist = length(uv);
+    float angle = atan(uv.y, uv.x); // radians from center
+
+    float cone_half = radians(cone_angle_deg) * 0.5;
+
+    // fade alpha at cone edge
+    float angle_mask = smoothstep(cone_half + edge_softness, cone_half - edge_softness, abs(angle));
+
+    // fade alpha at radial edge
+    float radial_mask = smoothstep(radius + edge_softness, radius - edge_softness, dist);
+
+    float alpha = angle_mask * radial_mask;
+
+    float hue = fract(abs(angle / cone_half) * rainbow_scale);
+    vec3 rgb = hsv2rgb(vec3(hue, 1.0, 1.0));
+
+    vec4 tex = texture(TEXTURE, UV);
+	COLOR = vec4(rgb, alpha);
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xbak0"]
+shader = SubResource("Shader_0rmfi")
+shader_parameter/radius = 150.0
+shader_parameter/edge_softness = 0.2
+shader_parameter/rainbow_scale = 3.0
+shader_parameter/cone_angle_deg = 0.1
 
 [sub_resource type="Theme" id="Theme_n8ral"]
 default_font = ExtResource("46_bk1p3")
@@ -145,28 +194,19 @@ radius = 5.65685
 [node name="GameManager" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("1_l4ihi")
+boss_scene = ExtResource("2_bnuda")
+minion_scene = ExtResource("3_0rmfi")
+spawn_location = NodePath("KeyPositions/BossBBSpawn")
 
-[node name="ScoreLabel" type="Label" parent="GameManager"]
-offset_left = 513.0
-offset_top = -144.0
-offset_right = 618.0
-offset_bottom = -125.0
-theme_override_colors/font_color = Color(0.0980392, 0.313726, 0.752941, 1)
-theme_override_fonts/font = ExtResource("2_nlliu")
-theme_override_font_sizes/font_size = 8
-text = "You collected X coins."
-horizontal_alignment = 1
-autowrap_mode = 2
+[node name="KeyPositions" type="Node2D" parent="GameManager"]
+
+[node name="BossBBSpawn" type="Node2D" parent="GameManager/KeyPositions"]
+position = Vector2(-453, -1367)
 
 [node name="Planet" type="Node2D" parent="."]
 
 [node name="teleporter" parent="Planet" instance=ExtResource("3_pr1ej")]
 position = Vector2(-112, -1347)
-
-[node name="ForegroundMushroom1" parent="Planet" instance=ExtResource("7_rysoc")]
-z_index = -5
-material = ExtResource("14_rm0al")
-position = Vector2(-55, -1247)
 
 [node name="ControlTurret" type="Node2D" parent="Planet"]
 visible = false
@@ -224,7 +264,7 @@ noise_strength = 1.0
 
 [node name="GeneratedPath" type="Path2D" parent="Planet/Pathwright"]
 texture_repeat = 2
-curve = SubResource("Curve2D_n8ral")
+curve = SubResource("Curve2D_xbak0")
 
 [node name="PathRenderer" type="Node2D" parent="Planet/Pathwright"]
 z_index = -13
@@ -338,6 +378,7 @@ creature_blend_amount = 0.346
 object_blend_amount = 0.451
 
 [node name="CameraController" type="Camera2D" parent="."]
+position = Vector2(-122, -1284)
 ignore_rotation = false
 zoom = Vector2(1.33, 1.33)
 limit_bottom = 100000000
@@ -363,16 +404,25 @@ collision_mask = 39
 script = ExtResource("34_o8ni1")
 coin_update_interval = 0.3
 coin_scene = ExtResource("35_3hbvx")
-target_pool = Dictionary[String, int]({
+item_target_pool = Dictionary[String, int]({
 "item_1": 1
+})
+kill_target_pool = Dictionary[String, int]({
+"shroom": 1
 })
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CameraController/GovEye"]
 position = Vector2(9.30701, -3.53003)
 shape = SubResource("RectangleShape2D_pf7vy")
 
-[node name="Goatbux" parent="CameraController" instance=ExtResource("35_3hbvx")]
-position = Vector2(510.807, -1.03003)
+[node name="MissionControl" type="Node2D" parent="CameraController/GovEye"]
+script = ExtResource("36_yd4ix")
+
+[node name="GovParticles" parent="CameraController/GovEye" instance=ExtResource("37_66xif")]
+
+[node name="SGCameraBasedAudio" type="Node2D" parent="CameraController"]
+script = ExtResource("39_xbak0")
+metadata/_custom_type_script = "uid://bquks8jpl123a"
 
 [node name="Predator" parent="." instance=ExtResource("35_8qswn")]
 position = Vector2(162, -1983)
@@ -412,11 +462,28 @@ position = Vector2(36673, -417)
 position = Vector2(40, 53)
 
 [node name="TheStars" type="Sprite2D" parent="GiantSkyCuubeFrameOfReference/pivot"]
+visible = false
 z_index = -50
 material = SubResource("ShaderMaterial_3hbvx")
 position = Vector2(-77058, -49821)
 scale = Vector2(1e+06, 1e+06)
 texture = ExtResource("50_o8ni1")
+
+[node name="TractorBeamReal" type="Sprite2D" parent="GiantSkyCuubeFrameOfReference/pivot"]
+z_index = -20
+material = ExtResource("44_bnuda")
+position = Vector2(1023, -1327)
+rotation = 2.14555
+scale = Vector2(22.9715, 17.6961)
+texture = ExtResource("45_0rmfi")
+
+[node name="TractorBeamReal2" type="Sprite2D" parent="GiantSkyCuubeFrameOfReference/pivot"]
+z_index = -20
+material = SubResource("ShaderMaterial_xbak0")
+position = Vector2(1023, -1327)
+rotation = 2.14555
+scale = Vector2(22.9715, 17.6961)
+texture = ExtResource("45_0rmfi")
 
 [node name="Line2D" type="Line2D" parent="GiantSkyCuubeFrameOfReference"]
 visible = false
@@ -427,42 +494,6 @@ points = PackedVector2Array(-1904, 2008, -1932, -3191, 4082, -3191, 4041, 2105, 
 visible = false
 position = Vector2(-87, 87)
 points = PackedVector2Array(-1426, -3854, -1618, 1329, -3981, 41, -3951, -3171, -1444, -3923)
-
-[node name="Item" parent="." instance=ExtResource("43_3hbvx")]
-position = Vector2(-23, -1328)
-scale = Vector2(0.0688403, 0.0688403)
-
-[node name="Crystals4" type="Sprite2D" parent="Item"]
-position = Vector2(-29.0527, 0.000549316)
-scale = Vector2(2.55178, 2.55178)
-texture = ExtResource("41_8ool0")
-
-[node name="Item2" parent="." instance=ExtResource("43_3hbvx")]
-position = Vector2(41, -1185)
-scale = Vector2(0.0688403, 0.0688403)
-
-[node name="Crystals4" type="Sprite2D" parent="Item2"]
-position = Vector2(-29.0527, 0.000549316)
-scale = Vector2(2.55178, 2.55178)
-texture = ExtResource("41_8ool0")
-
-[node name="Item3" parent="." instance=ExtResource("43_3hbvx")]
-position = Vector2(63, -1113)
-scale = Vector2(0.0688403, 0.0688403)
-
-[node name="Crystals4" type="Sprite2D" parent="Item3"]
-position = Vector2(-29.0527, 0.000549316)
-scale = Vector2(2.55178, 2.55178)
-texture = ExtResource("41_8ool0")
-
-[node name="Item4" parent="." instance=ExtResource("43_3hbvx")]
-position = Vector2(143, -1088)
-scale = Vector2(0.0688403, 0.0688403)
-
-[node name="Crystals4" type="Sprite2D" parent="Item4"]
-position = Vector2(-29.0527, 0.000549316)
-scale = Vector2(2.55178, 2.55178)
-texture = ExtResource("41_8ool0")
 
 [node name="UICanvas" type="CanvasLayer" parent="."]
 
@@ -535,6 +566,7 @@ size_flags_vertical = 3
 mouse_filter = 2
 
 [node name="I" type="TextureRect" parent="UICanvas/HUD"]
+visible = false
 layout_mode = 0
 offset_left = 1089.0
 offset_top = 22.0
@@ -547,6 +579,7 @@ expand_mode = 1
 script = ExtResource("46_h3rex")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="UICanvas/HUD/I"]
+visible = false
 z_index = 8
 clip_contents = false
 custom_minimum_size = Vector2(500, 500)
@@ -559,6 +592,7 @@ mouse_filter = 2
 horizontal_scroll_mode = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UICanvas/HUD/I/ScrollContainer"]
+visible = false
 layout_mode = 2
 
 [node name="LogOutput" parent="UICanvas/HUD/I/ScrollContainer/VBoxContainer" instance=ExtResource("51_n8ral")]
@@ -678,7 +712,7 @@ destination = NodePath("..")
 segment_count = 25
 base_amplitude = 20.0
 
-[node name="DestructibleShape" type="CollisionShape2D" parent="TentacleVacuumGB"]
+[node name="Health" type="CollisionShape2D" parent="TentacleVacuumGB"]
 shape = SubResource("CircleShape2D_6l2ux")
 script = ExtResource("52_7ixpq")
 metadata/_custom_type_script = "uid://cmn6umx8ffps5"
@@ -690,8 +724,7 @@ ai_tick_rate = 0.1
 tentacle_path = NodePath("../Model/Tentacle")
 
 [node name="HoverVehicle" parent="." instance=ExtResource("59_n8ral")]
-position = Vector2(370, -1369)
+position = Vector2(402, -1349)
 
 [node name="ShroomLvl1" parent="HoverVehicle" instance=ExtResource("47_h3rex")]
-position = Vector2(-2, -11)
-planet_path = NodePath("../..")
+position = Vector2(-1, -11)

@@ -16,8 +16,12 @@ func _ready():
 	base_speed = speed  # now captures whatever the actual export or game-assigned value is
 func _physics_process(delta):
 	super._physics_process(delta)
-	creature_animate()
+	#print("my move input", move_input)
 
+	creature_animate()
+	if piloted_vehicle and is_instance_valid(piloted_vehicle):
+		print("piloting vehicle MI:", move_input)
+		piloted_vehicle.move_input = move_input
 		# === Fallback Walk Trigger (Airborne or Grounded) ===
 	var is_idle :bool= not legs_animator.playback_active and not goat_mode_held
 
@@ -35,7 +39,7 @@ func _physics_process(delta):
 func creature_animate():
 	if is_dead or not legs_animator:
 		return
-
+	
 	var current_anim := legs_animator.current_animation
 	var target_anim := ""
 

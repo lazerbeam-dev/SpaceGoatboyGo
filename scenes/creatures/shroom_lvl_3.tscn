@@ -51,6 +51,7 @@ script = ExtResource("1_1m1mb")
 speed = 0.0
 jump_velocity = 0.0
 coyote_time = 0.0
+entity_code = "shroom"
 size = 400.0
 is_static = true
 

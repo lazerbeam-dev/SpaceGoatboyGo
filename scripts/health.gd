@@ -6,7 +6,7 @@ var health: float = 10.0
 var modifiers := []
 @export var poolable := true
 @export var model_path: NodePath
-
+var main_entity: SGEntity
 var mostRecentPayload: Dictionary
 
 signal damaged(amount: float, source)
@@ -19,6 +19,7 @@ func get_health_ratio():
 
 func _ready():
 	health = max_health
+	main_entity = get_parent()
 
 func receive_impact(payload: Dictionary, source: Node = null):
 	if health < 0:
@@ -28,7 +29,7 @@ func receive_impact(payload: Dictionary, source: Node = null):
 	mostRecentPayload = payload.duplicate(true)
 	set_meta("mostRecentPayload", mostRecentPayload)
 
-	#print("DestructibleShape: Received payload:", mostRecentPayload)
+	print("DestructibleShape: Received payload:", mostRecentPayload)
 
 	# Allow modifiers to mutate payload if needed
 	for modifier in modifiers:

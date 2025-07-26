@@ -1,0 +1,71 @@
+[gd_scene load_steps=10 format=3 uid="uid://dt4t4ncujyckd"]
+
+[ext_resource type="Script" uid="uid://byqs4lx4amov2" path="res://scripts/hover_vehicle.gd" id="1_8pm3e"]
+[ext_resource type="Texture2D" uid="uid://shtg2rlp3a0n" path="res://assets/sprites/shrooms/Boss/shroom_jet_front_panel.png" id="2_bvmae"]
+[ext_resource type="Script" uid="uid://gm4ldccgiuao" path="res://scripts/smart_model.gd" id="3_r55co"]
+[ext_resource type="Texture2D" uid="uid://gpgthpsdp1gs" path="res://assets/sprites/shrooms/Boss/shroom_jet_gun.png" id="4_smlxw"]
+[ext_resource type="Texture2D" uid="uid://cc1r2dcovmk54" path="res://assets/sprites/misc/BlueFlame.png" id="5_4kukc"]
+[ext_resource type="Texture2D" uid="uid://cj4iqp1bjetiy" path="res://assets/sprites/shrooms/Boss/shroom_jet_back_panel.png" id="6_35ctd"]
+[ext_resource type="Script" uid="uid://cmn6umx8ffps5" path="res://scripts/health.gd" id="7_am77n"]
+[ext_resource type="PackedScene" uid="uid://bg2l11tqhbvu7" path="res://assets/sprites/shrooms/Boss/big_beautiful.tscn" id="8_ay6gp"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1yg85"]
+radius = 12.0
+height = 128.0
+
+[node name="BigBeautifulJet" type="CharacterBody2D"]
+script = ExtResource("1_8pm3e")
+speed = 369.0
+metadata/_custom_type_script = "uid://byqs4lx4amov2"
+
+[node name="Model" type="Sprite2D" parent="."]
+position = Vector2(-3, -2)
+scale = Vector2(0.231338, 0.231338)
+texture = ExtResource("2_bvmae")
+script = ExtResource("3_r55co")
+
+[node name="Node2D" type="Node2D" parent="Model"]
+position = Vector2(246.393, 12.968)
+rotation = -1.51751
+
+[node name="ShroomJetGun" type="Sprite2D" parent="Model/Node2D"]
+z_index = -1
+position = Vector2(-100.201, -11.9707)
+texture = ExtResource("4_smlxw")
+
+[node name="BlueFlame" type="Sprite2D" parent="Model"]
+position = Vector2(-341.492, 25.9359)
+rotation = 0.915917
+scale = Vector2(0.332195, 0.332195)
+texture = ExtResource("5_4kukc")
+
+[node name="BlueFlame2" type="Sprite2D" parent="Model"]
+position = Vector2(-315.556, 64.8403)
+rotation = 0.915917
+scale = Vector2(0.332195, 0.332195)
+texture = ExtResource("5_4kukc")
+
+[node name="BlueFlame3" type="Sprite2D" parent="Model"]
+position = Vector2(-272.329, 112.39)
+rotation = 0.915917
+scale = Vector2(0.332195, 0.332195)
+texture = ExtResource("5_4kukc")
+
+[node name="ShroomJetBackPanel" type="Sprite2D" parent="Model"]
+z_index = -3
+position = Vector2(25.9361, -116.713)
+scale = Vector2(1.27608, 1.27608)
+texture = ExtResource("6_35ctd")
+
+[node name="Health" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_1yg85")
+script = ExtResource("7_am77n")
+max_health = 1400.0
+model_path = NodePath("../Model")
+metadata/_custom_type_script = "uid://cmn6umx8ffps5"
+
+[node name="BigBeautiful" parent="." instance=ExtResource("8_ay6gp")]
+position = Vector2(4, -41)
+is_static = true
